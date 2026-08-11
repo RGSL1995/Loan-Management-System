@@ -149,7 +149,7 @@ export function FloatingCards() {
               <path d="M15.5 21.5C18 19 20 15.5 20 12S18 5 15.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
           </div>
-          <div className="text-white opacity-90 text-xs font-semibold tracking-wider">FINBYX CARD</div>
+          <div className="text-white opacity-90 text-xs font-semibold tracking-wider">RGSL CARD</div>
         </div>
 
         {/* Card number */}

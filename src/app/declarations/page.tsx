@@ -23,8 +23,8 @@ export default function Declarations() {
             You hereby declare, acknowledge, and consent as follows:
           </p>
           <ul className="list-disc pl-5 space-y-2">
-            <li>You have read and understood the Privacy Policy of Finbyx and consent to the collection, storage, processing, and disclosure of your Personal Data.</li>
-            <li>You consent to Finbyx sharing your Personal Data with its NBFC Partners, Credit Information Companies (including CIBIL, Experian, Equifax), and KYC/e-KYC service providers for processing purposes.</li>
+            <li>You have read and understood the Privacy Policy of RGSL and consent to the collection, storage, processing, and disclosure of your Personal Data.</li>
+            <li>You consent to RGSL sharing your Personal Data with its NBFC Partners, Credit Information Companies (including CIBIL, Experian, Equifax), and KYC/e-KYC service providers for processing purposes.</li>
             <li>You consent to being contacted through SMS, electronic mail, telephone calls, WhatsApp, or other electronic modes for purposes connected with your loan account.</li>
           </ul>
         </section>

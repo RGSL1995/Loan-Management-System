@@ -67,14 +67,14 @@ export default function About() {
       <section className="bg-gray-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-brand-700 mb-3">About Finbyx</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-brand-700 mb-3">About RGSL</p>
             <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight leading-tight max-w-xl">
               Building the infrastructure layer<br className="hidden md:block" /> for modern lenders.
             </h1>
           </div>
           <p className="text-gray-500 text-base leading-relaxed max-w-sm md:text-right">
             We saw NBFCs forced to choose between speed and compliance.
-            Finbyx was built so you never have to make that trade-off again.
+            RGSL was built so you never have to make that trade-off again.
           </p>
         </div>
       </section>
@@ -143,17 +143,17 @@ export default function About() {
               <Layers className="w-6 h-6 text-brand-300" />
               <span className="text-xs font-bold uppercase tracking-widest text-brand-300">Architecture</span>
             </div>
-            <h2 className="text-3xl font-extrabold mb-4">Powered by Apache Fineract. Fronted by Finbyx.</h2>
+            <h2 className="text-3xl font-extrabold mb-4">Powered by Apache Fineract. Fronted by RGSL.</h2>
             <p className="text-brand-200 leading-relaxed">
-              Our core banking engine is Apache Fineract — battle-tested at global MFIs and NBFCs. Finbyx wraps it with a modern multi-tenant UI, workflow layer, and compliance intelligence that Fineract alone cannot provide.
+              Our core banking engine is Apache Fineract — battle-tested at global MFIs and NBFCs. RGSL wraps it with a modern multi-tenant UI, workflow layer, and compliance intelligence that Fineract alone cannot provide.
             </p>
           </div>
           <div className="space-y-4">
             {[
               { label: "Loan Lifecycle Engine", note: "Apache Fineract" },
-              { label: "Auth, RBAC & Tenancy", note: "Supabase + Finbyx layer" },
+              { label: "Auth, RBAC & Tenancy", note: "Supabase + RGSL layer" },
               { label: "Compliance Intelligence", note: "Native RBI/CIC modules" },
-              { label: "UI & Workflow", note: "Finbyx proprietary layer" },
+              { label: "UI & Workflow", note: "RGSL proprietary layer" },
             ].map(({ label, note }) => (
               <div key={label} className="flex items-center justify-between border border-brand-700 rounded-xl px-5 py-4">
                 <span className="text-sm font-semibold">{label}</span>

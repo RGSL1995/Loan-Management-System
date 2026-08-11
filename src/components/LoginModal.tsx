@@ -148,7 +148,7 @@ export default function LoginModal({ isOpen = true, onClose }: LoginModalProps) 
 
         {/* Footer */}
         <p className="text-xs text-center text-gray-500 dark:text-slate-400">
-          Finbyx LMS • Loan Management System
+          RGSL LMS • Loan Management System
         </p>
       </div>
     </div>

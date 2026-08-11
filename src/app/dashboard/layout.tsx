@@ -61,7 +61,7 @@ function DashboardLayoutContent({ children }: { children: ReactNode }) {
       <header className="h-12 border-b border-gray-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex items-center justify-between px-4 shrink-0">
         <div className="flex items-center gap-4">
           <div className="font-bold text-lg tracking-tight text-gray-900 dark:text-white flex items-center gap-3">
-            <Link href="/" className="hover:opacity-80 transition-opacity">FINBYX</Link>
+            <Link href="/" className="hover:opacity-80 transition-opacity">RGSL</Link>
             <div className="h-4 w-px bg-gray-300 dark:bg-slate-700"></div>
             <AppSwitcher currentContext={currentContextName} />
           </div>

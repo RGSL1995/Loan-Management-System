@@ -13,12 +13,12 @@ export default function TermsAndConditions() {
   return (
     <LegalLayout
       title="Terms & Conditions"
-      description="Please read these terms carefully before using the Finbyx platform. By accessing our service, you agree to be bound by these terms."
+      description="Please read these terms carefully before using the RGSL platform. By accessing our service, you agree to be bound by these terms."
       sections={SECTIONS}
     >
       <LegalSection id="acceptance" number="1" title="Acceptance of Terms">
         <p>
-          By accessing and using the Finbyx platform ("the Service"), you accept and agree to be bound by
+          By accessing and using the RGSL platform ("the Service"), you accept and agree to be bound by
           the terms and provisions of this agreement. In addition, when using these particular services,
           you shall be subject to any posted guidelines or rules applicable to such services.
         </p>
@@ -31,13 +31,13 @@ export default function TermsAndConditions() {
 
       <LegalSection id="description" number="2" title="Description of Service">
         <p>
-          Finbyx provides a cloud-hosted Loan Management System (LMS) covering the complete lending
+          RGSL provides a cloud-hosted Loan Management System (LMS) covering the complete lending
           lifecycle, including borrower onboarding, origination, underwriting, servicing, collections,
           recovery, and full RBI regulatory and Credit Information Company reporting.
         </p>
         <p>
           The platform is accessible entirely through a browser, with a field application for on-ground
-          collections staff. Finbyx is a technology service provider and does not directly engage in
+          collections staff. RGSL is a technology service provider and does not directly engage in
           any lending activities.
         </p>
       </LegalSection>
@@ -58,7 +58,7 @@ export default function TermsAndConditions() {
       <LegalSection id="ip" number="4" title="Intellectual Property">
         <p>
           All content included on the Service — including text, graphics, logos, images, software, and
-          the compilation thereof — is the property of Finbyx or its suppliers and is protected by
+          the compilation thereof — is the property of RGSL or its suppliers and is protected by
           copyright, trademark, and other intellectual property laws.
         </p>
         <p>

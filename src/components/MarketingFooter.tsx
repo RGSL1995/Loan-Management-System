@@ -22,10 +22,10 @@ export function MarketingFooter() {
         {/* Column 1: Brand & Socials */}
         <div className="max-w-sm">
           <Link href="/" className="flex items-center gap-3 mb-6">
-            <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-brand-700 to-brand-900 flex items-center justify-center shadow-sm">
-              <span className="text-white font-bold text-lg">F</span>
+            <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center shadow-sm">
+              <span className="text-white font-bold text-lg">R</span>
             </div>
-            <span className="text-2xl font-bold tracking-tight text-gray-900">Finbyx</span>
+            <span className="text-2xl font-bold tracking-tight text-gray-900">RGSL</span>
           </Link>
           <p className="text-gray-600 text-sm leading-relaxed mb-8">
             The next-generation lending infrastructure platform designed for scale, speed, and security. Bringing modern artistry to financial workflows.
@@ -87,7 +87,7 @@ export function MarketingFooter() {
 
       {/* Bottom Bar */}
       <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-500 font-medium">
-        <p>© {new Date().getFullYear()} Finbyx Inc. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} RGSL Inc. All rights reserved.</p>
         <div className="flex gap-6">
           <Link href="/privacy-policy" className="hover:text-gray-900 transition-colors">Privacy Policy</Link>
           <Link href="/terms-and-conditions" className="hover:text-gray-900 transition-colors">Terms & Conditions</Link>

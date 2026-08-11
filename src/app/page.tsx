@@ -358,7 +358,7 @@ export default function Home() {
                   variants={fadeIn}
                   className="text-lg md:text-xl text-gray-600 mb-10 max-w-xl leading-relaxed"
                 >
-                  Finbyx streamlines your entire loan lifecycle. From instant origination to
+                  RGSL streamlines your entire loan lifecycle. From instant origination to
                   intelligent servicing, all in one minimalist, powerful platform.
                 </motion.p>
 
@@ -1051,7 +1051,7 @@ export default function Home() {
                 Built for every lender.
               </h2>
               <p className="text-xl text-gray-600">
-                Whether you are an NBFC, a bank, or a digital-first lender — Finbyx adapts to
+                Whether you are an NBFC, a bank, or a digital-first lender — RGSL adapts to
                 your workflow.
               </p>
             </motion.div>
@@ -1140,7 +1140,7 @@ export default function Home() {
                 </span>
               </h2>
               <p className="text-xl text-gray-600 mb-12">
-                Join forward-thinking financial institutions using Finbyx to power their loan
+                Join forward-thinking financial institutions using RGSL to power their loan
                 operations securely and transparently.
               </p>
               <motion.div

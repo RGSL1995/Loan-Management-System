@@ -18,7 +18,7 @@ export default function PlatformLayout({ children }: { children: ReactNode }) {
       <div className="md:hidden h-14 bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 text-gray-900 dark:text-white flex items-center justify-between px-4 shrink-0 z-20">
         <Link href="/" className="flex items-center">
           <ShieldAlert className="w-5 h-5 text-indigo-600 dark:text-indigo-400 mr-2" />
-          <span className="font-bold tracking-wider text-sm">FINBYX PLATFORM</span>
+          <span className="font-bold tracking-wider text-sm">RGSL PLATFORM</span>
         </Link>
         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white">
           {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -34,7 +34,7 @@ export default function PlatformLayout({ children }: { children: ReactNode }) {
       `}>
         <Link href="/" className="hidden md:flex h-16 items-center px-6 border-b border-gray-200 dark:border-slate-800 shrink-0">
           <ShieldAlert className="w-5 h-5 text-indigo-600 dark:text-indigo-400 mr-2" />
-          <span className="font-bold tracking-wider text-sm text-gray-900 dark:text-slate-100">FINBYX PLATFORM</span>
+          <span className="font-bold tracking-wider text-sm text-gray-900 dark:text-slate-100">RGSL PLATFORM</span>
         </Link>
         
         <div className="flex-1 py-6 flex flex-col gap-2 px-4 overflow-y-auto">

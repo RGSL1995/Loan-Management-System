@@ -13,18 +13,18 @@ export default function PrivacyPolicy() {
   return (
     <LegalLayout
       title="Privacy Policy"
-      description="How we collect, use, and protect your personal information on the Finbyx platform."
+      description="How we collect, use, and protect your personal information on the RGSL platform."
       sections={SECTIONS}
     >
       <LegalSection id="introduction" number="1" title="Introduction">
         <p>
-          Welcome to Finbyx. We respect your privacy and are committed to protecting your personal data.
+          Welcome to RGSL. We respect your privacy and are committed to protecting your personal data.
           This Privacy Policy will inform you as to how we look after your personal data when you visit our
           website or use our platform, and tell you about your privacy rights and how the law protects you.
         </p>
         <p>
           This policy applies to all information collected through our platform, as well as any related
-          services, sales, marketing, or events. By using Finbyx, you agree to the collection and use of
+          services, sales, marketing, or events. By using RGSL, you agree to the collection and use of
           information in accordance with this policy.
         </p>
       </LegalSection>
@@ -95,7 +95,7 @@ export default function PrivacyPolicy() {
           Data Protection Officer:
         </p>
         <div className="mt-4 bg-white border border-gray-200 rounded-xl p-5 space-y-2">
-          <p className="font-semibold text-gray-900">Finbyx Data Protection Office</p>
+          <p className="font-semibold text-gray-900">RGSL Data Protection Office</p>
           <p>Email: <a href="mailto:privacy@finbyx.com" className="text-brand-700 hover:underline">privacy@finbyx.com</a></p>
           <p>Address: Mumbai, Maharashtra, India</p>
         </div>

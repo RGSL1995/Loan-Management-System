@@ -12,8 +12,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Finbyx | Modern Loan Origination",
-  description: "A modern and premium loan origination and management platform.",
+  title: "RGSL | Loan Management System",
+  description: "RGSL Loan Management System - A modern and premium loan origination and management platform.",
 };
 
 import { ThemeProvider } from "@/components/ThemeProvider";

@@ -118,7 +118,7 @@ export const SanctionLetter = ({ data }: { data: SanctionData }) => (
       {/* Header */}
       <View style={styles.header}>
         <View>
-          <Text style={styles.companyName}>FINBYX FINANCE LTD.</Text>
+          <Text style={styles.companyName}>RGSL FINANCE LTD.</Text>
         </View>
         <View style={styles.companyDetails}>
           <Text>123 Financial District, Mumbai, India</Text>
@@ -185,7 +185,7 @@ export const SanctionLetter = ({ data }: { data: SanctionData }) => (
       {/* Signatures */}
       <View style={styles.signatureBlock}>
         <View>
-          <Text style={styles.signatureLine}>For Finbyx Finance Ltd.</Text>
+          <Text style={styles.signatureLine}>For RGSL Finance Ltd.</Text>
           <Text style={{ textAlign: "center", marginTop: 5, color: "#666" }}>Authorized Signatory</Text>
         </View>
         <View>

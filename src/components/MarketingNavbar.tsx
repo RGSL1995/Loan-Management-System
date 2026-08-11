@@ -60,10 +60,10 @@ export function MarketingNavbar() {
           <div className="flex h-20 items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity group">
-              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-brand-700 to-brand-900 flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-                <span className="text-white font-bold text-xl drop-shadow-sm">F</span>
+              <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+                <span className="text-white font-bold text-xl drop-shadow-sm">R</span>
               </div>
-              <span className="text-2xl font-bold tracking-tight text-brand-900">Finbyx</span>
+              <span className="text-2xl font-bold tracking-tight text-brand-900">RGSL</span>
             </Link>
 
             {/* Desktop Navigation Links */}

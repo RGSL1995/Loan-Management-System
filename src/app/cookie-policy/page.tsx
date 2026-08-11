@@ -14,7 +14,7 @@ export default function CookiePolicy() {
         <section className="space-y-4">
           <h2 className="text-xl font-bold text-gray-900">2. How We Use Cookies</h2>
           <p>
-            Finbyx uses cookies to enhance your experience on our platform. The cookies we use generally fall into the following categories:
+            RGSL uses cookies to enhance your experience on our platform. The cookies we use generally fall into the following categories:
           </p>
           <ul className="list-disc pl-5 space-y-2">
             <li><strong>Strictly Necessary Cookies:</strong> These are essential for you to browse the website and use its features, such as accessing secure areas of the site.</li>
