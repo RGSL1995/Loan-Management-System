@@ -1,0 +1,180 @@
+File: LAS_Personal.xlsx
+Sheets: ['0. Flow Overview', '1. Setup', '2. Applicant Details', '3. Co-Applicant', '4. Collateral - Securities', '5. Financial Profile', '6. Facility & References', '7. Documents', '8. Declarations & Submit', '9. Reg Parameters']
+
+=================== Sheet: 0. Flow Overview ===================
+Step	|	Sheet	|	Screen / Block	|	Purpose	|	APIs Fired	|	Gate to Next Step
+1	|	1. Setup	|	Application setup	|	Create application (product = LAS Personal)	|	-	|	application_no generated
+2	|	2. Applicant Details	|	Individual identity & address	|	KYC + identity verification	|	PAN; DigiLocker	|	PAN valid; KYC passed
+3	|	3. Co-Applicant	|	Co-applicant / joint holders	|	Individual KYC of co-obligors	|	PAN; DigiLocker	|	All joint demat holders joined (LAS)
+4	|	4. Collateral - Securities	|	Demat/MF holdings, securities selection, drawing power, pledge intent	|	Collateral eligibility + value determine the facility	|	Client system (NSDL/CDSL); price feeds	|	Drawing power computed; all rows eligible
+5	|	5. Financial Profile	|	Existing loans + bank accounts	|	Obligations; disbursal account	|	CIBIL prefill; penny-drop	|	>= 1 verified bank account
+6	|	6. Facility & References	|	Facility ask + 2 references	|	Revolving limit vs drawing power	|	-	|	Limit <= drawing power
+7	|	7. Documents	|	Upload checklist	|	KYC, income, collateral documents	|	DigiLocker/depository fetch	|	All mandatory docs in
+8	|	8. Declarations & Submit	|	Consents + collateral-specific undertakings + e-sign	|	Bureau, data, margin-call/enforcement consents	|	CIBIL hard pull (post-consent)	|	All consents + signature -> SUBMITTED
+Legend	|		|		|		|		|	
+	|	Required	|	M = Mandatory, O = Optional, C = Conditional	|		|		|	
+	|	Sources	|	SCM Ltd application form template; project LAS/LAP memos (Jul 2026); RBI/SEBI norms - see '9. Reg Parameters' sheet	|		|		|	
+	|	Repeating blocks	|	Securities/owners tables, existing loans, bank accounts, references, group companies = add-row tables	|		|		|	
+
+
+=================== Sheet: 1. Setup ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Application setup (system)	|		|		|		|		|		|		|	
+1	|	application_no	|	Read-only label	|	string(12)	|	System-generated, unique (YYYY + 8-digit seq)	|	M	|	System	|	Show on every screen header
+2	|	application_date	|	Read-only label	|	date (ISO 8601)	|	System timestamp	|	M	|	System	|	
+3	|	product_type	|	Read-only	|	enum	|	Fixed: LAS_PERSONAL	|	M	|	System	|	
+4	|	sourcing_channel	|	Dropdown	|	enum	|	BRANCH | DSA | DIGITAL | DST	|	O	|	System	|	Needed for DSA declaration and RBI digital-lending tagging
+Photo & signature placeholders	|		|		|		|		|		|		|	
+5	|	applicant_photo	|	File upload / camera	|	JPEG/PNG <= 5 MB	|	Passport-size; face detect recommended	|	M	|	Upload/camera	|	
+6	|	coapp_photo	|	File upload / camera	|	JPEG/PNG <= 5 MB	|	Only if co-applicant added	|	C	|	Upload/camera	|	
+
+
+=================== Sheet: 2. Applicant Details ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Identity (individual)	|		|		|		|		|		|		|	
+1	|	applicant_name	|	Text (CAPS)	|	string(40)	|	Alpha+space; fuzzy-match vs PAN/Aadhaar name >= 0.85	|	M	|	DigiLocker (Aadhaar)	|	Prefill after PAN/KYC pull
+2	|	pan	|	Text, auto-uppercase	|	string(10)	|	^[A-Z]{5}[0-9]{4}[A-Z]$; 4th char must be P	|	M	|	PAN verify API	|	Invalid/inoperative = hard stop
+3	|	father_spouse_name	|	Text	|	string(40)	|	Alpha+space	|	M	|	PAN API cross-check	|	
+4	|	dob	|	Date picker	|	date	|	Age 18-65 at application, <= 70 at maturity	|	M	|	DigiLocker (Aadhaar)	|	
+Residence address	|		|		|		|		|		|		|	
+5	|	address_line 1/2	|	Text x2	|	string(80)	|	Free text	|	M	|	DigiLocker (Aadhaar)	|	Address
+6	|	landmark	|	Text	|	string(40)	|	Free text	|	O	|	Manual	|	
+7	|	pincode	|	Text	|	string(6)	|	^[1-9][0-9]{5}$	|	M	|	PIN master	|	Auto-fill city + state
+8	|	city / state	|	Auto-filled, editable	|	string(30)	|	State = LGD enum	|	M	|	PIN master	|	
+9	|	ownership	|	Radio	|	enum	|	OWNED | RENTED | COMPANY_PROVIDED | OTHERS(+text)	|	M	|	Manual	|	
+10	|	years_at_address / years_in_city	|	Number x2	|	int 0-99	|	-	|	M	|	Manual	|	
+Permanent address	|		|		|		|		|		|		|	
+11	|	permanent_address block	|	Address block	|	5 fields	|	'Same as residence' checkbox	|	M	|	Manual	|	
+Contact	|		|		|		|		|		|		|	
+12	|	email	|	Email input	|	string(80)	|	RFC 5322 + verification link	|	M	|	Manual	|	
+13	|	mobile	|	Tel input + OTP	|	string(10)	|	^[6-9][0-9]{9}$, OTP verified	|	M	|	Manual + OTP	|	Primary comms channel (KFS, DLT SMS, margin-call notices)
+14	|	landline	|	Tel input	|	string(11)	|	STD + number	|	O	|	Manual	|	
+	|	PAN first -> DigiLocker pull prefills name/DOB/address -> user confirms.	|		|		|		|		|		|	
+
+
+=================== Sheet: 3. Co-Applicant ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Gate	|		|		|		|		|		|		|	
+1	|	coapp_present	|	Toggle 'Add co-applicant'	|	boolean	|	-	|	M	|	System	|	If No, skip step. LAP: ALL property co-owners MUST join as co-applicants/mortgagors - gate cannot be skipped if property is jointly owned
+Identity	|		|		|		|		|		|		|	
+2	|	coapp_name	|	Text (CAPS)	|	string(40)	|	Alpha+space; match vs Aadhaar	|	C	|	DigiLocker	|	
+3	|	coapp_father_spouse_name	|	Text	|	string(40)	|	Alpha+space	|	C	|	Manual	|	
+4	|	coapp_relationship	|	Dropdown	|	enum	|	SPOUSE | PARENT | CHILD | SIBLING | BUSINESS_PARTNER | CO_OWNER | OTHER	|	C	|	Manual	|	
+5	|	coapp_dob	|	Date picker	|	date	|	Age >= 18	|	C	|	DigiLocker	|	
+6	|	coapp_marital_status / gender	|	Radio x2	|	enum	|	SINGLE|MARRIED; M|F(+THIRD_GENDER)	|	C	|	DigiLocker	|	
+7	|	coapp_pan	|	Text, auto-uppercase	|	string(10)	|	PAN regex, 4th char P	|	C	|	PAN verify API	|	
+8	|	coapp_citizen_of_india	|	Toggle	|	boolean	|	-	|	C	|	Manual	|	
+Address & contact	|		|		|		|		|		|		|	
+9	|	coapp_residence + permanent blocks	|	Address blocks	|	5 fields each + ownership + years	|	'Same as residence' checkbox	|	C	|	DigiLocker/Manual	|	Reuse address component
+10	|	coapp_mobile / email	|	Tel + OTP / Email	|	string(10)/string(80)	|	Mobile regex; RFC 5322	|	C	|	Manual + OTP	|	
+11	|	coapp_correspondence_addr_type	|	Radio	|	enum	|	RESIDENCE | OFFICE | NEW_PROPERTY	|	C	|	Manual	|	
+12	|	coapp_photo + signature	|	Upload/camera	|	file	|	As applicant	|	C	|	Upload	|	
+	|	LAS: all joint holders of any pledged demat account/folio must be added here (or consent as pledgors).	|		|		|		|		|		|	
+
+
+=================== Sheet: 4. Collateral - Securities ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Holding accounts	|		|		|		|		|		|		|	
+1	|	holding_type_selector	|	Checkbox group	|	enum[]	|	DEMAT_SECURITIES | MF_NON_DEMAT | INSURANCE_POLICY | GSEC_BOND	|	M	|	System	|	At least one; drives sub-blocks below
+2	|	depository	|	Radio	|	enum	|	NSDL | CDSL	|	C	|	System	|	If demat holdings
+3	|	dp_id	|	Text	|	string(8)	|	NSDL: 'IN'+6 digits; CDSL: 8 digits	|	C	|	Client system (NSDL/CDSL pre-integrated)	|	
+4	|	client_id / BO ID	|	Text	|	string(8-16)	|	Numeric; NSDL 8, CDSL BO ID 16 (DP+client)	|	C	|	Client system (NSDL/CDSL pre-integrated)	|	Holdings received from client-side depository integration after consent; LMS consumes via interface/webhook and stores payload for audit
+5	|	demat_holder_names	|	Read-only after fetch	|	string[]	|	Must match applicant; JOINT holdings: all joint holders must join/consent as pledgors	|	C	|	Client system (NSDL/CDSL pre-integrated)	|	Name mismatch = hard stop or joinder flow
+6	|	mf_rta / folio_no	|	Dropdown + Text	|	enum + string(20)	|	CAMS | KFINTECH; folio numeric	|	C	|	MFCentral / RTA	|	Non-demat MF units; lien via RTA/MFCentral
+Securities offered 	|		|		|		|		|		|		|	
+7	|	security_type	|	Dropdown + 'Add row'	|	enum	|	LISTED_EQUITY | EQUITY_MF | DEBT_MF | GSEC | BOND | INSURANCE_POLICY(surrender value)	|	M	|	System	|	Per-row eligibility check below
+8	|	isin	|	Text	|	string(12)	|	^IN[A-Z0-9]{10}$ format check only (no master lookup in v1)	|	M	|	Manual / client system feed	|	Identity from borrower entry or client-side holdings feed
+9	|	security_name	|	Auto from client feed / manual	|	string(80)	|	-	|	M	|	Client system feed / manual	|	
+10	|	quantity / units	|	Number	|	decimal(14,3)	|	> 0; <= free (unpledged, non-locked-in) holding fetched	|	M	|	Client system feed	|	Exclude locked-in, ESOP-restricted, already-pledged; free-quantity figure supplied by client-side depository integration
+11	|	market_price	|	Number (lender-verified)	|	decimal(12,2)	|	From client-side holdings valuation (CAS) or lender-entered with evidence (exchange quote / AMFI NAV), date-stamped	|	M	|	System feed 	|	No LMS price feed in v1; price date must be <= 1 trading day old per policy
+12	|	gross_value	|	Computed	|	decimal(14,2)	|	quantity x price	|	M	|	System	|	
+13	|	haircut / ltv_pct	|	Number input (lender credit/risk)	|	decimal(5,2)	|	Lender-entered per row per its credit policy; system validates equity LTV <= 50% (RBI floor for NBFC)	|	M	|	Lender credit/risk entry	|	Borrower cannot see/edit; entered during appraisal. Debt MF / G-Sec higher LTV per lender policy
+14	|	eligible_flag + reason	|	Maker-checker decision (lender)	|	boolean + text	|	Lender adjudicates per row: Group I only for loans > Rs 5 lakh; demat form only; not illiquid/locked-in/already-pledged	|	M	|	Lender credit/risk	|	Manual decision in v1 - record reason, decided_by, checked_by, timestamp
+15	|	concentration_check	|	Maker-checker decision (lender)	|	boolean	|	Single-scrip / single-issuer cap per lender policy - manually verified in v1	|	M	|	Lender credit/risk	|	Excess quantity contributes 0 to drawing power
+Computed collateral summary	|		|		|		|		|		|		|	
+16	|	total_collateral_value	|	Read-only	|	decimal(16,2)	|	Sum of eligible gross values	|	M	|	System	|	
+17	|	drawing_power	|	Computed	|	decimal(16,2)	|	Sum of value x lender-entered LTV% per eligible row, after concentration caps	|	M	|	System (from lender inputs)	|	Requested limit must be <= drawing power; recompute whenever lender edits a row
+18	|	promoter_insider_flag	|	Toggle + details	|	boolean	|	Is applicant promoter/insider of any pledged scrip?	|	M	|	Manual + exchange data	|	If yes: SAST Reg.31 encumbrance disclosure (2 working days) + PIT obligations - borrower undertaking captured in declarations
+19	|	purpose_of_loan	|	Dropdown + text	|	enum	|	PERSONAL_NEEDS | BUSINESS_WC | OTHER(+text); PROHIBITED: IPO subscription/speculative purposes per policy, inter-corporate investment, controlling-interest acquisition	|	M	|	Manual	|	Purpose declaration mandatory; end-use monitoring per RBI
+Pledge setup (executes at sanction, capture intent here)	|		|		|		|		|		|		|	
+20	|	pledge_mode	|	Read-only info	|	enum	|	Depository OTP-authenticated pledge (SEBI margin-pledge flow); MF: RTA lien marking	|	M	|	Client system (NSDL/CDSL pre-integrated)	|	NO Power of Attorney; lender never takes custody of demat account. Pledge executed on client side; LMS receives status callback
+21	|	pledge_status	|	Status badge	|	enum	|	PENDING | INITIATED | CONFIRMED (borrower OTP) | FAILED	|	M	|	Client system callback	|	Loan cannot be disbursed until CONFIRMED status received from client-side integration; persist raw callback payload
+
+
+=================== Sheet: 5. Financial Profile ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Existing loans - repeating 0..n	|		|		|		|		|		|		|	
+1	|	loan_type	|	Dropdown + 'Add row'	|	enum	|	Loan Against Securities 	|	O	|	CIBIL prefill	|	Repeating 0..n; 'Prefill from bureau' after consent
+2	|	institution_name / account_no	|	Text	|	string(60)/string(20)	|	-	|	O	|	CIBIL prefill	|	
+3	|	loan_amount / emi / outstanding_principal	|	Number (Rs) x3	|	decimal(12,2)	|	>= 0	|	O	|	CIBIL prefill	|	EMI feeds FOIR
+4	|	balance_tenure_months	|	Number	|	int 0-480	|	-	|	O	|	Manual	|	
+Bank account details - repeating 1..n	|		|		|		|		|		|		|	
+5	|	account_holder_name	|	Text	|	string(40)	|	Name-match vs applicant >= threshold	|	M	|	Penny-drop	|	Repeating 1..n
+6	|	ifsc	|	Text, auto-uppercase	|	string(11)	|	^[A-Z]{4}0[A-Z0-9]{6}$	|	M	|	Manual	|	Manual
+7	|	account_no	|	Text (masked echo)	|	string(18)	|	Numeric 9-18; re-enter to confirm	|	M	|	Penny-drop	|	Encrypt at rest
+8	|	account_operated_since	|	Month picker	|	MM/YYYY	|	<= today	|	O	|	Manual	|	
+9	|	holding_type	|	Radio	|	enum	|	INDIVIDUAL | JOINT	|	M	|	Manual	|	
+	|	Penny-drop on save; >= 1 VERIFIED account required. LAS: this account also receives invocation surplus refunds.	|		|		|		|		|		|	
+
+
+=================== Sheet: 6. Facility & References ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Proposed facility	|		|		|		|		|		|		|	
+1	|	facility_type	|	Read-only	|	enum	|	LAS - revolving overdraft/credit line (not amortising EMI loan)	|	M	|	System	|	12-month tenor, annual renewal - market practice
+2	|	requested_limit	|	Number (Rs)	|	decimal(14,2)	|	<= drawing_power; product min/max	|	M	|	System-validated	|	Limit, not disbursal amount; borrower draws as needed
+3	|	tenure	|	Read-only / dropdown	|	months	|	12 months, renewable	|	M	|	Manual	|	
+4	|	interest_servicing	|	Read-only info	|	-	|	Monthly interest debit to the line; non-capitalising beyond drawing power	|	M	|	System	|	NPA test = 'out of order', not simple 90-DPD
+References - exactly 2, excluding family	|		|		|		|		|		|		|	
+5	|	ref_name (x2 references)	|	Text	|	string(40)	|	Alpha+space; family excluded	|	M	|	Manual	|	Two reference cards
+6	|	ref_address + city + pincode	|	Address block	|	2 lines + city + PIN	|	PIN regex	|	M	|	Manual	|	
+7	|	ref_occupation / years_known	|	Text / Number	|	string(40) / int 1-99	|	-	|	O	|	Manual	|	
+8	|	ref_phone / ref_mobile	|	Tel inputs	|	string(10)	|	>= 1 contact number	|	M	|	Manual	|	
+9	|	ref_relationship	|	Text	|	string(30)	|	Must NOT be family - validate vs family list	|	M	|	Manual	|	
+
+
+=================== Sheet: 7. Documents ===================
+#	|	Document (self-attested)	|	Required	|	Auto-satisfied by API?	|	UI/UX Notes
+1	|	PAN card	|	M	|	Yes - PAN verify API	|	
+2	|	Address proof / KYC OVD	|	M	|	Yes - DigiLocker	|	
+3	|	Demat holding statement / CAS (NSDL-CDSL consolidated)	|	M	|	Yes - client system feed	|	Auto-satisfied if holdings received from client-side depository integration
+4	|	MF account statement (if non-demat units offered)	|	C	|	Yes - MFCentral/RTA	|	
+5	|	Bank statement - last 6 months	|	M	|	Future: AA fetch	|	
+6	|	Sanction letters of existing loans	|	C	|	No	|	If existing loans declared
+7	|	Co-applicant/joint-holder KYC (PAN + address proof)	|	C	|	Yes - PAN + DigiLocker	|	All joint demat holders
+8	|	ITR / income proof	|	O	|	No	|	Income assessment lighter for LAS (secured by liquid collateral) - per policy
+	|	Each row in UI: document name; submitted toggle; file upload (PDF/JPEG <= 10 MB); verification badge (Pending / Verified / Rejected). Gate: all Mandatory rows Uploaded or API-Verified.	|		|		|	
+
+
+=================== Sheet: 8. Declarations & Submit ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Consents - granular, each logged with timestamp + IP + device + text version	|		|		|		|		|		|		|	
+1	|	decl_accepted (clauses 1-12)	|	Scroll-to-end + checkbox	|	boolean + timestamp	|	Must be true	|	M	|	System	|	Render full 14-clause declaration text verbatim
+2	|	consent_credit_bureau (clause 8)	|	Separate checkbox	|	boolean + timestamp	|	Must be true before CIBIL hard pull	|	M	|	System	|	
+3	|	consent_data_sharing (clause 13)	|	Separate checkbox	|	boolean + timestamp	|	Must be true; withdrawal mechanism required	|	M	|	System	|	
+4	|	consent_ekyc_aadhaar (clause 14)	|	Separate checkbox - OPTIONAL	|	boolean + timestamp	|	Optional per form; never force	|	O	|	System	|	
+5	|	consent_margin_call_invocation	|	Separate checkbox	|	boolean + timestamp	|	Must be true	|	M	|	System	|	Acknowledges: daily revaluation; margin call on LTV breach; cure window (7 working days regulatory; policy may be tighter); partial invocation/sale to cover shortfall after cure lapses
+6	|	consent_holdings_fetch	|	Separate checkbox	|	boolean + timestamp	|	Must be true before client-side holdings fetch is requested	|	M	|	System	|	
+7	|	undertaking_sast_pit	|	Separate checkbox	|	boolean + timestamp	|	Required if promoter_insider_flag = true	|	C	|	System	|	Borrower undertakes SAST Reg.31 / PIT Reg.7(2) disclosures; capture disclosure evidence
+8	|	purpose_declaration	|	Separate checkbox	|	boolean + timestamp	|	Must be true	|	M	|	System	|	Confirms loan not for prohibited purposes (IPO/speculation per policy)
+Identity & sign-off	|		|		|		|		|		|		|	
+9	|	aadhaar_number	|	Masked input	|	string(12)	|	Verhoeff checksum	|	O	|	DigiLocker	|	Store masked + vault ref ONLY
+10	|	applicant + co-applicant signature / thumb	|	eSign / signature pad / upload	|	file or eSign artefact	|	Required to submit	|	M	|	eSign / upload	|	Aadhaar eSign only if clause-14 consent
+11	|	declaration_date	|	Auto	|	date DD/MM/YYYY	|	Equals submit date	|	M	|	System	|	
+	|	On submit: status -> SUBMITTED; fire CIBIL hard pull (if pending); generate application PDF replica. KFS (APR, all fees, penal charges) is generated at sanction - separate module, mandatory before agreement execution.	|		|		|		|		|		|	
+
+
+=================== Sheet: 9. Reg Parameters ===================
+Parameter	|	Value	|	Basis	|	Confidence
+Minimum margin / max LTV - equity (NBFC)	|	50% (LTV floor; policy often tighter)	|	RBI framework for NBFC lending against shares, consolidated in 2025 Credit Facilities Directions	|	PRIMARY
+LTV shortfall cure period	|	7 working days	|	RBI - LTV maintenance for NBFC loans against shares	|	PRIMARY
+Collateral quality - loans > Rs 5 lakh	|	Group I securities only, demat form only	|	RBI NBFC lending-against-shares norms	|	PRIMARY
+Pledge mechanism	|	OTP-authenticated depository pledge; NO PoA; lender never controls demat a/c	|	SEBI margin-pledge framework (Aug 2020, reiterated 2025)	|	PRIMARY
+Bank-side changes eff. 1 Jul 2026	|	Banks: Rs 1 cr/individual, 60% LTV listed shares (Feb 2026 Amendment Directions)	|	Applies to BANKS - verify NBFC read-across on rbi.org.in before relying	|	VERIFY
+Exchange disclosure	|	NBFC informs exchanges of shares pledged in its favour (asset size >= Rs 100 cr)	|	RBI NBFC norms; threshold under 2025 consolidation	|	VERIFY exact threshold
+Promoter pledge disclosures	|	SAST Reg.31 (2 working days); PIT Reg.7(2) (> Rs 10 lakh)	|	SEBI SAST 2011 / PIT 2015 - borrower's obligation; capture evidence	|	PRIMARY
+NPA test	|	'Out of order' (OD-form), not simple 90-DPD	|	RBI IRAC clarifications	|	PRIMARY
+Prohibited	|	Trust borrowers; IPO-subscription/speculative end-use per policy; locked-in shares unless lender qualifies as FI	|	RBI norms + SEBI lock-in rules + prior project memo	|	SECONDARY - consistent
+Approved Securities Master	|	NOT in LMS v1 - per-row lender adjudication (maker-checker) substitutes; master + price-feed modules on product roadmap	|	Product decision (SaaS provider), 30 Jul 2026	|	INTERNAL
+	|	Confidence tags: PRIMARY = verified regulatory basis; SECONDARY - consistent = multiple consistent industry sources; VERIFY = confirm against rbi.org.in before build freeze. RBI consolidated NBFC regulation into new Master Directions (Nov 2025) - re-verify citations against the consolidated texts.	|		|	
+
+

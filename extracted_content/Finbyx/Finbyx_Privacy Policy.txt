@@ -1,0 +1,170 @@
+
+Privacy Policy
+[Date]
+Infrabyx
+[Company address]
+[Date]
+Infrabyx
+[Company address]
+
+
+
+Table of Contents
+1.	Introduction	2
+2.	Interpretation	3
+3.	Definitions	3
+4.	Scope and Application	5
+5.	The Company's Role as Data Fiduciary and Data Processor	5
+6.	Personal Data Collected by the Company	6
+7.	Classification and Safeguarding of Personal Data	7
+8.	Lawful Basis for Processing	7
+9.	Data Minimisation and Device-Level Permissions	8
+10.	Purposes of Processing	8
+11.	Disclosure and Sharing of Personal Data	8
+12.	Cross-Border Transfer and Data Localisation	9
+13.	Retention of Personal Data	10
+14.	Security Measures	11
+15.	Personal Data Breach Reporting	11
+16.	Rights of the Data Principal	12
+17.	Grievance Redressal	13
+18.	Personal Data of Children	13
+19.	Cookies and Tracking Technologies	14
+20.	Third-Party Websites and Links	14
+21.	Amendments to this Policy	14
+22.	Governing Law and Jurisdiction	14
+23.	Contact Us	15
+
+DOCUMENT IDENTIFICATION INFORMATION
+Document Number
+[Privacy Policy]
+Document Name
+Privacy Policy
+Version
+1.0
+Date of Issue
+[Effective Date]
+Approved by
+[Approved By]
+Document Owner
+[Data Protection Officer / Grievance Officer]
+Effective From
+[Effective Date]
+Next Review Date
+Annually, or earlier upon a material change in Applicable Law
+Classification
+Public: External-Facing Document
+Regulatory Anchor
+Digital Personal Data Protection Act, 2023; Information Technology Act, 2000 read with the SPDI Rules, 2011; CERT-In Cyber Security Directions, 2022; RBI (Digital Lending) Directions, 2025
+Review Frequency
+When a material change occurs in Applicable Law or in the Company’s data processing practices.
+Location of the Document
+Company Website / Compliance Department
+
+VERSION & REVISION HISTORY
+Version
+Date
+Nature of Change
+Prepared By
+Approved By
+1.0
+[Effective Date]
+First Issue
+
+
+	•	Introduction
+	•	This Privacy Policy (this “Policy”) is issued by Infrabyx (hereinafter referred to as the “Company”, “it”, or “its”, which expressions shall, unless repugnant to the context or meaning thereof, be deemed to include its successors and permitted assigns), a technology company engaged in the business of providing a Loan Management System and ancillary support services to Non-Banking Financial Companies and other Regulated Entities regulated by the Reserve Bank of India (“RBI”).
+	•	The Company operates the website located at www.finbyx.com] (the “Site”). This Policy sets out, in a manner intended to be transparent and readily comprehensible, the manner in which the Company collects, uses, processes, stores, discloses, and safeguards Personal Data, whether collected through the Site or in the course of rendering services to its NBFC Partners (as defined below).
+	•	This Policy has been framed with due regard to, and is intended to give effect to, the applicable provisions of the Digital Personal Data Protection Act, 2023 (“DPDP Act”) and the rules made thereunder; the Information Technology Act, 2000 (“IT Act”); the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011 (“SPDI Rules”); and the CERT-In Cyber Security Directions, 2022; together with such other statutes, rules, regulations, directions, and circulars as may be applicable from time to time (collectively, “Applicable Law”).
+	•	The Company notes, for the avoidance of doubt, that certain substantive provisions of the DPDP Act are to come into force in a phased manner in terms of the notifications issued by the Central Government. Pending the coming into force of such provisions, the Company shall continue to discharge its existing obligations under the IT Act and the SPDI Rules, while adopting, on a forward-compliant and good-faith basis, the standards prescribed under the DPDP Act.
+	•	By accessing, browsing, or otherwise using the Site, or by availing, whether directly or indirectly, of any service facilitated through the Company's platform, You (as defined below) acknowledge that You have read, understood, and agree to be bound by this Policy. If You do not agree with the terms of this Policy, You are advised to refrain from accessing the Site or availing of the Company's services.
+	•	Interpretation
+	•	In this Policy, unless the context otherwise requires: (i) words denoting the singular shall include the plural and vice versa; (ii) references to statutes, rules, or regulations shall be deemed to include references to any statutory amendment, re-enactment, or substitution thereof for the time being in force; (iii) headings are inserted for convenience of reference only and shall not affect the interpretation of this Policy; and (iv) the words “include”, “includes”, and “including” shall be construed as if followed by the words “without limitation”.
+	•	This Policy shall be read together with, and shall not derogate from, any separate terms of use, cookie policy, or Data Processing Agreement issued or executed by the Company from time to time, each of which shall be deemed to form part of this Policy to the extent of any specific reference contained therein.
+	•	Definitions
+	•	For the purposes of this Policy, unless repugnant to the context or meaning thereof, the following expressions shall have the meanings respectively assigned to them below:
+	•	Personal Data” means any data about an individual who is identifiable by or in relation to such data, as defined under the DPDP Act;
+	•	“Sensitive Personal Data or Information” or “SPDI” has the meaning assigned to it under Rule 3 of the SPDI Rules, and includes, without limitation, passwords; financial information such as bank account, credit/debit card, or other payment instrument details; physical, physiological, and mental health conditions; sexual orientation; medical records and history; and biometric information;
+	•	“Data Fiduciary” means any person who, alone or in conjunction with other persons, determines the purpose and means of processing of Personal Data, as defined under the DPDP Act;
+	•	“Data Processor” means any person who processes Personal Data on behalf of a Data Fiduciary;
+	•	“Data Principal” or “You” or “Your” means the individual to whom the Personal Data relates, and, where such individual is a child, shall be deemed to include the parent or lawful guardian of such child;
+	•	“NBFC Partner” or “Regulated Entity” or “RE” means a Non-Banking Financial Company or other entity regulated by the RBI that has engaged, or proposes to engage, the Company for the provision of loan management, loan origination support, or related technology services, pursuant to a written agreement executed in that behalf;
+	•	“Loan Management System” or “LMS” means the proprietary software platform, application, and allied technology infrastructure owned and/or operated by Infrabyx, which enables its NBFC Partners to manage and administer the lifecycle of loan accounts including loan onboarding support, disbursal tracking, repayment scheduling, collections and recovery workflow support, delinquency and NPA classification, MIS/regulatory reporting, and related record-keeping and which does not, by itself, constitute the extension of credit, the sanctioning of any loan, or the exercise of any lender function by Infrabyx
+	•	“Borrower” means an applicant, co-applicant, guarantor, or other end-user of an NBFC Partner whose Personal Data is processed by the Company in the course of rendering services to such NBFC Partner; and
+	•	“Site” means the website of the Company referred to in Section 1 above.
+	•	Scope and Application
+	•	This Policy shall apply to: (i) Personal Data collected through the Site, including Personal Data of visitors, prospective NBFC Partners, vendors, and applicants for employment; and (ii) Personal Data of Borrowers processed by the Company in connection with the loan management and allied services rendered to its NBFC Partners pursuant to contractual arrangements executed in that behalf.
+	•	Where the Company collects any category of Personal Data not expressly contemplated under this Policy, it shall, to the extent required under Applicable Law, furnish appropriate notice to the concerned Data Principal regarding the nature of such Personal Data and the purpose of its collection and use.
+	•	The Company's Role as Data Fiduciary and Data Processor
+	•	The Company acts in differing capacities depending on the nature and context of the processing undertaken, as more particularly set out below.
+	•	Data Fiduciary: in relation to the Personal Data of visitors to the Site, prospective clients, vendors, and its own employees or applicants for employment, the Company determines the purpose and means of processing and accordingly acts as a Data Fiduciary;
+	•	Data Processor / LMS: in relation to the Personal Data of Borrowers processed through the Company's loan management platform on behalf of its NBFC Partners, the Company acts solely as a Data Processor. In such capacity, the Company shall process Personal Data strictly in accordance with the written instructions of, and the Data Processing Agreement executed with, the relevant NBFC Partner, which shall at all times remain the Data Fiduciary and shall bear primary responsibility for obtaining consent from, and discharging statutory notice obligations to, the Borrower. Consistent with the RBI Digital Lending Directions, the NBFC Partner shall remain fully responsible and liable for the acts and omissions of the Company in connection with such processing.
+	•	Data Principals are advised that, in the event of any query concerning the manner in which a specific NBFC Partner processes their Personal Data, reference ought also to be made to the privacy policy published by such NBFC Partner.
+	•	Personal Data Collected by the Company
+	•	The Company may collect the following categories of Personal Data, whether directly from You or indirectly through its NBFC Partners, service providers, affiliates, public authorities, Credit Information Companies, or publicly available sources:
+	•	Identity and contact particulars, including name, address, telephone number, electronic mail address, date of birth, photograph, and government-issued identifiers such as Permanent Account Number and, where applicable and subject to consent, Aadhaar (in masked or e-KYC XML form, in accordance with the regulations of the Unique Identification Authority of India);
+	•	Financial information, including income particulars, bank account and payment instrument details, credit history, and loan repayment records;
+	•	Know-your-customer and verification data, collected pursuant to the RBI Master Direction on Know Your Customer and the Prevention of Money Laundering Act, 2002;
+	•	Device and usage information, including Internet Protocol address, browser type, device identifiers, and log data collected through the Site and, where applicable, a DLA;
+	•	Employment-related information, in the event that You apply for a position with the Company; and
+	•	Any other Personal Data voluntarily furnished by You, including through the Company's contact form or newsletter subscription facility.
+	•	The Company shall collect only such Personal Data as is need-based and proportionate to the purpose for which the same is collected, in keeping with the principle of data minimisation embodied in the DPDP Act and the RBI Digital Lending Directions.
+	•	Classification and Safeguarding of Personal Data
+	•	Personal Data collected by the Company is classified in accordance with its internal data classification framework, having regard to the sensitivity thereof, including whether such Personal Data constitutes SPDI within the meaning of the SPDI Rules. Sensitive and ultra-sensitive categories of Personal Data shall be subject to enhanced technical and organisational safeguards, and access thereto shall be restricted to authorised personnel strictly on a need-to-know basis.
+	•	Lawful Basis for Processing
+	•	Consent: where the Company acts as a Data Fiduciary, it shall process Your Personal Data solely on the basis of free, specific, informed, unconditional, and unambiguous consent given by way of clear affirmative action, in accordance with Section 6 of the DPDP Act. You may withdraw such consent at any time, with prospective effect, by addressing a written communication to [Support Email]. Where the Company acts as a Data Processor or LMS for an NBFC Partner, the obligation to obtain and manage such consent shall rest solely with the concerned NBFC Partner, in its capacity as Data Fiduciary, in accordance with Applicable Law.
+	•	Legitimate Uses: the Company may, without consent, process Personal Data for the “certain legitimate uses” recognised under Section 7 of the DPDP Act, including, without limitation, circumstances where You have voluntarily furnished Personal Data for a specified purpose and have not indicated non-consent, compliance with a judgment or order of any court or tribunal, employment-related purposes, and the prevention of, or investigation into, any offence.
+	•	Legal Obligation: the Company shall process Personal Data as may be necessary to comply with Applicable Law, including tax and financial reporting requirements, know-your-customer and anti-money laundering obligations under the Prevention of Money Laundering Act, 2002, directions issued by the RBI, and orders passed by courts, tribunals, or regulatory or law enforcement authorities of competent jurisdiction.
+	•	Data Minimisation and Device-Level Permissions
+	•	Where the Company's platform, or a DLA operated by an NBFC Partner, seeks access to device-level permissions, including contacts, call logs, short messaging service data, gallery, or camera, such access shall be limited strictly to what is need-based for the specific loan product in question, shall be sought by way of one-time, explicit, and specific consent, and shall be accompanied by a clear explanation of the purpose for which such access is sought. You may decline any permission that is not strictly necessary for the disbursal of the relevant loan, and the Company shall not, solely by reason of such refusal, deny You access to the underlying loan product, consistent with the RBI Digital Lending Directions. The Company does not collect or store biometric data save where expressly permitted under Applicable Law and required by an NBFC Partner for regulatory compliance.
+	•	Purposes of Processing
+	•	The Company uses Personal Data for the following purposes, without limitation: loan origination, underwriting support, sanctioning, disbursal, and servicing on behalf of its NBFC Partners; identity verification and know-your-customer/anti-money laundering compliance; credit assessment and reporting to Credit Information Companies registered under the Credit Information Companies (Regulation) Act, 2005; customer support and grievance redressal; fraud prevention and risk management; the improvement of the Site and the Company's services; recruitment; and compliance with legal and regulatory obligations, including reporting to the RBI and other competent authorities.
+	•	Disclosure and Sharing of Personal Data
+	•	The Company may disclose Personal Data to the following categories of recipients:
+	•	NBFC Partners, for whom the Company renders loan management services;
+	•	Credit Information Companies, including CIBIL, Experian, Equifax, and CRIF High Mark, acting upon the instructions of, and on behalf of, NBFC Partners, in accordance with RBI regulations and the Credit Information Companies (Regulation) Act, 2005;
+	•	Sub-processors, vendors, and service providers, including providers of cloud hosting, e-KYC, payment gateway, and communication services, engaged pursuant to a written Data Processing Agreement, which shall bind such parties to maintain confidentiality and to adopt security measures at least equivalent to those adopted by the Company;
+	•	Regulators, courts, tribunals, and law enforcement authorities, where disclosure is mandated by Applicable Law or pursuant to valid legal process; and
+	•	Any other third party disclosed in this Policy or in the privacy policy published by the relevant NBFC Partner, as required under the RBI Digital Lending Directions.
+	•	The Company does not sell Personal Data to any third party for consideration. Where You furnish the Company with Personal Data pertaining to another individual, including a co-applicant, guarantor, or referral, You represent and warrant that You are duly authorised to do so and that such individual has been informed of, and has consented to, the terms of this Policy.
+	•	Cross-Border Transfer and Data Localisation
+	•	Notwithstanding anything contained elsewhere in this Policy, all Personal Data collected by the Company in its capacity as an LMS or technology service provider to NBFC Partners shall be stored and processed exclusively on servers located within the territory of India. Where, for limited technical purposes, any such Personal Data is processed outside India, the same shall be purged from the relevant overseas system and repatriated to India within twenty-four (24) hours, in accordance with the RBI Digital Lending Directions.
+	•	In relation to Personal Data processed by the Company in its capacity as a Data Fiduciary, including Site and employee data, the Company may transfer such Personal Data outside India in accordance with Section 16 of the DPDP Act, save and except where the Central Government has, by notification, restricted the transfer of Personal Data to a specified country or territory. Where any such cross-border transfer is undertaken, the Company shall implement appropriate contractual and technical safeguards, including Data Processing Agreements incorporating data protection clauses, so as to ensure that Your Personal Data continues to receive a standard of protection comparable to that afforded under this Policy.
+	•	Retention of Personal Data
+	•	The Company shall retain Personal Data only for so long as may be reasonably necessary to fulfil the purpose for which the same was collected, subject to the following:
+	•	Loan and know-your-customer records shall be retained in accordance with the RBI Master Direction on Know Your Customer and t Prevention of Money Laundering (Maintenance of Records) Rules, 2005, which generally mandate retention for a minimum period of five (5) years from the date of cessation of the business relationship or closure of the account, or for such longer period as may be required in connection with any ongoing legal or regulatory proceeding;
+	•	Personal Data processed for purposes connected with the Site shall be retained for so long as You maintain an active relationship with the Company, or as may otherwise be necessary to comply with Applicable Law; and
+	•	Personal Data may be retained beyond the periods aforesaid where necessary to establish, exercise, or defend legal claims, to prevent fraud, or pursuant to a specific direction issued by a court, tribunal, or regulator.
+	•	Upon expiry of the applicable retention period, Personal Data shall be securely deleted or anonymised, save where further retention is mandated under Applicable Law.
+	•	Security Measures
+	•	The Company shall implement reasonable security practices and procedures, commensurate with the sensitivity of the Personal Data concerned, in accordance with Rule 8 of the SPDI Rules, including adherence to the ISO/IEC 27001 standard or an equivalent industry-recognised framework, and in accordance with the security obligations prescribed under Section 8 of the DPDP Act. Such measures shall include, without limitation, encryption, access controls, data masking, network security controls, and periodic security audits and vulnerability assessments. The Company shall maintain logs of relevant information technology systems for the period prescribed under the CERT-In Directions and shall store such logs within India. Vendors and sub-processors engaged by the Company shall be contractually bound to maintain security standards at least equivalent to those maintained by the Company.
+	•	Personal Data Breach Reporting
+	•	In the event of a Personal Data breach, the Company shall forthwith take steps to contain, assess, and remediate such breach. The Company shall report cyber security incidents to the Indian Computer Emergency Response Team (“CERT-In”) within six (6) hours of noticing the incident, or of the incident being brought to its notice, as required under Section 70B of the IT Act read with the CERT-In Directions of 2022. Where the Company acts as a Data Fiduciary, it shall notify the Data Protection Board of India and the affected Data Principals of a personal data breach in the form and manner prescribed under the DPDP Act and the rules made thereunder. Where a breach relates to Personal Data processed on behalf of an NBFC Partner, the Company shall promptly notify the concerned NBFC Partner so as to enable it to discharge its own notification obligations. Employees, vendors, and other personnel who suspect a breach shall promptly report the same to [Support Email].
+	•	Rights of the Data Principal
+	•	Subject to Applicable Law and the phased commencement of the substantive provisions of the DPDP Act, You may be entitled to exercise the following rights in relation to Your Personal Data:
+	•	Right to Access: to obtain a summary of the Personal Data being processed and the processing activities undertaken in relation thereto;
+	•	Right to Correction and Erasure: to seek correction of inaccurate or misleading Personal Data, completion of incomplete Personal Data, updating of Personal Data, and erasure of Personal Data that is no longer necessary for the purpose for which it was processed;
+	•	Right to Grievance Redressal: to avail of a readily accessible mechanism for the registration of grievances and to receive a response within the timeframe set out in Section 17 (Grievance Redressal) hereof;
+	•	Right to Nominate: to nominate another individual to exercise the aforesaid rights on Your behalf in the event of Your death or incapacity; and
+	•	Right to Withdraw Consent: to withdraw previously accorded consent at any time, with prospective effect, without prejudice to the lawfulness of any processing undertaken prior to such withdrawal.
+	•	Where the Company acts as a Data Processor or LMS for an NBFC Partner, any request concerning Borrower Personal Data shall be referred to, and addressed in coordination with, the relevant NBFC Partner, being the Data Fiduciary responsible for such Personal Data. The Company shall endeavour to respond to verified requests within thirty (30) days, or such other period as may be prescribed under Applicable Law.
+	•	Grievance Redressal
+	•	In accordance with the IT Act, the SPDI Rules, and the DPDP Act, the Company has appointed a Grievance Officer, whose particulars are set out below and in the Perimeter Sheet appended to this Policy, to address queries and complaints concerning the processing of Personal Data:
+Name of Grievance Officer: ____________________________
+Designation: ________________________________
+Address: ________________________________
+Electronic Mail Address: ________________________________
+Telephone Number: ________________________________
+	•	The Company shall acknowledge grievances promptly and shall endeavour to resolve the same within thirty (30) days of receipt, or such shorter period as may be prescribed under Applicable Law.
+	•	Personal Data of Children
+	•	The Company does not knowingly process the Personal Data of children, being individuals below the age of eighteen (18) years, save where such processing is strictly necessary for a specific and legitimate purpose, including under an employee family insurance or benefits scheme, and only upon obtaining verifiable consent from the parent or lawful guardian of such child, as required under Section 9 of the DPDP Act. The Company does not undertake tracking, behavioural monitoring, or targeted advertising directed at children. Should You have reason to believe that the Company has inadvertently collected a child's Personal Data without appropriate consent, You may write to [Support Email], and the Company shall take prompt steps to address the matter, including deletion of such Personal Data where appropriate.
+	•	Cookies and Tracking Technologies
+	•	Upon Your accessing the Site, the Company may place cookies and similar tracking technologies on Your device, which may collect information such as browser type, a unique device or session identifier, and cookie expiry data. Further particulars are set out in the Company's Cookie Policy, available on the Site.
+	•	Third-Party Websites and Links
+	•	The Site may contain hyperlinks to third-party websites. The accessing of any such website shall be governed by the privacy policy and terms of use of such third party, over which the Company exercises no control and in respect of which the Company disclaims all responsibility and liability.
+	•	Amendments to this Policy
+	•	The Company reserves the right to amend, modify, or supplement this Policy from time to time, in order to reflect changes in Applicable Law, regulatory guidance, or its data processing practices. The date specified as the “Date of Issue” in the Document Identification Information above shall indicate the date on which this Policy was last revised. Where any such amendment is material in nature, the Company shall notify You by way of a prominent notice posted on the Site and, where required under Applicable Law, shall obtain Your fresh consent prior to applying such amendment to Personal Data collected prior thereto.
+	•	Governing Law and Jurisdiction
+	•	This Policy shall be governed by, and construed in accordance with, the laws of India. Subject to any applicable regulatory dispute resolution mechanism, the courts situated at the place of jurisdiction specified in the Perimeter Sheet appended to this Policy shall have exclusive jurisdiction in respect of any dispute arising out of, or in connection with, this Policy.
+	•	Contact Us
+	•	Any question, comment, or grievance concerning this Policy, or concerning the Company's processing of Personal Data, may be addressed in writing to the Company at the support email tech@lawdocs.in.
+

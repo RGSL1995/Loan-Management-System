@@ -1,0 +1,84 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LMS · Loan Against Securities — interactive prototype</title>
+<style>
+:root{--blue:#1F4E78;--mid:#2E75B6;--lt:#DEEAF6;--green:#548235;--red:#C00000;--amber:#BF8F00}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#222;background:#f4f6fa}
+.bar{background:var(--blue);color:#fff;padding:14px 22px;font-size:20px;font-weight:bold;display:flex;justify-content:space-between;align-items:center}
+.wrap{max-width:1000px;margin:18px auto;padding:0 16px}
+.card{background:#fff;border:1px solid #dfe4ec;border-radius:8px;padding:16px 18px;margin-bottom:16px}
+h2{color:var(--blue);font-size:16px;margin:0 0 12px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{border:1px solid #e2e6ee;padding:6px 8px;text-align:left}
+th{background:var(--blue);color:#fff}input,select{padding:6px;border:1px solid #cbd3e0;border-radius:4px;font-size:13px}
+input[type=number]{width:110px}.tiles{display:flex;gap:12px;flex-wrap:wrap}
+.tile{flex:1;min-width:170px;background:var(--lt);border:1px solid var(--mid);border-radius:8px;padding:12px;text-align:center}
+.tile .l{font-size:12px;color:#334}.tile .v{font-size:22px;font-weight:bold;color:var(--blue);margin-top:4px}
+button{background:var(--green);color:#fff;border:0;border-radius:6px;padding:8px 14px;font-weight:bold;cursor:pointer;font-size:13px}
+button.sec{background:var(--mid)}.muted{color:#667;font-size:12px}
+.banner{padding:12px 14px;border-radius:8px;margin-top:12px;font-size:14px;display:none}
+.ok{background:#E2EFDA;border:1px solid var(--green);color:#2f5a12}
+.warn{background:#FDECEA;border:1px solid var(--red);color:#7a1512}
+.row{display:flex;gap:16px;flex-wrap:wrap;align-items:end;margin-bottom:8px}
+label{font-size:12px;color:#334;display:block;margin-bottom:3px}
+.slider{width:280px}
+</style></head><body>
+<div style="background:#163a5c;padding:7px 20px;font-size:13px"><a href="index.html" style="color:#cfe0f5;text-decoration:none;margin-right:16px">Home</a><a href="onboarding.html" style="color:#cfe0f5;text-decoration:none;margin-right:16px">Onboarding</a><a href="servicing360.html" style="color:#cfe0f5;text-decoration:none;margin-right:16px">Servicing 360</a><a href="collections.html" style="color:#cfe0f5;text-decoration:none">Collections</a><a href="field_receipt.html" style="color:#cfe0f5;text-decoration:none">Field Receipt</a></div>
+<div class="bar"><span>LMS · Loan Against Securities — interactive prototype</span><span style="font-size:12px;font-weight:normal">reference logic (Section 86)</span></div>
+<div class="wrap">
+<div class="card"><h2>1 · Pledge securities</h2>
+<table id="secTbl"><thead><tr><th>ISIN</th><th>Security</th><th>Qty</th><th>Price ₹</th><th>LTV %</th><th>Value ₹</th><th>Eligible ₹</th><th></th></tr></thead><tbody></tbody></table>
+<p><button class="sec" onclick="addRow()">+ Add security</button> <span class="muted">Drawing power = Σ (Qty × Price × LTV). Group-I only above ₹5 lakh (Section 86.2).</span></p>
+</div>
+<div class="card"><h2>2 · Facility</h2>
+<div class="row">
+<div><label>Requested limit ₹</label><input type="number" id="req" value="700000" oninput="recompute()"></div>
+<div><label>Utilised / drawn ₹</label><input type="number" id="util" value="700000" oninput="recompute()"></div>
+<div><label>Simulate price move: <span id="pmv">0%</span></label><input class="slider" type="range" id="pm" min="-50" max="20" value="0" oninput="recompute()"></div>
+</div></div>
+<div class="card"><h2>3 · Live position</h2>
+<div class="tiles">
+<div class="tile"><div class="l">Pledge value (after move)</div><div class="v" id="tval">₹0</div></div>
+<div class="tile"><div class="l">Drawing power</div><div class="v" id="tdp">₹0</div></div>
+<div class="tile"><div class="l">Sanctioned limit (≤ DP)</div><div class="v" id="tsl">₹0</div></div>
+<div class="tile"><div class="l">Available</div><div class="v" id="tav">₹0</div></div>
+</div>
+<div class="banner ok" id="bok">Within limit. No margin call.</div>
+<div class="banner warn" id="bwarn"></div>
+</div>
+<p class="muted">Prototype only — computations mirror <b>lms_calc.py</b> (drawing_power, margin_shortfall). Rates/haircuts illustrative; not a credit decision.</p>
+</div>
+<script>
+const fmt=x=>'₹'+Math.round(x).toLocaleString('en-IN');
+let rows=[["INE002A01018","Reliance",1000,1500,50],["INE467B01029","TCS",200,3800,50]];
+function render(){const tb=document.querySelector('#secTbl tbody');tb.innerHTML='';rows.forEach((r,i)=>{
+ tb.innerHTML+=`<tr>
+ <td><input value="${r[0]}" onchange="upd(${i},0,this.value)" style="width:150px"></td>
+ <td><input value="${r[1]}" onchange="upd(${i},1,this.value)" style="width:110px"></td>
+ <td><input type="number" value="${r[2]}" onchange="upd(${i},2,this.value)"></td>
+ <td><input type="number" value="${r[3]}" onchange="upd(${i},3,this.value)"></td>
+ <td><input type="number" value="${r[4]}" onchange="upd(${i},4,this.value)" style="width:70px"></td>
+ <td id="v${i}"></td><td id="e${i}"></td>
+ <td><button class="sec" onclick="del(${i})" style="padding:4px 8px">✕</button></td></tr>`;});recompute();}
+function upd(i,j,v){rows[i][j]=(j<2)?v:parseFloat(v)||0;recompute();}
+function addRow(){rows.push(["","",0,0,50]);render();}
+function del(i){rows.splice(i,1);render();}
+function recompute(){
+ const mv=parseFloat(document.getElementById('pm').value);document.getElementById('pmv').textContent=mv+'%';
+ let val=0,dp=0;
+ rows.forEach((r,i)=>{const px=r[3]*(1+mv/100);const v=r[2]*px;const e=v*(r[4]/100);val+=v;dp+=e;
+   const ve=document.getElementById('v'+i),ee=document.getElementById('e'+i);if(ve)ve.textContent=fmt(v);if(ee)ee.textContent=fmt(e);});
+ const req=parseFloat(document.getElementById('req').value)||0;
+ const util=parseFloat(document.getElementById('util').value)||0;
+ const sl=Math.min(req,dp);const avail=Math.max(Math.min(sl,dp)-util,0);
+ document.getElementById('tval').textContent=fmt(val);
+ document.getElementById('tdp').textContent=fmt(dp);
+ document.getElementById('tsl').textContent=fmt(sl);
+ document.getElementById('tav').textContent=fmt(avail);
+ const shortfall=util-dp;const bok=document.getElementById('bok'),bw=document.getElementById('bwarn');
+ if(shortfall>0.5){bok.style.display='none';bw.style.display='block';
+   const cashTop=shortfall;const secTop=(rows[0]?util/(rows[0][4]/100)-val:0);
+   bw.innerHTML=`<b>MARGIN CALL</b> — utilisation ${fmt(util)} exceeds drawing power ${fmt(dp)} by <b>${fmt(shortfall)}</b>.
+   Cure within 7 working days (Section 86.8): repay <b>${fmt(cashTop)}</b> cash, or pledge additional securities of about <b>${fmt(Math.max(secTop,0))}</b>. On non-cure the pledge is invoked and securities liquidated.`;}
+ else{bw.style.display='none';bok.style.display='block';}
+}
+render();
+</script></body></html>

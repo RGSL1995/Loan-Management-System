@@ -1,0 +1,173 @@
+
+Cookie Policy
+[Date]
+Infrabyx
+[Company address]
+[Date]
+Infrabyx
+[Company address]
+
+
+[DOCUMENT IDENTIFICATION INFORMATION]
+Document Name
+Cookie Policy
+Version
+1.0
+Date of Issue
+[Effective Date]
+Approved by
+[Approved By]
+Document Owner
+[Data Protection Officer / Grievance Officer]
+Effective From
+[Effective Date]
+Next Review Date
+Annually, or earlier upon a material change in Applicable Law
+Classification
+Public: External-Facing Document
+Regulatory Anchor
+Digital Personal Data Protection Act, 2023; Information Technology Act, 2000 read with the SPDI Rules, 2011; CERT-In Cyber Security Directions, 2022
+Review Frequency
+When a material change occurs in Applicable Law or in the Company's use of Cookies.
+Location of the Document
+Company Website 
+
+[VERSION & REVISION HISTORY]
+Version
+Date
+Nature of Change
+Prepared By
+Approved By
+1.0
+[Effective Date]
+First Issue
+
+
+
+Table of Contents
+1.	Introduction	2
+2.	Interpretation	4
+3.	Definitions	4
+4.	Scope and Application	5
+5.	Types of Cookies We Use	5
+6.	Cookies Used on the Platform	6
+7.	Legal Basis and Consent	7
+8.	How We Obtain and Manage Your Consent	7
+9.	Data Collected Through Cookies	8
+10.	Retention of Cookie Data	8
+11.	Sharing and Cross-Border Transfer of Cookie Data	8
+12.	Personal Data Breach Notification	9
+13.	How to Control or Disable Cookies	9
+14.	Do Not Track Signals	10
+15.	Personal Data of Children	10
+16.	Rights of the Data Principal	10
+17.	Grievance Redressal	10
+18.	Amendments to this Policy	11
+19.	Governing Law and Jurisdiction	11
+20.	Contact Us	11
+
+	•	Introduction
+	•	This Cookie Policy (this "Policy") is issued by Infrabyx (hereinafter referred to as the "Company", "we", "us" or "our"), a technology company engaged in the business of providing FINBYX (the "Platform"), a Loan Management System, and ancillary support services to Non-Banking Financial Companies and other Regulated Entities regulated by the Reserve Bank of India ("RBI").
+	•	The Company operates the website located at www.finbyx.com (the "Site"). This Policy explains, in a manner intended to be transparent and readily comprehensible, how the Company uses cookies and similar tracking technologies on the Site and the Platform.
+	•	This Policy has been framed with due regard to the Digital Personal Data Protection Act, 2023 ("DPDP Act") and the rules made thereunder; the Information Technology Act, 2000 ("IT Act"); the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011 ("SPDI Rules"); and the CERT-In Cyber Security Directions, 2022; together with such other statutes, rules, regulations and circulars as may be applicable from time to time (collectively, "Applicable Law").
+	•	The Company notes, for the avoidance of doubt, that certain substantive provisions of the DPDP Act are to come into force in a phased manner pursuant to notifications issued by the Central Government (Phase 1 provisions in force from 14 November 2025; Consent Manager provisions from 13 November 2026; remaining substantive obligations from 14 May 2027, or such other date(s) as notified). Pending the coming into force of such provisions, the Company shall continue to discharge its existing obligations under the IT Act and the SPDI Rules, while adopting, on a forward-compliant and good-faith basis, the standards prescribed under the DPDP Act.
+	•	By accessing, browsing, or otherwise using the Site or the Platform, You (as defined below) acknowledge that You have read, understood, and agree to be bound by this Policy, subject to the consent choices described in Clause 9 below.
+	•	Interpretation
+	•	In this Policy, unless the context otherwise requires: (i) words denoting the singular include the plural and vice versa; (ii) references to statutes, rules or regulations include any statutory amendment, re-enactment or substitution for the time being in force; (iii) headings are inserted for convenience of reference only and do not affect interpretation; and (iv) the words "include", "includes" and "including" shall be construed as if followed by the words "without limitation".
+	•	This Policy shall be read together with, and shall not derogate from, the Company's Privacy Policy and Terms and Conditions, each of which is deemed to form part of this Policy to the extent of any specific reference contained therein.
+	•	Definitions
+	•	For the purposes of this Policy, unless repugnant to the context or meaning thereof, the following expressions shall have the meanings respectively assigned to them below:
+	•	"Cookies" means small text files placed on Your device when You visit the Site or use the Platform, and, for convenience, also refers to similar tracking technologies such as web beacons, pixel tags, local storage objects, and software development kit (SDK) identifiers.
+	•	"Session Cookie" means a Cookie that is deleted when You close Your browser.
+	•	"Persistent Cookie" means a Cookie that remains on Your device for a set period or until deleted.
+	•	"First-Party Cookie" means a Cookie set by the Company.
+	•	"Third-Party Cookie" means a Cookie set by a service provider other than the Company.
+	•	"Borrower" means a customer of an NBFC Partner to whom that NBFC Partner extends, or proposes to extend, a loan or other credit facility through or with the assistance of the Platform.
+	•	"You" or "Your" means the individual accessing the Site or Platform, including a Borrower, an authorised user of an NBFC Partner, or a visitor to the Site.
+	•	"Site" means the website of the Company referred to in Clause 1.2 above.
+	•	Scope and Application
+	•	This Policy applies to Cookies deployed through the Site and the Platform, including by NBFC Partners' authorised users and Borrowers using a self-service borrower portal, and should be read together with our Privacy Policy and Terms and Conditions.
+	•	This Policy does not, by itself, collect the loan application, KYC, credit, financial or other Borrower data that You or an NBFC Partner submit directly through Platform forms and workflows, which is governed by our Privacy Policy.
+	•	Types of Cookies We Use
+	•	The Company uses the following categories of Cookies on the Site and the Platform:
+	•	Strictly Necessary Cookies: required for the Platform to function, including user authentication, session management, load balancing, maker-checker workflow state, and security features such as CSRF-token validation. These Cookies cannot be switched off, as the Platform (including loan origination, sanction and disbursement workflows) will not operate correctly without them.
+	•	Functional/Preference Cookies: remember Your settings and preferences (such as language, dashboard layout, or previously entered but unsubmitted form data) to improve usability across sessions.
+	•	Performance/Analytics Cookies: collect information on how Users interact with the Platform to help the Company monitor performance and improve the Platform. Data collected is used in aggregated or pseudonymised form and is not used to make credit or lending decisions.
+	•	Security and Fraud-Prevention Cookies: support device fingerprinting, anomaly detection and session-integrity checks used as part of the Company's fraud-risk-management controls. Any output of such Cookies is a decision-support input only; no automated credit, sanction or fraud determination is made without review by the relevant NBFC Partner's authorised personnel.
+	•	Third-Party Cookies: set by third-party service providers integrated with the Platform, such as payment gateways, KYC/eKYC providers, Credit Information Companies, cloud infrastructure and content-delivery providers, analytics providers, and customer-support/chat widgets. These third parties' use of Cookies is governed by their own privacy and cookie policies, links to which, where available, are provided at www.finbyx.com.
+	•	Cookies Used on the Platform
+	•	The table below is illustrative and shall be completed and kept current by the Company to reflect the actual Cookies deployed on the Site and the Platform:
+
+Category
+Cookie Name / Provider
+Purpose
+Type
+Duration
+Strictly Necessary
+[●]
+[●]
+First-party
+[Session]
+Functional/Preference
+[●]
+[●]
+First-party
+[●]
+Performance/Analytics
+[●]
+[●]
+First/Third-party
+[●]
+Security/Fraud-Prevention
+[●]
+[●]
+First/Third-party
+[●]
+Third-Party (payment/KYC/support)
+[●]
+[●]
+Third-party
+[●]
+
+	•	Legal Basis and Consent
+	•	The Company deploys Strictly Necessary Cookies on the basis of its legitimate interest in operating a secure and functional Platform, and such Cookies do not require Your prior consent.
+	•	The Company deploys Functional, Performance/Analytics, Security/Fraud-Prevention (beyond core session security) and Third-Party Cookies only on the basis of Your free, specific, informed, unconditional and unambiguous consent given through a clear affirmative action, in accordance with Section 6 of the DPDP Act and, pending full commencement of the DPDP Act's substantive provisions, the applicable requirements of the IT Act and the SPDI Rules.
+	•	How We Obtain and Manage Your Consent
+	•	On Your first visit to the Site or Platform, a cookie consent banner/preference centre shall be displayed, allowing You to accept all Cookies, reject all non-essential Cookies, or customise Your consent by Cookie category listed in Clause 5.
+	•	You may withdraw or modify Your consent at any time through the Cookie preference centre or Your browser settings described in Clause 14. Withdrawal of consent shall not affect the lawfulness of processing carried out before such withdrawal.
+	•	The Company shall maintain a record of consent choices made through the Site and Platform in accordance with Applicable Law.
+	•	Data Collected Through Cookies
+	•	Depending on the Cookie category, data collected may include: device and browser identifiers, IP address, approximate location (derived from IP), operating system and browser type, session and authentication identifiers, pages viewed, referring/exit pages, timestamps, click and navigation patterns, and error or performance logs. Cookies do not, by themselves, collect Your name, financial account details, or government identity numbers.
+	•	Retention of Cookie Data
+	•	Session Cookies are deleted when You close Your browser. Persistent Cookies are retained for the duration specified in the table at Clause 6, or, where not specified, for a default period of 90 days, after which they expire automatically or are refreshed upon Your next visit and renewed consent.
+	•	Sharing and Cross-Border Transfer of Cookie Data
+	•	Data collected through Cookies may be shared with the third-party service providers referred to in Clause 5.1(e) solely for the purposes for which the relevant Cookie is deployed, and shall not be sold or used for unrelated third-party advertising without Your separate consent.
+	•	Where such data is transferred outside India (including to cloud or analytics providers with servers overseas), such transfer shall be carried out in accordance with Section 16 of the DPDP Act (which permits transfer of personal data outside India except to countries restricted by the Central Government by notification) and, in respect of payment-system or other data subject to sector-specific localisation requirements of the RBI, such data shall continue to be stored in India as required under Applicable Law.
+	•	Personal Data Breach Notification
+	•	Where a personal data breach occurs in relation to personal data collected or processed through Cookies, the Company shall, in accordance with Rule 7 of the Digital Personal Data Protection Rules, 2025 (once its breach-notification provisions come into force) and as a matter of the Company's present incident-response practice, notify the Data Protection Board of India without delay upon becoming aware of the breach, followed by a detailed report within 72 (seventy-two) hours of becoming so aware (or such further period as the Board may allow on a written request).
+	•	The Company shall likewise notify affected Data Principals without delay, in a clear, concise notification in plain language, and shall additionally comply with applicable incident-reporting obligations under the IT Act, including reporting of cyber security incidents to the Indian Computer Emergency Response Team (CERT-In) within the timelines prescribed under Section 70B of that Act read with the CERT-In Directions dated 28 April 2022.
+	•	How to Control or Disable Cookies
+	•	In addition to the in-Platform Cookie preference centre described in Clause 9, You may control or delete Cookies through Your browser settings 
+	•	Chrome: chrome://settings/cookies; 
+	•	Firefox: Settings > Privacy & Security > Cookies and Site Data; 
+	•	Edge: Settings > Cookies and site permissions; 
+	•	Safari: Preferences > Privacy > Manage Website Data).
+	•	Disabling Strictly Necessary Cookies may prevent the Platform from functioning correctly. Disabling other categories of Cookies should not affect core Platform functionality but may reduce personalisation or the Company's ability to improve the Platform.
+	•	Do Not Track Signals
+	•	As there is no uniform industry or legal standard for recognising "Do Not Track" browser signals in India at present, the Site and Platform do not currently respond differently to such signals. This Policy will be updated if that position changes.
+	•	Personal Data of Children
+	•	The Platform is intended for use by NBFC Partners' authorised adult personnel and, where applicable, adult Borrowers who are at least 18 years of age, consistent with the requirement of majority under the Indian Contract Act, 1872. The Site and Platform are not knowingly directed at, and do not knowingly collect personal data of, individuals below 18 years of age through Cookies.
+	•	In accordance with Section 9 of the DPDP Act, the Company does not use Cookies for behavioural monitoring, tracking, or targeted advertising directed at children.
+	•	Rights of the Data Principal
+	•	Subject to the phased commencement of the DPDP Act referred to in Clause 1.4, and to the extent applicable to data collected through Cookies, You may have the right to access information about, seek correction or erasure of, register a grievance regarding, and nominate another individual in respect of, personal data collected through Cookies, in accordance with Sections 11 to 14 of the DPDP Act.
+	•	Requests may be made using the contact details in Clause 20, and, once the Consent Manager framework under the DPDP Rules, 2025 becomes operational, through a registered Consent Manager, where applicable.
+	•	Grievance Redressal
+	•	In accordance with the IT Act and the DPDP Act (once its Data Protection Officer/Grievance Officer obligations for Significant Data Fiduciaries commence), the Company has designated the following Grievance Officer for queries or complaints relating to this Policy:
+Name: [●] Designation: [Data Protection Officer / Grievance Officer] Address: www.finbyx.com] Email: [Support Email] Phone: [●]
+	•	The Grievance Officer shall acknowledge and redress grievances relating to Cookies as expeditiously as possible, and in any event within one (1) month from the date of receipt of the grievance, in accordance with Rule 5(9) of the SPDI Rules.
+	•	Amendments to this Policy
+	•	The Company may update this Policy from time to time to reflect changes in Cookies used, legal requirements, or its data practices. The "Last Updated"/"Effective From" date in the Document Identification Information indicates when it was last revised. Material changes shall be notified through the Site or the Cookie consent banner being re-triggered, as appropriate.
+	•	Governing Law and Jurisdiction
+	•	This Policy is governed by the laws of India. Subject to any dispute resolution mechanism agreed under a separate contract, the courts at [●], India, shall have exclusive jurisdiction over any dispute arising out of or in connection with this Policy.
+	•	Contact Us
+	•	If You have questions about this Cookie Policy, please contact us at tech@lawdocs.in or write to us at www.finbyx.com.

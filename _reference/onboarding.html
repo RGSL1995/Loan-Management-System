@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>Onboarding</title><style>:root{--blue:#1F4E78;--mid:#2E75B6;--lt:#DEEAF6;--green:#548235;--red:#C00000;--amber:#BF8F00}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#222;background:#f4f6fa}.bar{background:var(--blue);color:#fff;padding:12px 20px;font-size:17px;display:flex;justify-content:space-between;align-items:center}nav a{color:#cfe0f5;text-decoration:none;margin-left:16px;font-size:13px}nav a:hover{color:#fff}.wrap{max-width:1000px;margin:18px auto;padding:0 16px}.card{background:#fff;border:1px solid #dfe4ec;border-radius:8px;padding:16px 18px;margin-bottom:16px}h2{color:var(--blue);font-size:16px;margin:0 0 12px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{border:1px solid #e2e6ee;padding:6px 8px;text-align:left}th{background:var(--blue);color:#fff}input,select{padding:6px;border:1px solid #cbd3e0;border-radius:4px;font-size:13px}label{font-size:12px;color:#334;display:block;margin-bottom:3px}.row{display:flex;gap:16px;flex-wrap:wrap;align-items:end}.row>div{margin-bottom:8px}button{background:var(--green);color:#fff;border:0;border-radius:6px;padding:8px 14px;font-weight:bold;cursor:pointer}.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{flex:1;min-width:150px;background:var(--lt);border:1px solid var(--mid);border-radius:8px;padding:12px;text-align:center}.tile .l{font-size:12px;color:#334}.tile .v{font-size:20px;font-weight:bold;color:var(--blue)}.ok{color:var(--green)}.bad{color:var(--red)}.step{display:inline-block;padding:5px 10px;border-radius:14px;background:#e6ebf3;margin:0 4px 8px 0;font-size:12px}.step.on{background:var(--mid);color:#fff}.muted{color:#667;font-size:12px}.cards{display:flex;gap:14px;flex-wrap:wrap}.nav-card{flex:1;min-width:220px;background:#fff;border:1px solid #dfe4ec;border-radius:8px;padding:16px;text-decoration:none;color:#222}.nav-card:hover{border-color:var(--mid);box-shadow:0 2px 8px rgba(0,0,0,.06)}.nav-card b{color:var(--blue)}</style></head><body>
+<div class="bar"><span>LMS · <b>Borrower Onboarding Wizard</b></span>
+<nav><a href="index.html">Home</a><a href="onboarding.html">Onboarding</a><a href="las_application.html">LAS Application</a><a href="servicing360.html">Servicing 360</a><a href="collections.html">Collections</a><a href="field_receipt.html">Field Receipt</a></nav></div>
+<div class="wrap"><div class="card">
+<div><span class="step on">1 · KYC</span><span class="step">2 · Income</span><span class="step">3 · Consent</span><span class="step">4 · Review</span></div>
+<h2>Step 1 · Identity / KYC</h2>
+<div class="row">
+<div><label>Applicant type</label><select><option>Individual — Salaried</option><option>Individual — Self-employed</option><option>Company</option></select></div>
+<div><label>PAN</label><input id="pan" oninput="v()" placeholder="ABCDE1234F"><div id="rpan" class="muted"></div></div>
+<div><label>Mobile</label><input id="mob" oninput="v()" placeholder="9876543210"><div id="rmob" class="muted"></div></div>
+<div><label>PIN code</label><input id="pin" oninput="v()" placeholder="411001"><div id="rpin" class="muted"></div></div>
+</div>
+<p><button id="nx" onclick="alert('Validation passed — proceed to Step 2 (prototype).')">Save &amp; Next</button>
+<span id="gate" class="muted"></span></p>
+</div></div>
+<script>
+const R={pan:/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/,mob:/^[6-9][0-9]{9}$/,pin:/^[1-9][0-9]{5}$/};
+function v(){let ok=true;for(const k of ['pan','mob','pin']){const el=document.getElementById(k);const good=R[k].test(el.value.trim());
+ const r=document.getElementById('r'+k);r.textContent=el.value?(good?'✓ valid':'✗ invalid format'):'';r.className=good?'ok':'bad';if(!good)ok=false;}
+ document.getElementById('nx').disabled=!ok;document.getElementById('gate').textContent=ok?'':'Fix highlighted fields to continue';}
+v();
+</script></body></html>

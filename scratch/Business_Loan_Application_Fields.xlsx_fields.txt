@@ -1,0 +1,173 @@
+File: Business Loan Application Fields.xlsx
+Sheets: ['0. Flow Overview', '1. Setup & Product', '2. Applicant Details', '3. Co-Applicant-Guarantor', '4. Contact & Group Cos', '5. Financial Profile', '6. Facility & References', '7. Documents', '8. Declarations & Submit']
+
+=================== Sheet: 0. Flow Overview ===================
+Step	|	Sheet	|	Screen / Block	|	Purpose	|	APIs Fired	|	Gate to Next Step
+1	|	1. Setup & Product	|	Application setup	|	Create application (product = BUSINESS_LOAN), photo/signature placeholders	|	-	|	application_no generated
+2	|	2. Applicant Details	|	Entity identity & addresses	|	Legal status, CIN/deed, PAN, GSTIN, business + registered office address	|	PAN verify; MCA (CIN); GST API	|	PAN valid; MCA status ACTIVE; name-match passed
+3	|	3. Co-Applicant-Guarantor	|	Promoter/director/partner in personal capacity (optional)	|	Individual co-applicant KYC	|	PAN verify; DigiLocker	|	Skipped, or co-applicant KYC passed
+4	|	4. Contact & Group Cos	|	Contact person + associate/group companies	|	Authorised contact; group financial snapshot	|	MCA (optional lookup)	|	Contact person captured
+5	|	5. Financial Profile	|	Existing loans (incl. group) + bank accounts	|	Obligations; disbursal account	|	CIBIL prefill (post-consent); penny-drop	|	>= 1 bank account verified
+6	|	6. Facility & References	|	Loan ask + 2 references	|	Amount, tenure; two non-family references	|	-	|	Amount within product policy
+7	|	7. Documents	|	Upload checklist (14 items)	|	Self-attested uploads incl. financials, ITRs, deeds	|	MCA/PAN/DigiLocker partial	|	All mandatory docs uploaded
+8	|	8. Declarations & Submit	|	Consents, declaration, e-sign	|	14 clauses, granular consents, optional Aadhaar e-KYC, sign & submit	|	CIBIL hard pull (post-consent)	|	All mandatory consents + signature -> SUBMITTED
+
+
+=================== Sheet: 1. Setup & Product ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Application setup (system)	|		|		|		|		|		|		|	
+1	|	application_no	|	Read-only label	|	string(12)	|	System-generated, unique (YYYY + 8-digit seq)	|	M	|	System	|	Show on every screen header
+2	|	application_date	|	Read-only label	|	date (ISO 8601)	|	System timestamp	|	M	|	System	|	Form captures DD/MM/YY at declaration
+3	|	product_type	|	Read-only	|	enum	|	Fixed: BUSINESS_LOAN	|	M	|	System	|	This workbook covers the business flow only
+4	|	sourcing_channel	|	Dropdown	|	enum	|	BRANCH | DSA | DIGITAL | DST	|	O	|	System	|	Not on printed form; needed for DSA declaration (clause 12) and RBI digital-lending tagging
+Photo & signature placeholders	|		|		|		|		|		|		|	
+5	|	applicant_photo	|	File upload / camera	|	JPEG/PNG <= 5 MB	|	Passport-size; face detect recommended	|	M	|	Upload/camera	|	Form: photo with signature across it; digital flow captures photo + signature separately
+6	|	coapp_photo	|	File upload / camera	|	JPEG/PNG <= 5 MB	|	Only if co-applicant added	|	C	|	Upload/camera	|	Defer capture until co-applicant step
+
+
+=================== Sheet: 2. Applicant Details ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Verify via API	|	UI/UX Notes
+Entity identity	|		|		|		|		|		|		|	
+1	|	applicant_name (entity legal name)	|	Text (CAPS)	|	string(40)	|	Exact match vs MCA master data (companies/LLP) or GST legal name (firm/proprietorship)	|	M	|	MCA (CIN) / GST API	|	Prefill after CIN/GST pull
+2	|	legal_status	|	Dropdown	|	enum	|	PVT_LTD | PUBLIC_LTD | PARTNERSHIP_FIRM | PROPRIETORSHIP | OTHERS(+text)	|	M	|	Verified via MCA/GST	|	Drives conditional fields below
+3	|	incorporation_date	|	Date picker	|	date	|	<= today; proprietorship: business commencement (GST reg date as proxy)	|	M	|	MCA (CIN)	|	Form label: 'DOB/Year of Incorporation'
+4	|	roc_registration_no (CIN/LLPIN)	|	Text	|	string(21)	|	CIN ^[LU][0-9]{5}[A-Z]{2}[0-9]{4}[A-Z]{3}[0-9]{6}$; MCA status must be ACTIVE	|	C	|	MCA (CIN)	|	Show if Pvt/Public Ltd/LLP; MCA pull fetches directors (DIN), reg. office, open charges - show summary for confirmation
+5	|	partnership_deed_no	|	Text	|	string(30)	|	Alphanumeric	|	C	|	Manual + deed upload	|	Show if Partnership Firm (same form box as ROC No.)
+6	|	pan	|	Text, auto-uppercase	|	string(10)	|	PAN regex; 4th char C=company, F=firm/LLP, P=proprietor - validate vs legal_status	|	M	|	PAN verify API	|	Proprietorship uses proprietor's personal PAN
+7	|	gstin	|	Text, auto-uppercase	|	string(15)	|	^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z][1-9A-Z]Z[0-9A-Z]$; chars 3-12 must equal PAN; status ACTIVE	|	C	|	GST API	|	Form allows 'NA' - add 'Not GST registered' checkbox; if present pull filing history + turnover band
+Business address (form: 'Residence Address')	|		|		|		|		|		|		|	
+8	|	address_line 1/2	|	Text x2	|	string(80)	|	Free text	|	M	|	GST API (principal place)	|	
+9	|	landmark	|	Text	|	string(40)	|	Free text	|	O	|	Manual	|	
+10	|	pincode	|	Text	|	string(6)	|	^[1-9][0-9]{5}$	|	M	|	Autofill	|	Auto-fill city + state on entry
+11	|	city / state	|	Auto-filled, editable	|	string(30)	|	State = LGD enum	|	M	|	Autofill	|	
+12	|	ownership	|	Radio	|	enum	|	OWNED | RENTED | COMPANY_PROVIDED | OTHERS(+text)	|	M	|	Manual	|	Form label: 'Residence is'
+13	|	years_at_address / years_in_city	|	Number x2	|	int 0-99	|	Form format: YY	|	M	|	Manual	|	
+Registered office	|		|		|		|		|		|		|	
+14	|	registered_office_address block	|	Address block	|	5 fields	|	Line, landmark, PIN, city, state	|	M	|	MCA (CIN)	|	Prefill from MCA; 'Same as business address' checkbox
+15	|	registered_office_ownership	|	Radio	|	enum	|	OWNED | RENTED	|	O	|	Manual	|	Separate ownership tick on form
+16	|	buildup_area	|	Text	|	string(20)	|	Numeric + unit (sq ft)	|	O	|	Manual	|	
+Workforce & tax	|		|		|		|		|		|		|	
+17	|	employees permanent / temporary	|	Number inputs	|	int	|	>= 0	|	O	|	Manual	|	Form: No. of Employees split permanent/temporary
+18	|	advance_tax_paid	|	Toggle Yes/No	|	boolean	|	-	|	O	|	Manual	|	Corroborate via ITR/26AS docs
+Contact	|		|		|		|		|		|		|	
+19	|	email	|	Email input	|	string(80)	|	RFC 5322 basic + verification link	|	M	|	Manual	|	
+20	|	mobile	|	Tel input + OTP	|	string(10)	|	^[6-9][0-9]{9}$, OTP verified	|	M	|	Manual + OTP	|	Primary comms channel (KFS, DLT SMS)
+21	|	landline	|	Tel input	|	string(11)	|	STD + number	|	O	|	Manual	|	
+	|	Screen order: PAN + legal_status first -> CIN/GST pulls prefill entity data -> user confirms/edits. Keep MCA director list for key-person KYC in documents step.	|		|		|		|		|		|	
+
+
+=================== Sheet: 3. Co-Applicant-Guarantor ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Gate	|		|		|		|		|		|		|	
+1	|	coapp_present	|	Toggle 'Add co-applicant'	|	boolean	|	-	|	M	|	System	|	If No, skip this step entirely
+Identity	|		|		|		|		|		|		|	
+2	|	coapp_name	|	Text (CAPS)	|	string(40)	|	Alpha+space; match vs Aadhaar name	|	C	|	DigiLocker	|	
+3	|	coapp_father_spouse_name	|	Text	|	string(40)	|	Alpha+space	|	C	|	Manual	|	
+4	|	coapp_relationship	|	Dropdown	|	enum	|	SPOUSE | PARENT | CHILD | SIBLING | BUSINESS_PARTNER | OTHER	|	C	|	Manual	|	Free text on form; enum recommended
+5	|	coapp_dob	|	Date picker	|	date	|	DDMMYYYY; age >= 18	|	C	|	DigiLocker	|	
+6	|	coapp_marital_status / gender	|	Radio x2	|	enum	|	SINGLE|MARRIED; M|F (add THIRD_GENDER in digital)	|	C	|	DigiLocker (gender)	|	
+7	|	coapp_dependents	|	Number	|	int 0-20	|	-	|	O	|	Manual	|	
+8	|	coapp_citizen_of_india	|	Toggle Yes/No	|	boolean	|	-	|	C	|	Manual	|	Non-citizen path out of scope
+9	|	coapp_category	|	Dropdown	|	enum	|	GENERAL | SC | ST | OTHERS	|	O	|	Manual	|	Sensitive under DPDP - capture only with documented purpose; consider dropping
+10	|	coapp_pan	|	Text, auto-uppercase	|	string(10)	|	PAN regex ^[A-Z]{5}[0-9]{4}[A-Z]$, 4th char P	|	C	|	PAN verify API	|	Mandatory if co-applicant is financial applicant
+11	|	coapp_education	|	Dropdown	|	enum	|	UG | GRADUATE | PROFESSIONAL | PG | OTHERS(+text)	|	O	|	Manual	|	
+Address & contact	|		|		|		|		|		|		|	
+12	|	coapp_residence block	|	Address block	|	5 fields + ownership + years	|	Same structure as applicant residence	|	C	|	DigiLocker/Manual	|	Reuse address component
+13	|	coapp_permanent block	|	Address block	|	5 fields	|	'Same as residence' checkbox	|	C	|	Manual	|	
+14	|	coapp_mobile	|	Tel + OTP	|	string(10)	|	^[6-9][0-9]{9}$	|	C	|	Manual + OTP	|	
+15	|	coapp_tel (STD + no.)	|	Tel input	|	string(13)	|	Numeric	|	O	|	Manual	|	Legacy field
+16	|	coapp_email	|	Email input	|	string(80)	|	RFC 5322	|	C	|	Manual	|	
+17	|	coapp_correspondence_addr_type	|	Radio	|	enum	|	RESIDENCE | OFFICE | NEW_PROPERTY	|	C	|	Manual	|	
+18	|	coapp_photo + signature	|	Upload/camera	|	file	|	As applicant	|	C	|	Upload	|	Photo box reserved on page 1 of form
+	|	For business loans the co-applicant is typically a promoter/director/partner signing in personal capacity (guarantor).	|		|		|		|		|		|	
+
+
+=================== Sheet: 4. Contact & Group Cos ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Contact person	|		|		|		|		|		|		|	
+1	|	contact_name	|	Text	|	string(40)	|	Alpha+space	|	M	|	Manual	|	Authorised contact for application follow-ups
+2	|	contact_designation	|	Text/dropdown	|	string(30)	|	Director/Partner/Proprietor/CFO...	|	M	|	Manual	|	If Director - validate against DIN list from MCA pull
+3	|	contact_mobile	|	Tel + OTP	|	string(10)	|	^[6-9][0-9]{9}$	|	M	|	Manual + OTP	|	
+4	|	contact_email	|	Email input	|	string(80)	|	RFC 5322	|	M	|	Manual	|	
+Associate / group companies - repeating 0..n	|		|		|		|		|		|		|	
+5	|	group_co_name	|	Text + 'Add row'	|	string(60)	|	Optional CIN lookup	|	O	|	MCA (optional)	|	Table UI; form allows multiple entities
+6	|	business_profile	|	Text area	|	string(200)	|	Free text	|	O	|	Manual	|	
+7	|	sales_last_fy	|	Number (Rs)	|	decimal(14,2)	|	>= 0	|	O	|	Manual/financials	|	
+8	|	pat_last_fy	|	Number (Rs)	|	decimal(14,2)	|	Negative allowed	|	O	|	Manual/financials	|	
+9	|	total_borrowings	|	Number (Rs)	|	decimal(14,2)	|	>= 0	|	O	|	Manual	|	Group exposure check; CRILC if aggregate >= Rs 5 cr
+10	|	total_networth	|	Number (Rs)	|	decimal(14,2)	|	Negative allowed	|	O	|	Manual	|	
+
+
+=================== Sheet: 5. Financial Profile ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Verify via API	|	UI/UX Notes
+Existing loans - repeating 0..n (incl. group companies' facilities per form note)	|		|		|		|		|		|		|	
+1	|	loan_type	|	Dropdown + 'Add row'	|	enum	|	Loan Against Securities | Loan against Property | Smart Credit Line	|	O	|	CIBIL prefill	|	If bureau consent already given, offer 'Prefill from bureau'; user confirms each row
+2	|	institution_name	|	Text / lender master	|	string(60)	|	-	|	O	|	CIBIL prefill	|	
+3	|	account_no	|	Text	|	string(20)	|	Alphanumeric	|	O	|	Manual	|	
+4	|	loan_amount	|	Number (Rs)	|	decimal(12,2)	|	> 0	|	O	|	CIBIL prefill	|	Sanctioned amount
+5	|	emi	|	Number (Rs)	|	decimal(10,2)	|	>= 0	|	O	|	CIBIL prefill	|	Feeds FOIR
+6	|	outstanding_principal	|	Number (Rs)	|	decimal(12,2)	|	>= 0	|	O	|	CIBIL prefill	|	
+7	|	balance_tenure_months	|	Number	|	int 0-480	|	-	|	O	|	Manual	|	
+Bank account details - repeating 1..n	|		|		|		|		|		|		|	
+8	|	account_holder_name	|	Text	|	string(40)	|	Name-match vs applicant >= threshold	|	M	|	Penny-drop	|	
+9	|	bank_name / branch	|	Text	|	string(60)	|		|	M	|		|	
+10	|	ifsc	|	Text, auto-uppercase	|	string(11)	|	^[A-Z]{4}0[A-Z0-9]{6}$	|	M	|		|	NOT on printed form - added; required for penny-drop & mandate
+11	|	account_no	|	Text (masked echo)	|	string(18)	|	Numeric 9-18; re-enter to confirm	|	M	|	Penny-drop	|	Encrypt at rest; show masked after save
+12	|	account_operated_since	|	Month picker	|	MM/YYYY	|	<= today	|	O	|	Manual	|	Vintage signal
+13	|	holding_type	|	Radio	|	enum	|	INDIVIDUAL | JOINT	|	M	|	Manual	|	
+	|	Penny-drop fires on save of each account; at least one VERIFIED account required to proceed.	|		|		|		|		|		|	
+
+
+=================== Sheet: 6. Facility & References ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Proposed facility	|		|		|		|		|		|		|	
+1	|	facility_type	|	Read-only	|	enum	|	BUSINESS_LOAN	|	M	|	System	|	
+2	|	facility_amount	|	Number (Rs lakhs)	|	decimal(14,2)	|	Within product min/max policy	|	M	|	Manual	|	Store Rs internally; show Rs lakhs like form (sample: Rs 3.5 cr)
+3	|	tenure_years	|	Dropdown / slider	|	decimal(4,1)	|	Product policy range	|	M	|	Manual	|	Store months internally
+References - exactly 2, excluding family	|		|		|		|		|		|		|	
+4	|	ref_name	|	Text	|	string(40)	|	Alpha+space	|	M	|	Manual	|	Two reference cards side by side (form layout); references must exclude family
+5	|	ref_address + city + pincode	|	Address block	|	2 lines + city + PIN	|	PIN ^[1-9][0-9]{5}$	|	M	|	Manual	|	
+6	|	ref_occupation	|	Text	|	string(40)	|	-	|	O	|	Manual	|	
+7	|	ref_years_known	|	Number	|	int 1-99	|	-	|	O	|	Manual	|	
+8	|	ref_phone / ref_mobile	|	Tel inputs	|	string(10)	|	>= 1 contact number; mobile regex	|	M	|	Manual	|	
+9	|	ref_relationship	|	Text	|	string(30)	|	Must NOT be family - validate vs family list	|	M	|	Manual	|	Inline error if family relation entered
+
+
+=================== Sheet: 7. Documents ===================
+#	|	Document (self-attested)	|	Form Item	|	Required	|	Auto-satisfied by API?	|	UI/UX Notes
+1	|	PAN card of company	|	1	|	M	|	Yes - PAN verify API	|	Mark 'Verified via API' when passed
+2	|	Address proof of company (light bill / telephone bill)	|	2	|	M	|	Partly - GST address	|	
+3	|	Certificate of Incorporation / Shop & Establishment licence / Trade licence (any one)	|	3	|	M	|	Yes for companies - MCA	|	Radio to pick which of the three is supplied
+4	|	PAN + address proof of directors/partners/proprietor/co-applicant	|	4	|	M	|	Yes - PAN + DigiLocker per person	|	Repeating upload per key person (from MCA director list)
+5	|	MoA + AoA / registered partnership deed	|	5	|	M	|	Partly - MCA provides MoA/AoA	|	
+6	|	Audited financials - last 3 years	|	6	|	M	|	No	|	Multi-file upload, tag by FY
+7	|	Provisional financials (BS + P&L with schedules) - last FY	|	7	|	M	|	No	|	
+8	|	ITR - company + promoters, with computation + IT acknowledgement	|	8	|	M	|	No	|	
+9	|	Tax audit reports - last 3 years	|	9	|	C	|	No	|	Only if tax audit applicable
+10	|	Bank statement - last 6 months	|	10	|	M	|	Not Currently Available, Future: AA fetch	|	Password-protected PDF handling + parse
+11	|	Sanction letters from all banks/institutions (secured + unsecured)	|	11	|	C	|	No	|	Required if existing facilities declared in step 5
+12	|	Profile / bio-data of directors (with experience proof)	|	12	|	M	|	No	|	
+13	|	Profile of company & key persons	|	13	|	M	|	No	|	
+14	|	List of property documents with existing banker / copy of MOE	|	14	|	C	|	No	|	Secured facilities only
+	|	Each row in UI: document name; Yes/No submitted toggle (form layout); file upload (PDF/JPEG <= 10 MB); verification status badge (Pending / Verified / Rejected). Gate: all Mandatory rows must be Uploaded or API-Verified.	|		|		|		|	
+
+
+=================== Sheet: 8. Declarations & Submit ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Consents - granular, each logged with timestamp + IP + device + text version	|		|		|		|		|		|		|	
+1	|	decl_accepted (clauses 1-12)	|	Scroll-to-end + checkbox	|	boolean + timestamp	|	Must be true	|	M	|	System	|	Render full 14-clause declaration text verbatim
+2	|	consent_credit_bureau (clause 8)	|	Separate checkbox	|	boolean + timestamp	|	Must be true before CIBIL hard pull	|	M	|	System	|	CIBIL hard pull triggers on submit if not already pulled at financial-profile prefill
+3	|	consent_data_sharing (clause 13)	|	Separate checkbox	|	boolean + timestamp	|	Must be true	|	M	|	System	|	DPDP + Withdrawal mechanism required (clause 13d)
+4	|	consent_ekyc_aadhaar (clause 14)	|	Separate checkbox - OPTIONAL	|	boolean + timestamp	|	Optional per form; never force	|	O	|	System	|	Enables Aadhaar OTP/biometric auth
+Identity & sign-off	|		|		|		|		|		|		|	
+5	|	aadhaar_number	|	Masked input	|	string(12)	|	Verhoeff checksum	|	O	|	DigiLocker	|	Store masked (XXXX-XXXX-1234) + vault ref ONLY; display last 4
+6	|	service_agency_rel_no	|	Text	|	string(20)	|	Alphanumeric (bank a/c or customer ID)	|	O	|	Manual	|	
+7	|	applicant signature / thumb	|	eSign / signature pad / upload	|	file or eSign artefact	|	Required to submit	|	M	|	eSign / upload	|	Aadhaar eSign only if clause-14 consent; else wet-sign upload
+8	|	declaration_date	|	Auto	|	date DD/MM/YYYY	|	#NAME?	|	M	|	System	|	
+9	|	Co-applicant consent block	|	Same controls	|	same	|	Same rules	|	C	|	System	|	Full consent + signature set repeated for co-applicant
+Declaration clauses 1-14 (render verbatim)	|		|		|		|		|		|		|	
+10	|	1 Fee non-refundable; 2 Appraisal at sole discretion; 3 Particulars form basis of decision; 4 No insolvency/recovery proceedings; 5 T&C read; 6 Interest on daily rest; 7 Right to reject, docs not returned	|	Static text	|	-	|	-	|	-	|	-	|	
+11	|	8 Bureau consent; 9 Governed by lender rules; 10 Undertake to inform changes; 11 Not related to directors/employees; 12 DSA/DST no extra commission; 13 Data-sharing consent (a-d); 14 Optional Aadhaar e-KYC consent	|	Static text	|	-	|	-	|	-	|	-	|	
+	|	On submit: status -> SUBMITTED; fire CIBIL hard pull (if pending); generate application PDF replica for records.	|		|		|		|		|		|	
+
+

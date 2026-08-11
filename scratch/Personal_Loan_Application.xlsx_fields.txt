@@ -1,0 +1,139 @@
+File: Personal Loan Application.xlsx
+Sheets: ['0. Flow Overview', '1. Setup & Product', '2. Applicant Details', '3. Co-Applicant', '4. Financial Profile', '5. Facility & References', '6. Documents', '7. Declarations & Submit']
+
+=================== Sheet: 0. Flow Overview ===================
+Step	|	Sheet	|	Screen / Block	|	Purpose	|	APIs Fired	|	Gate to Next Step
+1	|	1. Setup & Product	|	Application setup	|	Create application (product = PERSONAL_LOAN), photo/signature placeholders	|	-	|	application_no generated
+2	|	2. Applicant Details	|	Individual identity & address	|	Name, PAN, DOB, addresses, contact	|	PAN verify; DigiLocker (Aadhaar)	|	PAN valid; KYC pull OK; name-match passed
+3	|	3. Co-Applicant	|	Co-applicant details (optional)	|	Individual co-applicant KYC	|	PAN verify; DigiLocker	|	Skipped, or co-applicant KYC passed
+4	|	4. Financial Profile	|	Existing loans + bank accounts	|	Obligations for FOIR; disbursal account	|	CIBIL prefill (post-consent); penny-drop	|	>= 1 bank account verified
+5	|	5. Facility & References	|	Loan ask + 2 references	|	Amount, tenure; two non-family references	|	-	|	Amount within product policy
+6	|	6. Documents	|	Upload checklist (personal set)	|	Self-attested uploads	|	DigiLocker fetch where possible	|	All mandatory docs uploaded
+7	|	7. Declarations & Submit	|	Consents, declaration, e-sign	|	14 clauses, granular consents, optional Aadhaar e-KYC, sign & submit	|	CIBIL hard pull (post-consent)	|	All mandatory consents + signature -> SUBMITTED
+
+
+=================== Sheet: 1. Setup & Product ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Application setup (system)	|		|		|		|		|		|		|	
+1	|	application_no	|	Read-only label	|	string(12)	|	System-generated, unique (YYYY + 8-digit seq)	|	M	|	System	|	Show on every screen header
+2	|	application_date	|	Read-only label	|	date (ISO 8601)	|	System timestamp	|	M	|	System	|	Form captures DD/MM/YY at declaration
+3	|	product_type	|	Read-only	|	enum	|	Fixed: PERSONAL_LOAN	|	M	|	System	|	This workbook covers the personal flow only
+4	|	sourcing_channel	|	Dropdown	|	enum	|	BRANCH | DSA | DIGITAL | DST	|	O	|	System	|	Needed for DSA declaration (clause 12) and RBI digital-lending tagging
+Photo & signature placeholders	|		|		|		|		|		|		|	
+5	|	applicant_photo	|	File upload / camera	|	JPEG/PNG <= 5 MB	|	Passport-size; face detect recommended	|	M	|	Upload/camera	|	Form: photo with signature across it; digital flow captures photo + signature separately
+6	|	coapp_photo	|	File upload / camera	|	JPEG/PNG <= 5 MB	|	Only if co-applicant added	|	C	|	Upload/camera	|	Defer capture until co-applicant step
+
+
+=================== Sheet: 2. Applicant Details ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Identity (individual)	|		|		|		|		|		|		|	
+1	|	applicant_name	|	Text (CAPS)	|	string(40)	|	Alpha+space; fuzzy-match vs PAN/Aadhaar name >= 0.85	|	M	|	DigiLocker (Aadhaar)	|	Prefill after PAN/KYC pull; editable with re-verify
+2	|	pan	|	Text, auto-uppercase	|	string(10)	|	^[A-Z]{5}[0-9]{4}[A-Z]$; 4th char must be P (individual)	|	M	|	PAN verify API	|	Verify on blur; invalid/inoperative = hard stop
+3	|	father_spouse_name	|	Text	|	string(40)	|	Alpha+space	|	M	|	PAN API cross-check	|	
+4	|	dob	|	Date picker	|	date	|	Age 18-65 at application, <= 70 at maturity	|	M	|	DigiLocker (Aadhaar)	|	Cross-check vs PAN DOB
+Residence address	|		|		|		|		|		|		|	
+5	|	address_line 1/2	|	Text x2	|	string(80)	|	Free text	|	M	|	DigiLocker (Aadhaar)	|	
+6	|	landmark	|	Text	|	string(40)	|	Free text	|	O	|	Manual	|	
+7	|	pincode	|	Text	|	string(6)	|	^[1-9][0-9]{5}$	|	M	|		|	
+8	|	city / state	|	Auto-filled, editable	|	string(30)	|	State = LGD enum	|	M	|		|	
+9	|	ownership	|	Radio	|	enum	|	OWNED | RENTED | COMPANY_PROVIDED | OTHERS(+text)	|	M	|	Manual	|	Form label: 'Residence is'
+10	|	years_at_address / years_in_city	|	Number x2	|	int 0-99	|	Form format: YY	|	M	|	Manual	|	
+Permanent address	|		|		|		|		|		|		|	
+11	|	permanent_address block	|	Address block	|	5 fields	|	Same structure as residence	|	M	|	Manual	|	'Same as residence' checkbox copies block
+Contact	|		|		|		|		|		|		|	
+12	|	email	|	Email input	|	string(80)	|	RFC 5322 basic + verification link	|	M	|	Manual	|	
+13	|	mobile	|	Tel input + OTP	|	string(10)	|	^[6-9][0-9]{9}$, OTP verified	|	M	|	Manual + OTP	|	Primary comms channel (KFS, DLT SMS)
+14	|	landline	|	Tel input	|	string(11)	|	STD + number	|	O	|	Manual	|	
+	|	Screen order: PAN first -> DigiLocker pull prefills name/DOB/address -> user confirms/edits.	|		|		|		|		|		|	
+
+
+=================== Sheet: 3. Co-Applicant ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Gate	|		|		|		|		|		|		|	
+1	|	coapp_present	|	Toggle 'Add co-applicant'	|	boolean	|	-	|	M	|	System	|	If No, skip this step entirely
+Identity	|		|		|		|		|		|		|	
+2	|	coapp_name	|	Text (CAPS)	|	string(40)	|	Alpha+space; match vs Aadhaar name	|	C	|	DigiLocker	|	
+3	|	coapp_father_spouse_name	|	Text	|	string(40)	|	Alpha+space	|	C	|	Manual	|	
+4	|	coapp_relationship	|	Dropdown	|	enum	|	SPOUSE | PARENT | CHILD | SIBLING | BUSINESS_PARTNER | OTHER	|	C	|	Manual	|	Free text on form; enum recommended
+5	|	coapp_dob	|	Date picker	|	date	|	DDMMYYYY; age >= 18	|	C	|	DigiLocker	|	
+6	|	coapp_marital_status / gender	|	Radio x2	|	enum	|	SINGLE|MARRIED; M|F (add THIRD_GENDER in digital)	|	C	|	DigiLocker (gender)	|	
+7	|	coapp_dependents	|	Number	|	int 0-20	|	-	|	O	|	Manual	|	
+8	|	coapp_citizen_of_india	|	Toggle Yes/No	|	boolean	|	-	|	C	|	Manual	|	Non-citizen path out of scope
+9	|	coapp_category	|	Dropdown	|	enum	|	GENERAL | SC | ST | OTHERS	|	O	|	Manual	|	Sensitive under DPDP - capture only with documented purpose; consider dropping
+10	|	coapp_pan	|	Text, auto-uppercase	|	string(10)	|	PAN regex ^[A-Z]{5}[0-9]{4}[A-Z]$, 4th char P	|	C	|	PAN verify API	|	Mandatory if co-applicant is financial applicant
+11	|	coapp_education	|	Dropdown	|	enum	|	UG | GRADUATE | PROFESSIONAL | PG | OTHERS(+text)	|	O	|	Manual	|	
+Address & contact	|		|		|		|		|		|		|	
+12	|	coapp_residence block	|	Address block	|	5 fields + ownership + years	|	Same structure as applicant residence	|	C	|	DigiLocker/Manual	|	Reuse address component
+13	|	coapp_permanent block	|	Address block	|	5 fields	|	'Same as residence' checkbox	|	C	|	Manual	|	
+14	|	coapp_mobile	|	Tel + OTP	|	string(10)	|	^[6-9][0-9]{9}$	|	C	|	Manual + OTP	|	
+15	|	coapp_tel (STD + no.)	|	Tel input	|	string(13)	|	Numeric	|	O	|	Manual	|	Legacy field
+16	|	coapp_email	|	Email input	|	string(80)	|	RFC 5322	|	C	|	Manual	|	
+17	|	coapp_correspondence_addr_type	|	Radio	|	enum	|	RESIDENCE | OFFICE | NEW_PROPERTY	|	C	|	Manual	|	
+18	|	coapp_photo + signature	|	Upload/camera	|	file	|	As applicant	|	C	|	Upload	|	Photo box reserved on page 1 of form
+
+
+=================== Sheet: 4. Financial Profile ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Existing loans - repeating 0..n	|		|		|		|		|		|		|	
+1	|	loan_type	|	Dropdown + 'Add row'	|	enum	|	Loan Against Securities | Loan Against Property | Smart Credit Line	|	O	|	CIBIL prefill	|	If bureau consent already given, offer 'Prefill from bureau'; user confirms each row
+2	|	institution_name	|	Text / lender master	|	string(60)	|	-	|	O	|	CIBIL prefill	|	
+3	|	account_no	|	Text	|	string(20)	|	Alphanumeric	|	O	|	Manual	|	
+4	|	loan_amount	|	Number (Rs)	|	decimal(12,2)	|	> 0	|	O	|	CIBIL prefill	|	Sanctioned amount
+5	|	emi	|	Number (Rs)	|	decimal(10,2)	|	>= 0	|	O	|	CIBIL prefill	|	Feeds FOIR
+6	|	outstanding_principal	|	Number (Rs)	|	decimal(12,2)	|	>= 0	|	O	|	CIBIL prefill	|	
+7	|	balance_tenure_months	|	Number	|	int 0-480	|	-	|	O	|	Manual	|	
+Bank account details - repeating 1..n	|		|		|		|		|		|		|	
+8	|	account_holder_name	|	Text	|	string(40)	|	Name-match vs applicant >= threshold	|	M	|	Penny-drop	|	
+9	|	bank_name / branch	|	Auto from IFSC	|	string(60)	|		|	M	|		|	
+10	|	ifsc	|	Text, auto-uppercase	|	string(11)	|	^[A-Z]{4}0[A-Z0-9]{6}$	|	M	|		|	NOT on printed form - added; required for penny-drop & mandate
+11	|	account_no	|	Text (masked echo)	|	string(18)	|	Numeric 9-18; re-enter to confirm	|	M	|	Penny-drop	|	Encrypt at rest; show masked after save
+12	|	account_operated_since	|	Month picker	|	MM/YYYY	|	<= today	|	O	|	Manual	|	Vintage signal
+13	|	holding_type	|	Radio	|	enum	|	INDIVIDUAL | JOINT	|	M	|	Manual	|	
+	|	Penny-drop fires on save of each account; at least one VERIFIED account required to proceed.	|		|		|		|		|		|	
+
+
+=================== Sheet: 5. Facility & References ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Proposed facility	|		|		|		|		|		|		|	
+1	|	facility_type	|	Read-only	|	enum	|	PERSONAL_LOAN	|	M	|	System	|	
+2	|	facility_amount	|	Number (Rs lakhs)	|	decimal(12,2)	|	Within product min/max policy	|	M	|	Manual	|	Store Rs internally; show Rs lakhs like form
+3	|	tenure_years	|	Dropdown / slider	|	decimal(4,1)	|	Product policy range (e.g. 1-5)	|	M	|	Manual	|	Store months internally
+References - exactly 2, excluding family	|		|		|		|		|		|		|	
+4	|	ref_name	|	Text	|	string(40)	|	Alpha+space	|	M	|	Manual	|	Two reference cards side by side (form layout); references must exclude family
+5	|	ref_address + city + pincode	|	Address block	|	2 lines + city + PIN	|	PIN ^[1-9][0-9]{5}$	|	M	|	Manual	|	
+6	|	ref_occupation	|	Text	|	string(40)	|	-	|	O	|	Manual	|	
+7	|	ref_years_known	|	Number	|	int 1-99	|	-	|	O	|	Manual	|	
+8	|	ref_phone / ref_mobile	|	Tel inputs	|	string(10)	|	>= 1 contact number; mobile regex	|	M	|	Manual	|	
+9	|	ref_relationship	|	Text	|	string(30)	|	Must NOT be family - validate vs family list	|	M	|	Manual	|	Inline error if family relation entered
+
+
+=================== Sheet: 6. Documents ===================
+#	|	Document (self-attested)	|	Form Item	|	Required	|	Auto-satisfied by API?	|	UI/UX Notes
+1	|	PAN card	|	1	|	M	|	Yes - PAN verify API	|	Mark 'Verified via API' instead of upload when API passed
+2	|	Address proof (passport / electricity bill / telephone bill)	|	4	|	M	|	Yes - DigiLocker Aadhaar/DL	|	
+3	|	ITR + computation of income + IT acknowledgement	|	8	|	M	|	No	|	Income assessment
+4	|	Bank statement - last 6 months	|	10	|	M	|	Not currently available, Future: AA fetch	|	Password-protected PDF handling + parse
+5	|	Sanction letters of existing loans (secured + unsecured)	|	11	|	C	|	No	|	Required if existing loans declared in step 4
+6	|	Co-applicant PAN + address proof	|	4	|	C	|	Yes - PAN + DigiLocker	|	If co-applicant present
+	|	Each row in UI: document name; Yes/No submitted toggle (form layout); file upload (PDF/JPEG <= 10 MB); verification status badge (Pending / Verified / Rejected). Gate: all Mandatory rows must be Uploaded or API-Verified.	|		|		|		|	
+
+
+=================== Sheet: 7. Declarations & Submit ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Consents - granular, each logged with timestamp + IP + device + text version	|		|		|		|		|		|		|	
+1	|	decl_accepted (clauses 1-12)	|	Scroll-to-end + checkbox	|	boolean + timestamp	|	Must be true	|	M	|	System	|	Render full 14-clause declaration text verbatim
+2	|	consent_credit_bureau (clause 8)	|	Separate checkbox	|	boolean + timestamp	|	Must be true before CIBIL hard pull	|	M	|	System	|	CIBIL hard pull triggers on submit if not already pulled at financial-profile prefill
+3	|	consent_data_sharing (clause 13)	|	Separate checkbox	|	boolean + timestamp	|	Must be true	|	M	|	System	|	DPDP, Withdrawal mechanism required (clause 13d)
+4	|	consent_ekyc_aadhaar (clause 14)	|	Separate checkbox - OPTIONAL	|	boolean + timestamp	|	Optional per form; never force	|	O	|	System	|	Enables Aadhaar OTP/biometric auth
+Identity & sign-off	|		|		|		|		|		|		|	
+5	|	aadhaar_number	|	Masked input	|	string(12)	|	Verhoeff checksum	|	O	|	DigiLocker	|	Store masked (XXXX-XXXX-1234) + vault ref ONLY; display last 4
+6	|	service_agency_rel_no	|	Text	|	string(20)	|	Alphanumeric (bank a/c or customer ID)	|	O	|	Manual	|	
+7	|	applicant signature / thumb	|	eSign / signature pad / upload	|	file or eSign artefact	|	Required to submit	|	M	|	eSign / upload	|	Aadhaar eSign only if clause-14 consent; else wet-sign upload
+8	|	declaration_date	|	Auto	|	date DD/MM/YYYY	|	Equals submit date	|	M	|	System	|	
+9	|	Co-applicant consent block	|	Same controls	|	same	|	Same rules	|	C	|	System	|	Full consent + signature set repeated for co-applicant
+Declaration clauses 1-14 (render verbatim)	|		|		|		|		|		|		|	
+10	|	1 Fee non-refundable; 2 Appraisal at sole discretion; 3 Particulars form basis of decision; 4 No insolvency/recovery proceedings; 5 T&C read; 6 Interest on daily rest; 7 Right to reject, docs not returned	|	Static text	|	-	|	-	|	-	|	-	|	
+11	|	8 Bureau consent; 9 Governed by lender rules; 10 Undertake to inform changes; 11 Not related to directors/employees; 12 DSA/DST no extra commission; 13 Data-sharing consent (a-d); 14 Optional Aadhaar e-KYC consent	|	Static text	|	-	|	-	|	-	|	-	|	
+	|	On submit: status -> SUBMITTED; fire CIBIL hard pull (if pending); generate application PDF replica for records.	|		|		|		|		|		|	
+
+

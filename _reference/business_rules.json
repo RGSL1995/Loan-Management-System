@@ -1,0 +1,62 @@
+[
+  {
+    "id": "BR-001",
+    "rule": "Requested amount ≤ eligible amount (LTV/DP/income)",
+    "trigger": "Application submit",
+    "action": "Block; BR_LTV/BR_DP/BR_FOIR"
+  },
+  {
+    "id": "BR-002",
+    "rule": "FOIR ≤ product cap",
+    "trigger": "Underwriting",
+    "action": "Block or route to deviation"
+  },
+  {
+    "id": "BR-003",
+    "rule": "Bureau score ≥ minimum (or deviation)",
+    "trigger": "Underwriting",
+    "action": "Route to deviation approver"
+  },
+  {
+    "id": "BR-004",
+    "rule": "Sanction within delegated authority",
+    "trigger": "Sanction",
+    "action": "Block; escalate tier (BR_DOA)"
+  },
+  {
+    "id": "BR-005",
+    "rule": "All mandatory sanction conditions cleared",
+    "trigger": "Disburse",
+    "action": "Block (BR_COND_PENDING)"
+  },
+  {
+    "id": "BR-006",
+    "rule": "Every disbursement/repayment is idempotent",
+    "trigger": "Money API",
+    "action": "Replay stored result (409 on conflict)"
+  },
+  {
+    "id": "BR-007",
+    "rule": "Penal charge = fee, non-compounding",
+    "trigger": "Overdue",
+    "action": "Post to penal-charge ledger only (§24.7)"
+  },
+  {
+    "id": "BR-008",
+    "rule": "NPA at 90+ DPD; income on realisation",
+    "trigger": "Day-end classification",
+    "action": "Reverse interest (§33), provision"
+  },
+  {
+    "id": "BR-009",
+    "rule": "LAS: 50% LTV maintained at all times",
+    "trigger": "Daily revaluation",
+    "action": "Margin call; cure 7 working days (§86)"
+  },
+  {
+    "id": "BR-010",
+    "rule": "KFS with APR shown before acceptance",
+    "trigger": "Sanction",
+    "action": "Block acceptance without KFS (§17.1)"
+  }
+]

@@ -1,0 +1,174 @@
+File: LAP_Personal.xlsx
+Sheets: ['0. Flow Overview', '1. Setup', '2. Applicant Details', '3. Co-Applicant', '4. Collateral - Property', '5. Financial Profile', '6. Facility & References', '7. Documents', '8. Declarations & Submit']
+
+=================== Sheet: 0. Flow Overview ===================
+Step	|	Sheet	|	Screen / Block	|	Purpose	|	APIs Fired	|	Gate to Next Step
+1	|	1. Setup	|	Application setup	|	Create application (product = LAP Personal)	|	-	|	application_no generated
+2	|	2. Applicant Details	|	Individual identity & address	|	KYC + identity verification	|	PAN; DigiLocker	|	PAN valid; KYC passed
+3	|	3. Co-Applicant	|	Co-applicant / co-owners	|	Individual KYC of co-obligors	|	PAN; DigiLocker	|	All property co-owners joined (LAP)
+4	|	4. Collateral - Property	|	Property identity, ownership/title, valuation & legal, security plan	|	Collateral eligibility + value determine the facility	|	CERSAI search; valuer/legal workflows	|	CERSAI clear; LSR clear; assessed value fixed
+5	|	5. Financial Profile	|	Existing loans + bank accounts	|	Obligations; disbursal account	|	CIBIL prefill; penny-drop	|	>= 1 verified bank account
+6	|	6. Facility & References	|	Facility ask + 2 references	|	Amount/tenure vs LTV band + end-use	|	-	|	LTV within policy band
+7	|	7. Documents	|	Upload checklist	|	KYC, income, collateral documents	|	DigiLocker/depository fetch	|	All mandatory docs in
+8	|	8. Declarations & Submit	|	Consents + collateral-specific undertakings + e-sign	|	Bureau, data, margin-call/enforcement consents	|	CIBIL hard pull (post-consent)	|	All consents + signature -> SUBMITTED
+Legend	|		|		|		|		|	
+	|	Required	|	M = Mandatory, O = Optional, C = Conditional	|		|		|	
+	|	Sources	|	SCM Ltd application form template; project LAS/LAP memos (Jul 2026); RBI/SEBI norms - see '9. Reg Parameters' sheet	|		|		|	
+	|	Repeating blocks	|	Securities/owners tables, existing loans, bank accounts, references, group companies = add-row tables	|		|		|	
+
+
+=================== Sheet: 1. Setup ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Application setup (system)	|		|		|		|		|		|		|	
+1	|	application_no	|	Read-only label	|	string(12)	|	System-generated, unique (YYYY + 8-digit seq)	|	M	|	System	|	Show on every screen header
+2	|	application_date	|	Read-only label	|	date (ISO 8601)	|	System timestamp	|	M	|	System	|	
+3	|	product_type	|	Read-only	|	enum	|	Fixed: LAP_PERSONAL	|	M	|	System	|	
+4	|	sourcing_channel	|	Dropdown	|	enum	|	BRANCH | DSA | DIGITAL | DST	|	O	|	System	|	Needed for DSA declaration and RBI digital-lending tagging
+Photo & signature placeholders	|		|		|		|		|		|		|	
+5	|	applicant_photo	|	File upload / camera	|	JPEG/PNG <= 5 MB	|	Passport-size; face detect recommended	|	M	|	Upload/camera	|	
+6	|	coapp_photo	|	File upload / camera	|	JPEG/PNG <= 5 MB	|	Only if co-applicant added	|	C	|	Upload/camera	|	
+
+
+=================== Sheet: 2. Applicant Details ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Identity (individual)	|		|		|		|		|		|		|	
+1	|	applicant_name	|	Text (CAPS)	|	string(40)	|	Alpha+space; fuzzy-match vs PAN/Aadhaar name >= 0.85	|	M	|	DigiLocker (Aadhaar)	|	Prefill after PAN/KYC pull
+2	|	pan	|	Text, auto-uppercase	|	string(10)	|	^[A-Z]{5}[0-9]{4}[A-Z]$; 4th char must be P	|	M	|	PAN verify API	|	Invalid/inoperative = hard stop
+3	|	father_spouse_name	|	Text	|	string(40)	|	Alpha+space	|	M	|	PAN API cross-check	|	
+4	|	dob	|	Date picker	|	date	|	Age 18-65 at application, <= 70 at maturity	|	M	|	DigiLocker (Aadhaar)	|	
+Residence address	|		|		|		|		|		|		|	
+5	|	address_line 1/2	|	Text x2	|	string(80)	|	Free text	|	M	|	DigiLocker (Aadhaar)	|	Address
+6	|	landmark	|	Text	|	string(40)	|	Free text	|	O	|	Manual	|	
+7	|	pincode	|	Text	|	string(6)	|	^[1-9][0-9]{5}$	|	M	|	Manual	|	Auto-fill city + state
+8	|	city / state	|	Auto-filled, editable	|	string(30)	|	State = LGD enum	|	M	|	Manual	|	
+9	|	ownership	|	Radio	|	enum	|	OWNED | RENTED | COMPANY_PROVIDED | OTHERS(+text)	|	M	|	Manual	|	
+10	|	years_at_address / years_in_city	|	Number x2	|	int 0-99	|	-	|	M	|	Manual	|	
+Permanent address	|		|		|		|		|		|		|	
+11	|	permanent_address block	|	Address block	|	5 fields	|	'Same as residence' checkbox	|	M	|	Manual	|	
+Contact	|		|		|		|		|		|		|	
+12	|	email	|	Email input	|	string(80)	|	RFC 5322 + verification link	|	M	|	Manual	|	
+13	|	mobile	|	Tel input + OTP	|	string(10)	|	^[6-9][0-9]{9}$, OTP verified	|	M	|	Manual + OTP	|	Primary comms channel (KFS, DLT SMS, margin-call notices)
+14	|	landline	|	Tel input	|	string(11)	|	STD + number	|	O	|	Manual	|	
+	|	PAN first -> DigiLocker pull prefills name/DOB/address -> user confirms.	|		|		|		|		|		|	
+
+
+=================== Sheet: 3. Co-Applicant ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Gate	|		|		|		|		|		|		|	
+1	|	coapp_present	|	Toggle 'Add co-applicant'	|	boolean	|	-	|	M	|	System	|	If No, skip step. LAP: ALL property co-owners MUST join as co-applicants/mortgagors - gate cannot be skipped if property is jointly owned
+Identity	|		|		|		|		|		|		|	
+2	|	coapp_name	|	Text (CAPS)	|	string(40)	|	Alpha+space; match vs Aadhaar	|	C	|	DigiLocker	|	
+3	|	coapp_father_spouse_name	|	Text	|	string(40)	|	Alpha+space	|	C	|	Manual	|	
+4	|	coapp_relationship	|	Dropdown	|	enum	|	SPOUSE | PARENT | CHILD | SIBLING | BUSINESS_PARTNER | CO_OWNER | OTHER	|	C	|	Manual	|	
+5	|	coapp_dob	|	Date picker	|	date	|	Age >= 18	|	C	|	DigiLocker	|	
+6	|	coapp_marital_status / gender	|	Radio x2	|	enum	|	SINGLE|MARRIED; M|F(+THIRD_GENDER)	|	C	|	DigiLocker	|	
+7	|	coapp_pan	|	Text, auto-uppercase	|	string(10)	|	PAN regex, 4th char P	|	C	|	PAN verify API	|	
+8	|	coapp_citizen_of_india	|	Toggle	|	boolean	|	-	|	C	|	Manual	|	
+Address & contact	|		|		|		|		|		|		|	
+9	|	coapp_residence + permanent blocks	|	Address blocks	|	5 fields each + ownership + years	|	'Same as residence' checkbox	|	C	|	DigiLocker/Manual	|	Reuse address component
+10	|	coapp_mobile / email	|	Tel + OTP / Email	|	string(10)/string(80)	|	Mobile regex; RFC 5322	|	C	|	Manual + OTP	|	
+11	|	coapp_correspondence_addr_type	|	Radio	|	enum	|	RESIDENCE | OFFICE | NEW_PROPERTY	|	C	|	Manual	|	
+12	|	coapp_photo + signature	|	Upload/camera	|	file	|	As applicant	|	C	|	Upload	|	
+	|	LAP: all property co-owners MUST be added here as co-applicants/mortgagors before the collateral step will pass.	|		|		|		|		|		|	
+
+
+=================== Sheet: 4. Collateral - Property ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Property identity	|		|		|		|		|		|		|	
+1	|	property_type	|	Dropdown	|	enum	|	RESIDENTIAL | COMMERCIAL | INDUSTRIAL | PLOT | MIXED_USE	|	M	|	Manual	|	Drives valuation & LTV policy band
+2	|	property_subtype	|	Dropdown	|	enum	|	FLAT | INDEPENDENT_HOUSE | OFFICE | SHOP | WAREHOUSE | LAND...	|	M	|	Manual	|	
+3	|	property_address block	|	Address block	|	Line x2, landmark, PIN, city, state	|	PIN regex; geotag capture recommended	|	M	|	Manual + geotag	|	Distinct from applicant address
+4	|	land_area / built_up_area	|	Number x2 + unit	|	decimal(10,2)	|	> 0; sq ft / sq m / sq yd	|	M	|	Manual -> verified by valuer	|	
+5	|	property_age_years	|	Number	|	int 0-150	|	-	|	M	|	Manual -> valuer	|	Residual life must exceed tenor + buffer per policy
+6	|	occupancy_status	|	Dropdown	|	enum	|	SELF_OCCUPIED | LET_OUT | VACANT | UNDER_CONSTRUCTION	|	M	|	Manual -> technical visit	|	Let-out: rent adds to income assessment; tenancy complicates enforcement
+7	|	current_use	|	Dropdown	|	enum	|	As per approved plan | Deviation(+text)	|	M	|	Technical report	|	
+Ownership & title	|		|		|		|		|		|		|	
+8	|	ownership_type	|	Dropdown	|	enum	|	SOLE | JOINT | INHERITED | POA_HELD | HUF	|	M	|	Manual -> LSR	|	JOINT: every co-owner must join as co-applicant/mortgagor. POA-based: heightened scrutiny per policy
+9	|	owners (repeating)	|	Table + 'Add row'	|	name + share %	|	Shares sum to 100%; each owner KYC'd	|	M	|	Manual -> title docs	|	Link each owner to a co-applicant record
+10	|	title_deed_reference	|	Text + upload	|	doc refs	|	Sale deed / gift deed / partition deed / allotment letter...	|	M	|	Upload	|	Title chain traced 13-30 years in LSR (lender-side)
+11	|	encumbrance_certificate_ref	|	Upload + period	|	file + date range	|	EC from Sub-Registrar; period per policy (13-30 yrs)	|	M	|	Upload / state portal	|	Confirms no existing registered charge
+12	|	cersai_search_result	|	Read-only badge	|	enum	|	CLEAR | PRIOR_CHARGE_FOUND	|	M	|	Manual	|	Mandatory pre-sanction search; prior charge = stop/refer
+13	|	existing_loans_on_property	|	Toggle + details	|	boolean + text	|	BT/top-up cases: takeover letter, foreclosure LOD	|	M	|	Manual	|	
+Valuation & technical 	|		|		|		|		|		|		|	
+14	|	valuation_report_1	|	Status + value	|	decimal(14,2) + file	|	Empanelled valuer; report date <= 90 days	|	M	|	Valuer workflow	|	
+15	|	valuation_report_2	|	Status + value	|	decimal(14,2) + file	|	Second independent valuer - market practice for loans ~Rs 25-50 lakh+	|	C	|	Valuer workflow	|	LOWER of two values fixes assessed value
+16	|	assessed_value	|	Computed	|	decimal(14,2)	|	min(valuation_1, valuation_2)	|	M	|	System	|	
+17	|	ltv_computed	|	Computed badge	|	decimal(5,2)	|	requested_amount / assessed_value; policy band 60-70% (market practice - no hard RBI cap for NBFC LAP)	|	M	|	System	|	Breach = reduce ask or reject
+18	|	legal_scrutiny_report (LSR)	|	Status + file	|	enum + file	|	CLEAR_MARKETABLE | DEFECTIVE | REFER; empanelled advocate	|	M	|	Legal workflow	|	Title clear & marketable required
+19	|	technical_report	|	Status + file	|	enum + file	|	Site visit: construction quality, plan deviation, demolition risk	|	M	|	Technical workflow	|	
+20	|	approved_plan / occupancy_certificate	|	Upload	|	files	|	Approved building plan; OC for completed construction	|	C	|	Upload	|	Per property type & local law
+21	|	property_tax_receipts	|	Upload	|	files	|	Latest municipal tax paid	|	M	|	Upload	|	
+Security creation plan	|		|		|		|		|		|		|	
+22	|	mortgage_type	|	Radio	|	enum	|	EQUITABLE (deposit of title deeds) | REGISTERED (mortgage deed)	|	M	|	Policy engine	|	Equitable common for retail LAP (lower stamp duty); registered for larger/higher-risk
+23	|	stamp_duty_state	|	Auto from property state	|	enum	|	State-wise stamp duty schedule	|	M	|	System	|	Feeds cost disclosure in KFS
+24	|	property_insurance	|	Plan + status	|	insurer + sum insured	|	Sum insured >= reconstruction value; lender as loss payee	|	M	|	Insurance module	|	Undertaking captured in declarations
+25	|	cersai_registration	|	Status (post-creation)	|	enum	|	Within 30 days of mortgage creation; fee Rs 50/100 + tax	|	M	|	Manual	|	PENDING until security creation
+	|	Valuation/LSR/technical are lender-initiated workflows; application UI tracks their status. Assessed value = lower of two valuations where dual valuation triggered.	|		|		|		|		|		|	
+
+
+=================== Sheet: 5. Financial Profile ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Existing loans - repeating 0..n	|		|		|		|		|		|		|	
+1	|	loan_type	|	Dropdown + 'Add row'	|	enum	|	Loan Against Property	|	O	|		|	Repeating 0..n; 'Prefill from bureau' after consent
+2	|	institution_name / account_no	|	Text	|	string(60)/string(20)	|	-	|	O	|	CIBIL prefill	|	
+3	|	loan_amount / emi / outstanding_principal	|	Number (Rs) x3	|	decimal(12,2)	|	>= 0	|	O	|	CIBIL prefill	|	EMI feeds FOIR
+4	|	balance_tenure_months	|	Number	|	int 0-480	|	-	|	O	|	Manual	|	
+Bank account details - repeating 1..n	|		|		|		|		|		|		|	
+5	|	account_holder_name	|	Text	|	string(40)	|	Name-match vs applicant >= threshold	|	M	|	Penny-drop	|	Repeating 1..n
+6	|	ifsc	|	Text, auto-uppercase	|	string(11)	|	^[A-Z]{4}0[A-Z0-9]{6}$	|	M	|	Manual	|	
+7	|	account_no	|	Text (masked echo)	|	string(18)	|	Numeric 9-18; re-enter to confirm	|	M	|	Penny-drop	|	Encrypt at rest
+8	|	account_operated_since	|	Month picker	|	MM/YYYY	|	<= today	|	O	|	Manual	|	
+9	|	holding_type	|	Radio	|	enum	|	INDIVIDUAL | JOINT	|	M	|	Manual	|	
+	|	Penny-drop on save; >= 1 VERIFIED account required. LAS: this account also receives invocation surplus refunds.	|		|		|		|		|		|	
+
+
+=================== Sheet: 6. Facility & References ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Proposed facility	|		|		|		|		|		|		|	
+1	|	facility_type	|	Read-only	|	enum	|	LAP - term loan (EMI) or dropline OD per product variant	|	M	|	System	|	
+2	|	requested_amount	|	Number (Rs)	|	decimal(14,2)	|	LTV vs assessed value within policy band (60-70% market practice)	|	M	|	System-validated	|	
+3	|	tenure_years	|	Dropdown / slider	|	decimal(4,1)	|	Product policy range (commonly 5-15 yrs)	|	M	|	Manual	|	Property residual life > tenor + buffer
+4	|	end_use_declaration	|	Dropdown + text	|	enum	|	BUSINESS_EXPANSION | WC | PERSONAL(medical/education/marriage) | DEBT_CONSOLIDATION | OTHER; NOT speculative	|	M	|	Manual	|	End-use capture mandatory; drives PSL/tax treatment
+References - exactly 2, excluding family	|		|		|		|		|		|		|	
+5	|	ref_name (x2 references)	|	Text	|	string(40)	|	Alpha+space; family excluded	|	M	|	Manual	|	Two reference cards
+6	|	ref_address + city + pincode	|	Address block	|	2 lines + city + PIN	|	PIN regex	|	M	|	Manual	|	
+7	|	ref_occupation / years_known	|	Text / Number	|	string(40) / int 1-99	|	-	|	O	|	Manual	|	
+8	|	ref_phone / ref_mobile	|	Tel inputs	|	string(10)	|	>= 1 contact number	|	M	|	Manual	|	
+9	|	ref_relationship	|	Text	|	string(30)	|	Must NOT be family - validate vs family list	|	M	|	Manual	|	
+
+
+=================== Sheet: 7. Documents ===================
+#	|	Document (self-attested)	|	Required	|	Auto-satisfied by API?	|	UI/UX Notes
+1	|	PAN card	|	M	|	Yes - PAN verify API	|	
+2	|	Address proof / KYC OVD	|	M	|	Yes - DigiLocker	|	
+3	|	Complete title deed chain (sale/gift/partition deeds, allotment letter)	|	M	|	No	|	ORIGINALS deposited at security creation (equitable mortgage); LOD prepared
+4	|	Encumbrance Certificate (13-30 years per policy)	|	M	|	Partly - state portals	|	
+5	|	Latest property tax receipts	|	M	|	No	|	
+6	|	Approved building plan + Occupancy Certificate	|	C	|	No	|	Per property type
+7	|	Prior loan foreclosure letter + LOD (BT/top-up cases)	|	C	|	No	|	
+8	|	Bank statement - last 6 months	|	M	|	No	|	
+9	|	ITR + computation - last 2-3 years	|	M	|	No	|	Income assessment central to LAP (EMI product)
+10	|	Sanction letters of existing loans	|	C	|	No	|	
+11	|	Co-applicant / co-owner KYC (PAN + address proof)	|	C	|	Yes - PAN + DigiLocker	|	ALL co-owners
+12	|	Income proof - salary slips + Form 16 (salaried) / business income docs	|	M	|	No	|	
+	|	Each row in UI: document name; submitted toggle; file upload (PDF/JPEG <= 10 MB); verification badge (Pending / Verified / Rejected). Gate: all Mandatory rows Uploaded or API-Verified.	|		|		|	
+
+
+=================== Sheet: 8. Declarations & Submit ===================
+#	|	Field / UI Element	|	UI Control	|	Data Type / Format	|	Validation Rule	|	Required	|	Prefill / Verify via API	|	UI/UX Notes
+Consents - granular, each logged with timestamp + IP + device + text version	|		|		|		|		|		|		|	
+1	|	decl_accepted (clauses 1-12)	|	Scroll-to-end + checkbox	|	boolean + timestamp	|	Must be true	|	M	|	System	|	Render full 14-clause declaration text verbatim
+2	|	consent_credit_bureau (clause 8)	|	Separate checkbox	|	boolean + timestamp	|	Must be true before CIBIL hard pull	|	M	|	System	|	
+3	|	consent_data_sharing (clause 13)	|	Separate checkbox	|	boolean + timestamp	|	Must be true; withdrawal mechanism required	|	M	|	System	|	
+4	|	consent_ekyc_aadhaar (clause 14)	|	Separate checkbox - OPTIONAL	|	boolean + timestamp	|	Optional per form; never force	|	O	|	System	|	
+5	|	consent_property_verification	|	Separate checkbox	|	boolean + timestamp	|	Must be true	|	M	|	System	|	Authorises site visits, valuation, legal scrutiny, CERSAI search
+6	|	undertaking_insurance	|	Separate checkbox	|	boolean + timestamp	|	Must be true	|	M	|	System	|	Maintain property insurance with lender as loss payee through tenor
+7	|	ack_enforcement_disclosure	|	Separate checkbox	|	boolean + timestamp	|	Must be true	|	M	|	System	|	Repossession/enforcement clause + procedure disclosed upfront (incl. SARFAESI where lender eligible: NBFC asset size >= Rs 100 cr, secured debt >= Rs 20 lakh)
+8	|	ack_document_return	|	Separate checkbox	|	boolean + timestamp	|	Must be true	|	M	|	System	|	Original property documents returned within 30 days of full repayment (RBI responsible lending; Rs 5,000/day compensation for lender delay)
+Identity & sign-off	|		|		|		|		|		|		|	
+9	|	aadhaar_number	|	Masked input	|	string(12)	|	Verhoeff checksum	|	O	|	DigiLocker	|	Store masked + vault ref ONLY
+10	|	applicant + co-applicant signature / thumb	|	eSign / signature pad / upload	|	file or eSign artefact	|	Required to submit	|	M	|	eSign / upload	|	Aadhaar eSign only if clause-14 consent
+11	|	declaration_date	|	Auto	|	date DD/MM/YYYY	|	Equals submit date	|	M	|	System	|	
+	|	On submit: status -> SUBMITTED; fire CIBIL hard pull (if pending); generate application PDF replica. KFS (APR, all fees, penal charges) is generated at sanction - separate module, mandatory before agreement execution.	|		|		|		|		|		|	
+
+

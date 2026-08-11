@@ -1,0 +1,175 @@
+
+Terms and conditions
+[Date]
+Infrabyx
+[Company address]
+[Date]
+Infrabyx
+[Company address]
+
+[DOCUMENT IDENTIFICATION INFORMATION]
+Document Number
+[Terms and Conditions]
+Document Name
+Terms and Conditions
+Version
+1.0
+Date of Issue
+[Effective Date]
+Approved by
+[Approved By]
+Document Owner
+[Data Protection Officer / Grievance Officer]
+Effective From
+[Effective Date]
+Next Review Date
+Annually, or earlier upon a material change in Applicable Law
+Classification
+Public: External-Facing Document
+Regulatory Anchor
+Information Technology Act, 2000 (including Section 10A) read with rules thereunder; Digital Personal Data Protection Act, 2023; Consumer Protection Act, 2019; Arbitration and Conciliation Act, 1996; RBI directions applicable to Regulated Entities using the Platform
+Review Frequency
+When a material change occurs in Applicable Law or in the Company's Platform or business practices.
+Location of the Document
+Company Website / Compliance Department
+
+[VERSION & REVISION HISTORY]
+Version
+Date
+Nature of Change
+Prepared By
+Approved By
+1.0
+[Effective Date]
+First Issue
+
+
+
+Table of Contents
+1.	Introduction	4
+2.	Interpretation	4
+3.	Definitions	5
+4.	Scope and Application	6
+5.	Acceptance of These Terms	6
+6.	Eligibility and Account Registration	6
+7.	Description of the Platform and Services	7
+8.	Relationship with the Master Service Agreement / Order of Precedence	7
+9.	Subscription, Fees and Payment	8
+10.	Grant of Licence and Restrictions	8
+11.	Acceptable Use Policy	9
+12.	Customer Data, Borrower Data and Content	9
+13.	Third-Party Services and Integrations	10
+14.	Intellectual Property Rights	10
+15.	Confidentiality	11
+16.	Compliance with Applicable Law	11
+17.	Service Availability and Support	11
+18.	Term, Suspension and Termination	12
+19.	Disclaimer of Warranties	12
+20.	Limitation of Liability	12
+21.	Indemnification	13
+22.	Grievance Redressal	13
+23.	Dispute Resolution and Governing Law	14
+24.	Amendments to this Policy	14
+25.	Miscellaneous	14
+26.	Contact Us	15
+
+
+	•	Introduction
+	•	These Terms and Conditions (these "Terms") are issued by Infrabyx (hereinafter referred to as the "Company", "we", "us" or "our"), a technology company engaged in the business of providing [Platform Name] (the "Platform"), a Loan Management System, and ancillary support services to Non-Banking Financial Companies and other Regulated Entities regulated by the Reserve Bank of India ("RBI").
+	•	The Company operates the website located at www.finbyx.com (the "Site"). These Terms govern access to and use of the Site and the Platform by any person or entity that accesses them, including Regulated Entities that subscribe to the Platform ("Customer") and their authorised personnel, agents and, where applicable, Borrowers using a self-service borrower portal (each a "User", collectively "Users").
+	•	These Terms have been framed with due regard to the Information Technology Act, 2000 ("IT Act"), including Section 10A thereof; the Digital Personal Data Protection Act, 2023 ("DPDP Act") and the rules made thereunder; the Consumer Protection Act, 2019; the Arbitration and Conciliation Act, 1996; and such other statutes, rules, regulations and circulars as may be applicable from time to time, including RBI directions applicable to a Customer (collectively, "Applicable Law").
+	•	Please read these Terms carefully before using the Site or the Platform.
+	•	Interpretation
+	•	In these Terms, unless the context otherwise requires: (i) words denoting the singular include the plural and vice versa; (ii) references to statutes, rules or regulations include any statutory amendment, re-enactment or substitution for the time being in force; (iii) headings are inserted for convenience of reference only and do not affect interpretation; and (iv) the words "include", "includes" and "including" shall be construed as if followed by the words "without limitation".
+	•	These Terms shall be read together with, and shall not derogate from, the Company's Privacy Policy, Cookie Policy and Disclaimer, each of which is deemed to form part of these Terms to the extent of any specific reference contained therein.
+	•	Definitions
+	•	For the purposes of these Terms, unless repugnant to the context or meaning thereof, the following expressions shall have the meanings respectively assigned to them below:
+	•	"Account" means the account created by a Customer or User to access and use the Platform.
+	•	"Authorised User" means an employee, agent or representative of the Customer who is granted access to the Platform by the Customer, including personnel exercising credit sanctioning, disbursement, servicing or collections functions.
+	•	"Borrower" means a customer of the Customer to whom the Customer extends, or proposes to extend, a loan or other credit facility through or with the assistance of the Platform.
+	•	"Content" means any data, text, documents, images or other material uploaded, submitted or generated on or through the Platform by the Company, the Customer or any User, including Customer Data and Loan Data as defined in the Commercial Agreement (as defined below).
+	•	"Commercial Agreement" means a Master Service Agreement, Statement of Work and/or Service Level Agreement executed between the Company and a Customer for the Customer's use of the Platform.
+	•	"Platform" means the web-based Loan Management System referred to in Clause 1.1, including all associated APIs, modules, dashboards, mobile interfaces and Documentation.
+	•	"Site" means the website of the Company referred to in Clause 1.2.
+	•	Scope and Application
+	•	These Terms apply to: (i) any Customer or User access to the Platform not otherwise governed by a subsisting Commercial Agreement, including trial, demonstration or self-serve access; (ii) the Site; and (iii) any Borrower's use of a self-service borrower portal.
+	•	Where the Customer and the Company have executed a Commercial Agreement, Clause 8 below governs the relationship between these Terms and such Commercial Agreement.
+	•	Acceptance of These Terms
+	•	By creating an Account, clicking "I Accept" or an equivalent affirmative-action button, or otherwise accessing or using the Site or the Platform, You acknowledge that You have read, understood and agree to be bound by these Terms and the Company's Privacy Policy and Cookie Policy, each of which is incorporated by reference.
+	•	These Terms constitute an electronic contract within the meaning of Section 10A of the IT Act, which affords legal validity and enforceability to contracts formed through electronic means, including click-through ("clickwrap") acceptance. If You do not agree to these Terms, You must not access or use the Site or the Platform.
+	•	If You are accessing the Platform on behalf of an entity (including as an employee, agent or authorised representative of the Customer), You represent that You have the authority to bind that entity to these Terms, and "You" shall refer to both You individually and that entity.
+	•	Eligibility and Account Registration
+	•	You must be at least 18 years of age and competent to contract under the Indian Contract Act, 1872 to create an Account or use the Platform.
+	•	You agree to provide accurate, current and complete information during registration and to promptly update such information to keep it accurate. You are responsible for maintaining the confidentiality of Your Account credentials and for all activities that occur under Your Account.
+	•	The Customer is responsible for provisioning, deactivating and managing the access of its Authorised Users, and for ensuring that all Authorised Users comply with these Terms.
+	•	Description of the Platform and Services
+	•	The Platform provides technology tools for the loan lifecycle, including loan origination, credit underwriting support, sanction and disbursement workflow, loan servicing, collections, regulatory and credit-bureau reporting, and related MIS and analytics, as further described in the applicable Commercial Agreement or as made available on a self-serve or trial basis.
+	•	The Platform is a technology support tool only. It does not itself extend credit, and any credit, sanction, pricing or collections decision made using outputs of the Platform remains solely that of the Customer's Authorised Users, exercised in accordance with the Customer's own credit policy and Applicable Law.
+	•	The Company may update, modify or discontinue features of the Platform from time to time, provided that any such change shall not, without the Customer's consent, materially degrade features paid for under a subsisting Commercial Agreement during its then-current term.
+	•	Relationship with the Master Service Agreement / Order of Precedence
+	•	Where the Customer and the Company have executed a Commercial Agreement, the Commercial Agreement shall govern the Customer's and its Authorised Users' use of the Platform, and shall prevail over these Terms to the extent of any conflict.
+	•	These Terms apply in full to: (i) any Customer or User access to the Platform not otherwise governed by a subsisting Commercial Agreement; (ii) the Site; and (iii) any Borrower's use of a self-service borrower portal, save that the Customer remains responsible for the accuracy of loan-specific disclosures made to Borrowers, including the Key Fact Statement, in accordance with Applicable Law.
+	•	Subscription, Fees and Payment
+	•	Where access to the Platform is subject to a fee, such fee, billing cycle and payment terms shall be as set out in the Commercial Agreement or, for self-serve subscriptions, as displayed on the Site at the time of purchase.
+	•	All fees are exclusive of applicable taxes, including Goods and Services Tax (GST), which shall be charged additionally in accordance with Applicable Law. Fees are non-refundable except as expressly stated in the Commercial Agreement or as required by Applicable Law.
+	•	The Company may suspend Account access for undisputed non-payment, upon reasonable prior notice and an opportunity to cure, without prejudice to any other rights or remedies.
+	•	Grant of Licence and Restrictions
+	•	Subject to these Terms (and, where applicable, the Commercial Agreement) and payment of applicable fees, the Company grants the Customer and its Authorised Users a limited, non-exclusive, non-transferable, revocable licence to access and use the Platform solely for the Customer's internal lending business operations during the subscription term.
+	•	You shall not, and shall not permit any third party to:
+	•	copy, modify, or create derivative works of the Platform or its Documentation;
+	•	reverse engineer, decompile, or disassemble the Platform, except to the extent such restriction is prohibited by Applicable Law;
+	•	sell, resell, sublicense, rent, lease or otherwise commercially exploit the Platform;
+	•	use the Platform to build a competing product or service, or for competitive benchmarking without the Company's prior written consent;
+	•	probe, scan or test the vulnerability of the Platform, or breach or circumvent any security or authentication measure, except through a Company-authorised security testing programme;
+	•	use any robot, crawler or automated means to access the Platform other than through documented APIs;
+	•	upload or transmit any virus, malware or other harmful code, or any unlawful, defamatory, or fraudulent content; or
+	•	use the Platform in violation of Applicable Law, including for any activity that would cause the Company or the Customer to be in breach of RBI directions applicable to the Customer.
+	•	Acceptable Use Policy
+	•	In addition to Clause 10, You agree to use the Platform only for legitimate lending-business purposes and agree not to use the Platform to harass, defraud or mislead any Borrower or third party, or to circumvent any consent, disclosure or fair-practice obligation owed to a Borrower under Applicable Law, including the RBI's fair practices and digital lending norms.
+	•	The Company reserves the right to investigate suspected violations of this Acceptable Use Policy and to suspend or restrict Account access where necessary to prevent harm to the Platform, other Users, or third parties, subject to prompt notice to the Customer, except where such notice would itself create a security or legal risk.
+	•	Customer Data, Borrower Data and Content
+	•	As between the Company and the Customer, the Customer retains all right, title and interest in Content it or its Authorised Users or Borrowers submit to the Platform, including Loan Data. The Company is granted a limited licence to host, process and use such Content solely to provide, maintain, secure and improve the Platform, as further described in the Commercial Agreement and the Company's Privacy Policy.
+	•	You are solely responsible for the accuracy, quality and legality of Content You submit, and for obtaining all consents from Borrowers required under Applicable Law (including the DPDP Act) prior to submitting their personal data to the Platform.
+	•	The Company shall implement reasonable technical and organisational security measures to protect Content in accordance with the Commercial Agreement, the Company's Privacy Policy, and Applicable Law, including the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011 ("SPDI Rules").
+	•	Third-Party Services and Integrations
+	•	The Platform may integrate with third-party services, including payment gateways, KYC/eKYC providers, credit bureaus, cloud infrastructure and analytics providers. Your use of such third-party services is subject to their own terms and privacy policies, and the Company is not responsible for the acts, omissions or availability of independent third-party services, save as expressly agreed in the Commercial Agreement.
+	•	Intellectual Property Rights
+	•	The Platform, including all software, design, trademarks and Documentation (excluding Content), is the exclusive property of the Company or its licensors and is protected by applicable intellectual property laws. No rights are granted to You other than the limited licence expressly set out in Clause 10.
+	•	If You provide the Company with feedback or suggestions regarding the Platform, You grant the Company a perpetual, irrevocable, royalty-free licence to use such feedback for any purpose, without obligation to You.
+	•	Confidentiality
+	•	Each party shall keep confidential the other party's non-public business, technical and financial information disclosed in connection with the Platform, and use it solely to perform its obligations or exercise its rights hereunder, save as required by Applicable Law or a competent regulatory authority. Where the Customer and Company have executed a separate Non-Disclosure Agreement or confidentiality clause under a Commercial Agreement, that instrument shall govern to the extent of any conflict.
+	•	Compliance with Applicable Law
+	•	The Customer is solely responsible for ensuring that its use of the Platform, and its lending operations generally, comply with Applicable Law, including RBI directions applicable to it as a Regulated Entity, the RBI (Digital Lending) Directions (where the Customer engages the Platform in connection with a digital lending arrangement involving a Lending Service Provider), Know-Your-Customer norms, and fair-practice and grievance-redressal requirements owed to Borrowers.
+	•	The Company shall provide the Platform in compliance with Applicable Law applicable to it as a technology service provider, but does not undertake any regulated lending activity, credit decision-making, or compliance function on behalf of the Customer, consistent with Clause 7.2.
+	•	Service Availability and Support
+	•	Where the Customer has a Commercial Agreement, Platform uptime, support response and resolution times, and maintenance windows shall be as set out in the applicable Service Level Agreement. For self-serve or trial access not covered by a Commercial Agreement, the Platform is provided without any uptime or support commitment, on a reasonable-endeavours basis.
+	•	Term, Suspension and Termination
+	•	These Terms take effect when You first access the Site or the Platform and continue until Your Account is terminated in accordance with this Clause 18 or, for a subscribing Customer, in accordance with the Commercial Agreement.
+	•	The Company may suspend or terminate Your access, with notice where reasonably practicable, for material breach of these Terms (including the Acceptable Use Policy) that is not cured within a reasonable period after notice, for non-payment, or where required to comply with Applicable Law or a regulatory directive.
+	•	You may stop using the Platform, and a subscribing Customer may terminate a Commercial Agreement, at any time in accordance with its terms. On termination, Clauses 12 (Data), 14 (Intellectual Property), 15 (Confidentiality), 20 (Limitation of Liability), 21 (Indemnification) and any other provision which by its nature should survive, shall survive.
+	•	Disclaimer of Warranties
+	•	To the maximum extent permitted by Applicable Law, the Platform is provided "as is" and "as available", without warranties of any kind, whether express or implied, including merchantability, fitness for a particular purpose, non-infringement, or that the Platform will be uninterrupted, secure or error-free.
+	•	The Company does not warrant the accuracy or completeness of any credit score, risk output, or analytics generated by the Platform, which are decision-support tools only and do not replace the Customer's independent credit judgment and compliance obligations.
+	•	Limitation of Liability
+	•	To the maximum extent permitted by Applicable Law, neither party shall be liable to the other for indirect, incidental, consequential, special or exemplary damages arising out of or relating to these Terms or use of the Platform.
+	•	Except where a Commercial Agreement specifies a different cap, the Company's total aggregate liability arising out of or relating to these Terms shall not exceed the fees paid by the Customer for the Platform in the [6] months preceding the event giving rise to the claim, save that this limitation shall not apply to liability arising from fraud, wilful misconduct, gross negligence, breach of confidentiality, or breach of data protection obligations.
+	•	Indemnification
+	•	You agree to indemnify and hold the Company harmless from third-party claims, losses and reasonable expenses arising from Your breach of these Terms, Your Content, Your violation of Applicable Law, or Your failure to obtain required Borrower consents, save to the extent caused by the Company's breach of these Terms or Applicable Law.
+	•	Grievance Redressal
+	•	In accordance with the IT Act and the DPDP Act (once its Data Protection Officer/Grievance Officer obligations for Significant Data Fiduciaries commence), the Company has designated the following Grievance Officer to address queries or complaints regarding the Site, the Platform or these Terms:
+Name: [●] Designation: [Data Protection Officer / Grievance Officer] Address: www.finbyx.com Email: [Support Email] Phone: [●]
+	•	The Grievance Officer shall acknowledge and redress grievances expeditiously, and in any event within one (1) month of receipt, in accordance with Rule 5(9) of the SPDI Rules.
+	•	Dispute Resolution and Governing Law
+	•	These Terms are governed by the laws of India. The Parties shall first attempt to resolve any dispute through good-faith negotiation.
+	•	Any dispute that is not resolved within [30] days of being raised shall be referred to and finally resolved by arbitration in [●] under the Arbitration and Conciliation Act, 1996, before a sole arbitrator appointed by mutual agreement, in the English language, save that either party may seek interim relief from a court of competent jurisdiction at [●], India, pending constitution of the tribunal.
+	•	Where a User is a consumer for the purposes of the Consumer Protection Act, 2019, nothing in these Terms shall be construed to override any right such User may have to approach a consumer forum under that Act, and this Clause 23 shall not apply to the extent it would constitute an unfair contract term under that Act.
+	•	Amendments to this Policy
+	•	The Company may revise these Terms from time to time to reflect changes in the Platform, legal or regulatory requirements, or its business practices. Material changes shall be notified through the Site or by e-mail, and, unless a shorter period is required by Applicable Law, shall take effect no earlier than 15 days after notice. Continued use of the Platform after the effective date constitutes acceptance of the revised Terms.
+	•	Miscellaneous
+	•	Assignment: You may not assign these Terms without the Company's prior written consent; the Company may assign these Terms in connection with a merger, acquisition, or sale of substantially all its assets.
+	•	Severability: If any provision of these Terms is held invalid or unenforceable, the remaining provisions shall continue in full force and effect.
+	•	Force Majeure: Neither party shall be liable for delay or failure to perform resulting from causes beyond its reasonable control.
+	•	Entire Agreement: These Terms, together with the Company's Privacy Policy, Cookie Policy, Disclaimer, and any applicable Commercial Agreement, constitute the entire agreement between You and the Company regarding the Site and the Platform.
+	•	No Waiver: No failure or delay by either party in exercising any right under these Terms shall operate as a waiver of that right.
+	•	Contact Us
+	•	For any questions regarding these Terms, please contact us at tech@lawdocs.in or write to us at www.finbyx.com

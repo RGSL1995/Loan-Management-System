@@ -1,0 +1,1131 @@
+{
+  "info": {
+    "name": "LMS API",
+    "description": "Generated from LMS_API_OpenAPI.yaml v2.1.0 \u2014 regenerate with gen_postman.py; do not edit by hand.",
+    "_postman_id": "65dfd2c2-4a6e-586f-aea6-799091b4a3ac",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create a Party (Section 2 onboarding)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/parties",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "parties"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"type\": \"INDIVIDUAL_SALARIED\",\n  \"kyc\": {\n    \"pan\": \"string\",\n    \"aadhaarRef\": \"string\",\n    \"ckyc\": \"string\",\n    \"lei\": \"string\"\n  }\n}"
+        }
+      }
+    },
+    {
+      "name": "List parties (paginated)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/parties",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "parties"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Trigger KYC verification (Aadhaar/PAN/CKYC)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/parties/{id}/kyc-verify",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "parties",
+            "{id}",
+            "kyc-verify"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Create a loan application against a Product-Master code",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/applications",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "applications"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"partyId\": \"string\",\n  \"productCode\": \"string\",\n  \"requestedAmount\": \"string\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Pull a credit-bureau report/score (async)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/applications/{id}/bureau-pull",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "applications",
+            "{id}",
+            "bureau-pull"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"consentReference\": \"string\",\n  \"bureau\": \"string\",\n  \"pullType\": \"SOFT\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Record a sanction decision (checked against DOA matrix)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/applications/{id}/sanction",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "applications",
+            "{id}",
+            "sanction"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Disburse a sanctioned loan (idempotent; triggers GL posting)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/loan-accounts/{id}/disburse",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "loan-accounts",
+            "{id}",
+            "disburse"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"disbursementAmount\": \"string\",\n  \"disbursementMode\": \"FULL\",\n  \"beneficiaryAccount\": {\n    \"accountNumber\": \"string\",\n    \"ifsc\": \"string\"\n  },\n  \"valueDate\": \"2026-08-01\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Record a repayment / part-payment",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/loan-accounts/{id}/repayments",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "loan-accounts",
+            "{id}",
+            "repayments"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": \"string\",\n  \"mode\": \"NACH\",\n  \"valueDate\": \"2026-08-01\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Retrieve the current repayment schedule",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/loan-accounts/{id}/schedule",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "loan-accounts",
+            "{id}",
+            "schedule"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Foreclosure quote / execute (Section 24.9)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/loan-accounts/{id}/foreclose",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "loan-accounts",
+            "{id}",
+            "foreclose"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Log a Promise-to-Pay (Section 7)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/collections/{loanId}/ptp",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "collections",
+            "{loanId}",
+            "ptp"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Generate a configured RBI return for a period (async)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/regulatory-returns/{code}/generate",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "regulatory-returns",
+            "{code}",
+            "generate"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Generate the monthly CIC file for a bureau (async)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/bureau-submissions/{bureau}/generate",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "bureau-submissions",
+            "{bureau}",
+            "generate"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Run sanctions/PEP screening on a Party (Section 16)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/aml/screen",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "aml",
+            "screen"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Poll an async job (bureau pull, return/file generation)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/jobs/{jobId}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "jobs",
+            "{jobId}"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Issue an OAuth2 client-credentials token",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/oauth/token",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "oauth",
+            "token"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Get a party",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/parties/{id}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "parties",
+            "{id}"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "List loan accounts (paginated)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/loan-accounts",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "loan-accounts"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Get a loan account",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/loan-accounts/{id}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "loan-accounts",
+            "{id}"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Upload document metadata",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/documents",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "documents"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "List documents for an owner",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/documents/{ownerType}/{ownerId}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "documents",
+            "{ownerType}",
+            "{ownerId}"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Get collateral for a loan",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/collateral/{loanId}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "collateral",
+            "{loanId}"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "List products",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/products",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "products"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Get a product configuration",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/products/{code}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "products",
+            "{code}"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "List excess / unapplied funds on a loan (Section 88.2)",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/loan-accounts/{id}/excess-funds",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "loan-accounts",
+            "{id}",
+            "excess-funds"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Initiate a refund \u2014 excess money, foreclosure residual, charge reversal (Section 88.3)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/loan-accounts/{id}/refunds",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "loan-accounts",
+            "{id}",
+            "refunds"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": \"string\",\n  \"reasonCode\": \"EXCESS\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Propose a write-off \u2014 prudential or actual (Section 89)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/loan-accounts/{id}/write-off",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "loan-accounts",
+            "{id}",
+            "write-off"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"writeOffType\": \"PRUDENTIAL\",\n  \"justification\": \"string\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Propose a one-time settlement (Section 89.4)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/loan-accounts/{id}/ots",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "loan-accounts",
+            "{id}",
+            "ots"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"proposedAmount\": \"string\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Transition an OTS \u2014 approve / settle / mark broken (Section 89.4)",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/ots/{otsId}",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "ots",
+            "{otsId}"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"APPROVED\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Post a field receipt \u2014 online or synced offline (Sections 90, 93.2)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/collections/{loanId}/receipts",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "collections",
+            "{loanId}",
+            "receipts"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"amount\": \"string\",\n  \"mode\": \"CASH\",\n  \"opUuid\": \"string\",\n  \"issuedAt\": \"2026-07-02T10:00:00Z\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Cancel a receipt (maker-checker, Section 90.1)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/receipts/{receiptId}/cancel",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "receipts",
+            "{receiptId}",
+            "cancel"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"reasonCode\": \"string\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Register a field device (Section 93.4)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/devices",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "devices"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": \"string\",\n  \"deviceFingerprint\": \"string\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Allocate an offline receipt-number block to a device (Section 90.1)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/devices/{deviceId}/receipt-blocks",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "devices",
+            "{deviceId}",
+            "receipt-blocks"
+          ]
+        },
+        "description": ""
+      }
+    },
+    {
+      "name": "Flag a party as deceased \u2014 suppresses dunning, freezes penal charges (Section 91.1)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/parties/{id}/deceased-flag",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "parties",
+            "{id}",
+            "deceased-flag"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"intimationSource\": \"FAMILY\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Merge duplicate parties \u2014 maker-checker, survivorship rules (Section 92.2)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/parties/merge",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "parties",
+            "merge"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"survivorPartyId\": \"string\",\n  \"mergedPartyId\": \"string\"\n}"
+        }
+      }
+    },
+    {
+      "name": "Activate an approved configuration version, effective-dated (Section 95)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/config-versions/{configId}/activate",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "config-versions",
+            "{configId}",
+            "activate"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"effectiveFrom\": \"2026-08-01\"\n}"
+        }
+      }
+    },
+    {
+      "name": "LSP hand-off \u2014 request an indicative eligibility/offer for a borrower (Integration Spec \u00a74.1)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/offers",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "offers"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"lspId\": \"string\",\n  \"borrowerRequest\": {\n    \"productCode\": \"string\",\n    \"requestedAmount\": \"string\",\n    \"tenorMonths\": 0\n  },\n  \"consentRef\": \"string\"\n}"
+        }
+      }
+    },
+    {
+      "name": "LSP hand-off \u2014 record e-sign/e-stamp execution status for an agreement (Integration Spec \u00a74.1)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/agreements/{id}/execution",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "agreements",
+            "{id}",
+            "execution"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"EXECUTED\",\n  \"documentHash\": \"string\",\n  \"executedAt\": \"2026-07-02T10:00:00Z\"\n}"
+        }
+      }
+    },
+    {
+      "name": "LSP hand-off \u2014 register a repayment mandate (eNACH / UPI Autopay) for a sanctioned loan (Integration Spec \u00a74.1)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Idempotency-Key",
+            "value": "{{$guid}}"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/mandates",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "mandates"
+          ]
+        },
+        "description": "",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"loanAccountId\": \"string\",\n  \"mandateType\": \"ENACH\",\n  \"umrnOrRef\": \"string\"\n}"
+        }
+      }
+    }
+  ]
+}

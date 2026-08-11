@@ -1,0 +1,467 @@
+THIS MASTER SERVICE AGREEMENT ("Agreement") is made on [●] ("Effective Date")
+BY AND BETWEEN
+Infrabyx Consultancy (OPC) Private Limited a one person company incorporated under the Companies Act, 2013 (hereinafter referred to as “the Company” or the Service Provider or “First Party”), and having its Corporate office located at 405, R-5, Park Exotica, Yudhistir Marg, Jaipur, Rajasthan- 302005, the expressions of which shall, unless it be repugnant to the context or meaning thereof, be deemed to mean and include its successors and permitted assignees, acting through its authorized signatory, [Authorized Signatory Name].
+AND
+[Customer Name], a [Non-Banking Financial Company / Bank / Housing Finance Company / other regulated lender] registered under the Companies Act, 2013 and holding Certificate of Registration No. [●] issued by the Reserve Bank of India ("RBI") under Section 45-IA of the Reserve Bank of India Act, 1934, having its registered office at [Registered Office Address], India, and represented by its authorized signatory, [Authorized Signatory Name] (hereinafter referred to as "the Customer" or the "Second Party").
+The Company and the Customer shall individually be referred to as "Party" and collectively as "Parties" to the Agreement.
+WHEREAS:
+	•	The Company owns and operates a technology platform known as 'Finbyx’ ("Platform"), being a Loan Management System comprising, inter alia, loan origination, credit underwriting, sanction, disbursement, servicing, collections and regulatory-reporting modules, and has developed web applications and application programming interfaces ("APIs") for lending institutions to manage the end-to-end lifecycle of loans and credit facilities.
+	•	The Customer is engaged in the business of providing financial services by way of loans, credit facilities and other financial assistance to its borrowers and other end customers (each, a "Borrower"), and is regulated by the RBI [/ other applicable regulator] in relation to such business.
+	•	The Customer desires to avail the Services for the purposes of its lending business operations, and the Company represents and warrants that it possesses the requisite expertise, resources, infrastructure and capabilities to provide such Services. Accordingly, the Company agrees to provide the Services to the Customer, subject to the terms and conditions of this Agreement and payment of the applicable Fees.
+	•	This Agreement sets out the general terms and conditions pursuant to which the Company shall make the Services available to the Customer.
+AGREED TERMS:
+	•	Definitions and Interpretation
+	•	"Access Keys" shall mean any confidential or secret keys, including developer ID, certificate ID, application ID, username and/or password required by the Customer to access the Services in a staging or production environment.
+	•	"Affiliate" means any entity that directly or indirectly Controls, is Controlled by, or is under common Control with a Party, where "Control" means ownership of more than 50% of voting shares.
+	•	"API" or "Application Programming Interface" shall mean the application programming interfaces made available by the Company to the Customer under this Agreement, more specifically detailed in the applicable SOW, together with all Intellectual Property therein and associated Documentation.
+	•	"Aggregate Data" shall mean de-identified or anonymised data that is devoid of any personal identifiers and cannot, whether directly or indirectly, be used to identify a natural person, including a Borrower.
+	•	"Applicable Law" shall mean any statute, law, regulation, ordinance, rule, judgment, notification, order, decree, by-law, permit, licence, approval, consent, authorisation, directive, guideline, master direction, circular or other governmental or regulatory restriction, including without limitation those issued by the RBI, the Information Technology Act, 2000, the Digital Personal Data Protection Act, 2023, the Credit Information Companies (Regulation) Act, 2005, and the rules, regulations and directions made thereunder, whether in effect as of the Effective Date or issued at any time during the Term.
+	•	"Borrower / End Customer" shall mean a customer of the Customer to whom the Customer has extended, or proposes to extend, a loan, credit facility or other financial assistance through or with the assistance of the Platform.
+	•	"Business Hours" shall mean [●] to [●] from [Monday to Friday / Monday to Saturday], excluding public holidays notified by the Company. The Customer shall provide prior written notice in case any additional support is required outside Business Hours, and the Company shall use reasonable efforts to allocate the necessary resources accordingly.
+	•	"Confidential Information" in relation to a Party shall mean all proprietary material exchanged with the other Party, including written, electronic and verbal disclosures, strategic and development plans, financial conditions, business plans, data, software specifications, source code, Loan Data, business records, customer lists, project records and all other information disclosed to, or generated in connection with, the Services.
+	•	"Credit Information Company or CIC" shall mean a credit information company registered with the RBI under the Credit Information Companies (Regulation) Act, 2005, to which the Customer is required to submit credit information relating to Borrowers.
+	•	"Customer Account" shall have the meaning described to it in Clause 5.1.
+	•	"Customer Data / Loan Data" shall mean all data relating to Borrowers and the Customer's lending operations that is collected, generated, processed or stored through the Platform, including loan application data, KYC and eKYC information, credit information and bureau data, sanction and disbursement records, loan agreements and Key Fact Statements, repayment, collection and recovery data, and any other personally identifiable information of the Customer, its Borrowers and its End Users.
+	•	"Customer Representatives" shall have the meaning described to it in Clause 5.3.
+	•	"Dispute" shall mean any dispute, difference, claim or controversy arising between the Parties as to the construction, breach, termination, enforcement, interpretation or validity of this Agreement.
+	•	"Documentation" shall mean the Company's technical, functional or other supporting documentation delivered or made available to the Customer via the Platform, including user manuals, guides or instructions regarding use of the Platform and APIs.
+	•	"Downtime" shall mean the period during which the Platform is unavailable due to maintenance or other reasons.
+	•	"End Users" shall mean the identifiable unique persons among the Customer's personnel who are authorised to access and use the Services through a Customer Account, as determined by the Customer, including personnel exercising credit sanctioning, disbursement or collection functions.
+	•	"Infringing Material" has the meaning described to it in Clause 9.5.
+	•	"Intellectual Property" shall mean and include all rights in, to, or arising out of: (i) any domestic or international patent and applications, reissues, extensions and continuations thereof; (ii) inventions, invention disclosures, improvements, trade secrets, proprietary information, know-how and technical data; (iii) copyrights, mask works, moral rights and trademarks; and (iv) any other similar or equivalent proprietary right anywhere in the world.
+	•	"Key Fact Statement or KFS" shall mean the standardised statement of key facts of a loan/credit facility required to be furnished to a Borrower under Applicable Law (including, as applicable, the RBI directions governing responsible business conduct and key facts statements for loans and advances), as amended from time to time.
+	•	"Licence" shall mean the rights granted in Clause 4 with respect to the API and the Platform.
+	•	"Loan Account" shall mean an individual loan or credit facility account of a Borrower created, tracked and administered on the Platform.
+	•	"Non-Performing Asset or NPA" shall have the meaning assigned to such expression under the Applicable Law/RBI directions governing income recognition, asset classification and provisioning applicable to the Customer.
+	•	"Outsourcing Directions" shall mean the RBI (NBFC -- Managing Risks in Outsourcing) Directions, 2025, or such other directions, master directions, guidelines or circulars issued by the RBI (or other applicable regulator) governing the outsourcing of financial, technology or other services by regulated entities such as the Customer, in each case as amended, consolidated or replaced from time to time.
+	•	"Output" shall mean reports, analyses, scorecards and findings generated by the APIs and the Platform.
+	•	"Platform" shall have the meaning described to it in Recital A.
+	•	"Response Data" in respect of transactions undertaken by the Company shall mean the success or similar status code in the case of a successful API response, together with Response Fields (if requested); in the case of failures, Response Data shall contain the error details.
+	•	"Scheduled Downtime" shall mean planned Downtime of which the Customer has been informed by the Company, to the extent practically reasonable, prior to its occurrence, and to the extent feasible, outside Business Hours and outside the Customer's month-end/quarter-end regulatory reporting windows notified in advance by the Customer.
+	•	"Services" shall mean access to the APIs and the Platform, and such other services as are specifically agreed in an SOW.
+	•	"Statement of Work or SOW" means the work description detailing deliverables, applicable Fees and terms and conditions, materially in the format at Annexure-A. All SOWs signed between the Parties shall be governed by this Agreement.
+	•	"Fee" shall mean the fee payable by the Customer to the Company to avail the Services, as further detailed in Annexure-B/the applicable SOW.
+	•	"Support Services" shall refer to the services detailed in the Service Level Agreement at Annexure-C.
+	•	"Term" shall have the meaning described to it in Clause 16.1.
+	•	"Third-Party Software" shall mean software not developed by the Company, including open-source and third-party proprietary software, not licensed to the Customer under this Agreement.
+	•	"Unscheduled Downtime" shall mean unplanned Downtime due to reasons beyond the Company's reasonable control, of which the Company is unable to inform the Customer in advance.
+	•	Services
+	•	Subject to payment of the applicable Fees, the Company shall make the Platform and APIs available to the Customer and provide the Services in accordance with this Agreement and the applicable SOW(s).
+	•	The Parties acknowledge that the Services are in the nature of technology support services, and the Company shall not undertake any regulated lending activity or credit decision-making function of the Customer. The Customer shall at all times retain ultimate control, supervision and responsibility over its lending operations and regulatory compliance obligations, including its responsibilities as an outsourcing entity under the Outsourcing Directions, and this Agreement shall not be construed to transfer or dilute any such responsibility to the Company.
+	•	The Company shall perform the Services in compliance with all Applicable Law, including directions issued by the RBI, to the extent applicable to a technology service provider.
+	•	Neither the Platform nor the Company shall exercise, or be configured to exercise, any credit appraisal, sanctioning, pricing or other core credit-decisioning function on behalf of the Customer. All lending decisions shall be exercised solely by the Customer's authorised personnel through the workflow, delegation-of-power and maker-checker tools made available on the Platform.
+	•	The prices, features and options provided to the Customer shall depend on the plan selected by the Customer (including any usage or overage fees), as mentioned in the applicable SOW. The Company does not guarantee that a particular plan shall be offered indefinitely, and reserves the right to change prices, features or options with advance notice of [●] and discussion with the Customer, or by way of a signed addendum reflecting the new pricing effective from a specified date.
+	•	Statements of Work
+	•	The Parties shall, from time to time, avail and provide all or part of the Services by entering into an SOW. The structure, format, terms and conditions of each SOW shall be subject to the terms of this Agreement.
+	•	Each SOW shall specifically identify the Services to be rendered and the specifications thereof.
+	•	Each SOW shall be deemed separate and severable.
+	•	Each SOW shall be annexed to this Agreement as Annexure-A and shall form an integral part of this Agreement.
+	•	In the event of any conflict between the terms of this Agreement and an SOW, the terms of this Agreement shall prevail, unless expressly specified to the contrary in the relevant SOW.
+	•	Grant of Licence
+	•	Subject to the terms of this Agreement and payment of applicable Fees, the Company grants to the Customer a non-exclusive, non-transferable (except as permitted herein), limited, non-sub-licensable and revocable licence to access and use the Platform and APIs during the Term solely for its internal business operations, including loan origination, underwriting, sanction, disbursement, servicing, collections and regulatory reporting, and for compliance with Applicable Law.
+	•	The Customer may permit access to the Platform and APIs to its employees, auditors, regulators (including the RBI) and authorised representatives, strictly on a need-to-know basis and subject to confidentiality obligations, without such access being construed as a transfer or sub-licence of rights.
+	•	Subject to the limited rights expressly granted under this Agreement, the Company retains all rights, title and interest in and to the Platform, APIs and all related Intellectual Property.
+	•	Customer Account and Access Keys
+	•	The Company shall provide the Customer with confidential Access Keys required to access the Platform. To enable such access, the Customer shall create a Customer Account by entering details including name and email address, and/or establishing a Customer profile name and password, with role-based access controls configured in accordance with the Customer's sanctioning and delegation-of-powers matrix.
+	•	The Customer hereby agrees and warrants that:
+	•	The number of End User accesses shall not exceed the limit prescribed under the SOW;
+	•	The Customer Account shall only be accessed by End Users; and
+	•	It shall ensure all End Users comply with this Agreement.
+	•	The Access Keys are the exclusive property of the Company. Their misuse could cause substantial loss to the Company. The Customer shall take appropriate measures to protect the security of the Access Keys and shall not provide them to any third party other than its officers, directors, employees, agents and Affiliates ("Customer Representatives") without the Company's prior written consent.
+	•	The Customer expressly consents to be liable and accountable for all activities that take place through the Customer Account, and shall be responsible for maintaining its confidentiality, including immediately notifying the Company of any unauthorised use or security breach.
+	•	The Customer shall solely be liable for losses, claims, damages, costs or expenses incurred by the Company or any other user of the Platform due to authorised or unauthorised use of the Services, or the Customer's or its Representatives' failure to keep the Access Keys confidential. 
+	•	The Company may revoke the Access Keys, using commercially reasonable efforts to give [●] days' prior notice, save that where the Company suspects misuse or unauthorised access, it may revoke without prior notice, promptly notifying the Customer in writing thereafter and working with the Customer to restore access at the earliest.
+	•	Use of Platform and APIs
+	•	The Customer shall be permitted to access and use the Platform and APIs on a non-exclusive basis in accordance with this Agreement and the applicable SOW.
+	•	The Company may collect and process data relating to the use, performance and operation of the Services, including Customer Data, solely for providing, maintaining and improving the Services.
+	•	The Company shall only use Customer Data for analytics, development or improvement purposes in an aggregated and anonymised form, such that no Borrower, End Customer or End User can be identified, and shall not use Loan Data or credit information for cross-selling or any other purpose not permitted under this Agreement or consented to by the relevant Borrower.
+	•	The Company shall not use Customer Data for any purpose other than as permitted under this Agreement and shall comply with all applicable data protection and confidentiality obligations.
+	•	The Company may retain and use aggregated and anonymised data during and after the Term, provided such data does not identify the Customer, any Borrower or any individual.
+	•	Restrictions and Ownership
+	•	The Customer shall not, and shall ensure its Representatives shall not:
+	•	Use the Platform and APIs except as expressly permitted under this Agreement, including for the Customer's internal business operations such as loan origination, underwriting, disbursement, servicing, collections and Know Your Customer (KYC)/eKYC verification in compliance with Applicable Law;
+	•	Modify or create derivative works based on the Services, APIs, Platform or Documentation;
+	•	Reverse engineer, decompile, disassemble, or otherwise attempt to derive the source code of the Platform or APIs;
+	•	Access or use the Services, APIs, Platform or Documentation to build a competitive product;
+	•	Sublicense, resell, rent, lease, distribute, market or otherwise transfer rights to the APIs, or modify or alter any part thereof;
+	•	Use any robot, crawler or automated device to monitor or copy the Platform or APIs;
+	•	Use the APIs and/or Platform unlawfully, fraudulently, maliciously, or inconsistently with this Agreement;
+	•	Probe, scan or test the vulnerability of any system or network, or breach or circumvent security/authentication measures;
+	•	Transmit any viruses on the same device as the API during the Term; or
+	•	Undertake activities in violation of Applicable Law.
+	•	The Customer agrees that it shall not, during the Term or [●] thereafter, build a competing product or render competing services, directly or indirectly, itself or through its Affiliates.
+	•	Obligations and Responsibilities
+	•	Customer's Obligations: The Customer shall be solely responsible and liable for:
+	•	Obtaining all requisite approvals and ensuring compliance with Applicable Law, including the Outsourcing Directions and all other RBI directions applicable to it as a regulated lender, in relation to its obligations under this Agreement and any SOW;
+	•	Obtaining and maintaining equipment and ancillary services needed to access or use the Platform/APIs, including hardware, servers, software, operating systems and networking;
+	•	Obtaining appropriate, informed and explicit consent from Borrowers prior to sharing their data with the Company, and complying with Applicable Law regarding the collection, processing, transfer, storage and sharing of such data, including digital-lending-specific disclosure and consent requirements;
+	•	Providing accurate and timely information and assistance to enable the Company to deliver the Services; the Company shall not be liable for delay attributable to the Customer's act or omission;
+	•	Extending full cooperation, including access to records and documents, in any investigation of fraud or disputes by the Company, its authorised agencies, or any government investigative authority;
+	•	Implementing appropriate data security standards applicable to its business;
+	•	Complying with Applicable Law relating to data protection, privacy and transaction/financial data, including RBI data-storage/localisation norms, the Information Technology Act, 2000, the Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011, and the Digital Personal Data Protection Act, 2023;
+	•	Obtaining and maintaining all necessary consents, authorisations and permissions from Borrowers, in accordance with Applicable Law, for collection and sharing of their data with the Company, processing/verification/retrieval of such data from third-party databases (including CICs), and storage of such data on cloud-based systems, and maintaining adequate records of such consents;
+	•	The issuance to Borrowers of the Key Fact Statement, sanction letter and loan agreement in the form prescribed under Applicable Law, it being clarified that the Platform is solely a technology enabler for generating such documents from Customer-approved templates and does not determine their content or issuance;
+	•	All credit sanctioning, disbursement approval, NPA classification and provisioning, and regulatory/supervisory reporting to the RBI and CICs, notwithstanding that the Platform facilitates such processes; and
+	•	Confirming it has read and agreed to the terms and conditions, disclaimer and privacy policy of the Company available at [Company website URL].
+	•	Company's Obligations:
+	•	The Services shall be as detailed in the applicable SOW and the SLA at Annexure-C;
+	•	The Company shall comply with all Applicable Law with respect to performance of the Services;
+	•	The Company shall, where reasonably feasible, inform the Customer of any expiry or suspension of authorisations relating to the Services, or any adverse regulatory action that may affect the Company's ability to provide the Services;
+	•	The Company shall, at its own discretion and cost, undertake investments and arrange infrastructure, including repair and upgradation, required for rendering the Services;
+	•	All personnel engaged by the Company shall be under its sole employment and control, and shall not be deemed employees of the Customer;
+	•	The Company may sub-contract its obligations to Affiliates or third-party service providers (including cloud providers, KYC/eKYC providers, CICs and payment gateways), provided that the Company shall (i) conduct appropriate due diligence on such sub-contractors, (ii) remain fully responsible for their performance and for all acts and omissions, (iii) ensure such sub-contracting does not adversely affect the Customer's ability to comply with the Outsourcing Directions or the RBI's right to access, inspect or audit, and (iv) not further sub-contract material functions without the Customer's prior written consent where the Customer has classified the arrangement as material outsourcing;
+	•	The Company shall, based on data provided by the Customer, liaise with relevant third-party agencies (including CICs and KYC/eKYC providers) to collect, verify and compile information, shall maintain secure transaction and Loan Data logs in compliance with Applicable Law for audit and regulatory purposes for not less than [●] years or such longer period as may be prescribed under Applicable Law, and shall use commercially reasonable efforts to ensure Platform availability in accordance with the SLA;
+	•	The Company acknowledges that, during performance of this Agreement, it may have access to Customer Data, and shall maintain its confidentiality, using it solely to perform its obligations under this Agreement, implementing reasonable and appropriate technical and organisational security measures to protect it from unauthorised access, use, disclosure, alteration or loss, and ensuring its personnel are bound by like confidentiality obligations;
+	•	The Company shall not disclose Customer Data to any third party except as permitted under this Agreement or required by Applicable Law, shall promptly notify the Customer of any unauthorised use, disclosure or suspected breach, and shall reasonably cooperate with the Customer in investigating and mitigating such incident; and
+	•	The Company shall not use Customer Data for the advancement of any other business owned by it, in which it has a substantial interest, or to which it renders services, nor in any manner detrimental to the Customer, nor disclose it to any unauthorised third party.
+	•	Backup:
+	•	The Company ("Provider") shall be responsible for implementing a backup system for Customer Data, through [cloud infrastructure/database service provider].
+	•	Backup Place: The Provider shall store backup data at [●] data centre(s) located within India, in accordance with Applicable Law (including RBI data-localisation/storage norms), to ensure redundancy and availability.
+	•	Time Duration: Backups shall be taken on a [daily/other] basis. In case of a disaster, data can be restored to the state as of the day prior to the incident, subject to the Recovery Point Objective set out in Annexure-C.
+	•	Data Corruption: In the event of data corruption, the Provider shall use the latest available backup to restore the data.
+	•	Restoration of Data: The Provider shall restore data promptly from the most recent backup in case of data loss or corruption, in accordance with the SLA.
+	•	Data Security Standard: The Provider shall adhere to data security standards based on industry best practice, including: (a) Encryption of data at rest and in transit using industry-standard algorithms; (b) Access Control through role-based access and multi-factor authentication; (c) Network Security with regular vulnerability monitoring; (d) Patch Management applying security patches promptly; (e) Incident Response through a documented incident-response plan, including notification to the Customer as set out in Annexure-C; (f) Data Classification and application of proportionate security measures; and (g) Compliance with Applicable Law and the standards set by [cloud infrastructure provider].
+	•	Intellectual Property Rights
+	•	The Company or its licensors retain all rights, title, interest and ownership in the Intellectual Property in and to the Platform, APIs and Documentation, including upgrades, copies, improvements, enhancements, derivative works and modifications thereof, and in any Aggregate Data.
+	•	The Customer's rights to use the Platform and APIs are limited to those expressly granted by this Agreement. No other rights are granted or implied.
+	•	The Company shall have no liability for a claim of infringement arising from: (i) any Third-Party Software; (ii) combination of the Platform or APIs with products not provided by the Company; or (iii) use of the Platform/APIs in a manner not permitted or approved by the Company.
+	•	The Company shall be entitled to display the Customer's logo, trademark and brand name for marketing purposes, subject to the Customer's prior written consent.
+	•	In the event any portion of the Services is held or believed to infringe or misappropriate third-party Intellectual Property rights ("Infringing Materials"), the Company shall, at its sole expense and option: (a) obtain the right for the Customer to continue using the Infringing Materials; (b) modify the Infringing Materials to avoid infringement; (c) upon mutual agreement, remove and disable the Infringing Materials; or (d) if none of the foregoing is commercially feasible, terminate this Agreement and refund on a pro-rata basis the Fee paid for the remainder of the Term.
+	•	This Clause 9 sets forth the Company's entire liability and obligation for any claim of infringement or misappropriation of Intellectual Property rights.
+	•	Disclaimer of Warranties
+	•	The Customer's use of the Platform and APIs is at its sole risk. To the extent permitted by Applicable Law, the Platform and APIs are provided on an "as is" and "as available" basis.
+	•	The Company disclaims all other warranties of any kind, implied or otherwise, including warranties of merchantability, fitness for a particular purpose, satisfactory quality, accuracy, title and non-infringement.
+	•	The Company does not warrant uninterrupted, secure or error-free operation of the Platform, except as set out in the applicable SOW. In the event of any interruption, the Company's sole responsibility shall be to use best efforts to correct it.
+	•	The Company shall not be liable for portions of the Platform/APIs resting on open-source software, or risks arising from bugs introduced in network and infrastructural systems.
+	•	The Company does not warrant compatibility of the Platform/APIs with any Third-Party Software; it is the Customer's responsibility to ensure such compatibility, though the Company may, by mutual agreement, address compatibility issues raised by the Customer.
+	•	Certain aspects of the Services may depend on third-party systems (including banks, financial institutions, CICs or cloud service providers). The Company shall use commercially reasonable efforts to manage such dependencies but shall not be liable for failures solely attributable to such third-party systems beyond its reasonable control.
+	•	The Company disclaims any specific storage period for Response Data beyond that mandated by Applicable Law. It is the Customer's sole responsibility to save data to its own storage (to the extent permitted by Applicable Law), as the Company shall not be able to disburse the same once unavailable with it; metadata of the API response shall be stored within the Platform's relational database in a secure and encrypted manner.
+	•	The Company shall not be liable for any credit, lending or regulatory decision made by the Customer using any Output or report generated by the Platform, which shall remain the sole responsibility of the Customer's authorised personnel.
+	•	The warranty in this Clause 10 shall not apply to performance issues arising from: (i) factors outside the Company's reasonable control; (ii) improper actions or inactions of the Customer or third parties; or (iii) the Customer's data structure, operating environment or equipment.
+	•	Representations and Warranties
+	•	Each Party represents and warrants to the other that:
+	•	It is a valid, subsisting entity registered and existing under Applicable Law;
+	•	It has full requisite power and authority to execute, deliver and perform this Agreement;
+	•	Execution of this Agreement does not violate any agreement to which it is a party;
+	•	It has full legal authority to bind its employees to this Agreement;
+	•	Its execution and delivery of this Agreement has been duly authorised and constitutes a legal, binding and enforceable obligation;
+	•	It has obtained all necessary licences, permits, authorisations and approvals to carry on its business and to be bound by this Agreement;
+	•	It shall comply, and ensure its personnel comply, with this Agreement and adopt fair practices in the performance of the Services;
+	•	It shall carry out its responsibilities in accordance with recognised professional standards and ethics; and
+	•	It shall not make any representation to a third party on behalf of the other Party.
+	•	The Customer further represents and warrants that it holds a valid Certificate of Registration/licence from the RBI (or applicable regulator) permitting it to carry on the business of lending, and shall promptly notify the Company of any suspension, cancellation or material modification thereof.
+	•	he Company further represents and warrants that it shall use commercially reasonable efforts to ensure the availability and continuity of the Platform in accordance with the applicable SOW, and shall not make any statement or perform any act that would injure or disparage the Customer's reputation or be detrimental to its relationships with existing or potential Borrowers.
+	•	Service Levels
+	•	The Company shall provide support and maintenance services for the Platform and APIs in accordance with the SLA at Annexure-C.
+	•	The Company may, from time to time, provide upgrades, updates or enhancements to the Platform and APIs, the nature and scope of which shall be determined by the Company, provided such upgrades do not materially degrade core functionality. All Intellectual Property in such upgrades shall vest solely in the Company, and such upgrades shall be supported in the same manner as the originally subscribed Platform.
+	•	The Company may have Scheduled Downtime for maintenance. The Customer shall be informed of Scheduled Downtime by e-mail at least [●] hours in advance, to the best extent possible, and, to the extent feasible, such Downtime shall avoid the Customer's month-end/quarter-end regulatory reporting windows. The Company shall not be liable for Scheduled or Unscheduled Downtime, save as provided in Annexure-C. Where the Customer makes a reasonable request to postpone Scheduled Downtime, the Company shall make commercially reasonable efforts to cooperate.
+	•	Fees and Refunds
+	•	The Customer's access to the Platform and APIs is subject to payment of the Fee set out at Annexure-B. The Customer shall pay the Fee for the initial term no later than the Effective Date. The Company reserves the right to increase Fees at the start of each renewal term upon [●] prior written notice.
+	•	The Company shall invoice the Customer in accordance with the agreed billing cycle, and the Customer authorises the Company to charge its designated payment method, where applicable. All payments shall be made through the modes specified in Annexure-B.
+	•	All Fees shall be due in accordance with the agreed payment schedule, and the Customer shall remain liable for Fees accrued up to the effective date of termination.
+	•	Any change to the pricing model or Fee structure shall be subject to mutual written agreement.
+	•	All Fees are exclusive of applicable taxes, including Goods and Services Tax (GST), which the Customer shall bear in addition to the Fees, in accordance with Applicable Law. Tax deducted at source, if any, shall be deposited by the Customer within the timelines prescribed by the relevant government authority.
+	•	All amounts are due and payable on a recurring basis, as per the deliverable plan in Annexure-B.
+	•	There shall be no refund of Fees where the Customer terminates for convenience or discontinues use of the Services during the Term.
+	•	Where the Company terminates this Agreement for convenience under Clause 16.2, it shall refund a pro-rata portion of any pre-paid Fee for the then-current period, upon which all the Customer's rights and licences shall automatically terminate.
+	•	In no event shall termination relieve the Customer of its obligation to pay Fees for the period prior to the effective date of termination.
+	•	Confidential Information
+	•	Each Party ("Receiving Party") shall keep confidential all Confidential Information of the other Party ("Disclosing Party") and shall not disclose or use it except to perform its obligations under this Agreement. The Receiving Party may disclose Confidential Information where required under Applicable Law or by a regulatory authority (including the RBI), provided it gives prior written notice to the Disclosing Party, to the extent legally permissible, and cooperates in seeking protective measures.
+	•	The Receiving Party may disclose Confidential Information to employees, Affiliates, advisors and representatives on a need-to-know basis, provided such persons are bound by confidentiality obligations no less stringent than those herein, and the Receiving Party remains responsible for their breach.
+	•	The Parties acknowledge that breach of this Clause may cause irreparable harm for which monetary damages may be inadequate, entitling the Disclosing Party to seek injunctive or equitable relief in addition to other remedies.
+	•	This Clause shall not apply to information that: (a) is or becomes publicly available other than through breach by the Receiving Party; (b) was in the Party's possession on a non-confidential basis prior to disclosure; (c) was lawfully in a Party's possession before disclosure by the other Party; or (d) the Parties agree in writing is not confidential.
+	•	All documents and tangible objects containing Confidential Information disclosed by a Party, and all copies thereof, remain the property of the Disclosing Party and shall be returned promptly upon written request or termination, whichever is earlier. The Receiving Party shall return or irretrievably destroy such material within [48] hours of such request, subject to statutory retention obligations, details of which shall be notified to the Disclosing Party in writing within [5] business days.
+	•	Term and Termination
+	•	Term: This Agreement shall commence on the Effective Date and continue until terminated in accordance with this Clause 15 ("Term").
+	•	Termination for Convenience: Either Party may terminate this Agreement by providing at least [90] days' prior written notice to the other Party.
+	•	Termination for Cause: Either Party may terminate this Agreement or any SOW with immediate effect by written notice if:
+	•	The other Party fails to perform its obligations or breaches any term of this Agreement and such breach is not cured within [30] days of notice thereof;
+	•	The other Party files for bankruptcy, becomes insolvent, or makes an assignment for the benefit of creditors; or
+	•	The other Party involuntarily becomes subject to bankruptcy or reorganisation proceedings not dismissed or stayed within [60] days of filing.
+	•	Termination Due to Force Majeure: Where a force majeure event under Clause 19.9 causes delay or non-performance for a continuous period of [60] days or more, the unaffected Party may terminate this Agreement by giving [7] days' written notice.
+	•	Consequences of Termination: Upon expiration or termination of this Agreement –
+	•	All rights granted to the Customer to access and use the Platform and APIs shall cease;
+	•	The Company shall, upon written request, provide the Customer with access to, or a copy of, Customer Data (including complete Loan Data and Borrower loan history) in a mutually agreed format, subject to Applicable Law, sufficient to enable continuity of the Customer's lending operations and credit bureau reporting;
+	•	Each Party shall return or securely destroy the other Party's Confidential Information, except where retention is required under Applicable Law or for audit purposes;
+	•	The Customer's transaction logs and Loan Data shall continue to be retained by the Company for the minimum period mandated under Applicable Law, solely for regulatory/audit purposes, and shall remain confidential and inaccessible for any other purpose;
+	•	The Customer shall pay any Fee due for the period prior to termination within [30] days of such date; and
+	•	Where termination for cause is due to the Company's actions under Clause 15.3(a), the Customer shall be entitled to the unused portion of the Fee within [60] days of termination.
+	•	Clauses relating to intellectual property, confidentiality, payment obligations, limitation of liability and any other provisions intended by their nature to survive shall survive termination of this Agreement, and termination shall be without prejudice to accrued claims or rights of action.
+	•	Indemnity
+	•	Each Party ("Indemnifying Party") shall indemnify, defend and hold harmless the other Party, its Affiliates and their officers, directors, employees and agents ("Indemnified Party") from third-party claims, losses, damages, liabilities and expenses (including reasonable legal fees) arising out of: (a) breach of this Agreement by the Indemnifying Party; (b) negligence, gross negligence or wilful misconduct of the Indemnifying Party; or (c) violation of Applicable Law by the Indemnifying Party.
+	•	The Company shall indemnify the Customer against third-party claims that the Platform or Services infringe third-party intellectual property rights, except to the extent arising from: (a) use of the Services in violation of this Agreement; (b) modification by a party other than the Company; or (c) combination with products not provided by the Company.
+	•	The Customer shall indemnify the Company against third-party claims arising from: (a) Customer Data or Loan Data provided by the Customer; (b) failure to obtain required Borrower consents; or (c) use of the Services in violation of Applicable Law.
+	•	Each Party shall be liable to the other only for losses attributable solely to its own actions or inactions, or those of a third party with whom it has contracted.
+	•	The indemnified Party shall promptly notify the indemnifying Party in writing of any claim; failure to do so shall not relieve the indemnifying Party of its obligations except to the extent of material prejudice directly resulting therefrom. 
+	•	The indemnifying Party shall bear full responsibility for the defence, provided it keeps the indemnified Party informed and does not settle in a manner that fails to unconditionally release the indemnified Party, without its written consent (not to be unreasonably withheld or delayed).
+	•	Limitation of Liability
+	•	Neither Party shall be liable to the other for indirect, incidental, consequential, special or exemplary damages arising out of or related to this Agreement, even if advised of the possibility of such damages, regardless of the theory of liability.
+	•	Except as provided in Clause 17.3, the total aggregate liability of either Party shall not exceed the total Fees paid by the Customer to the Company during the [6] months immediately preceding the date of the claim.
+	•	The limitations in this Clause shall not apply to liability arising from: (a) fraud or wilful misconduct; (b) gross negligence; (c) breach of confidentiality obligations; (d) breach of data protection or data security obligations, including in relation to Customer Data/Loan Data; (e) indemnity obligations under Clause 16; or (f) violation of Applicable Law.
+	•	Notices
+	•	Any notice in connection with this Agreement shall be in writing in the English language and sufficiently given if delivered by hand, courier or email, to the addresses/email IDs of the Parties set out at the end of this Agreement or as otherwise notified in writing.
+	•	A Notice shall be deemed received: (a) if delivered by hand, at the time of delivery; (b) if sent by courier, on the date of delivery confirmed by the courier; and (c) if sent by email, on the next Business Day following transmission, unless a delivery failure notification is received.
+	•	Miscellaneous
+	•	Entire Agreement: This Agreement, together with its Annexures, the SLA and all SOWs, constitutes the entire agreement between the Parties on this subject matter and supersedes all prior representations, discussions and agreements, whether written or oral.
+	•	Marketing and Promotional Activity: The Customer acknowledges that the Company may share additional marketing and promotional information regarding its products/services with the Customer.
+	•	Order of Precedence: In the event of any conflict between this Agreement and an Annexure, this Agreement shall prevail unless the SOW expressly states otherwise.
+	•	Amendment: This Agreement may only be amended or modified by written agreement of both Parties.
+	•	Assignment: Neither Party may sublicense, assign or transfer its rights under this Agreement without the other Party's prior written consent.
+	•	Waiver: A Party's failure or delay in enforcing any provision shall not operate as a waiver. Any waiver must be in writing, specify the provision waived, and be signed by the waiving Party.
+	•	No Partnership: Nothing in this Agreement creates a partnership between the Parties or authorises either Party to act as agent for, or bind, the other.
+	•	Severability: If any provision is or becomes invalid, illegal or unenforceable, it shall be deemed modified to the minimum extent necessary to be valid, legal and enforceable, without affecting the rest of the Agreement; the Parties shall negotiate in good faith to amend any such provision.
+	•	Force Majeure: Subject to Clause 15.4, neither Party shall be in breach of, or liable for delay or failure to perform, its obligations if such delay or failure results from events beyond its reasonable control, and shall be entitled to a reasonable extension of time.
+	•	Third Party Rights: No third party shall have any right to enforce the provisions of this Agreement.
+	•	Jurisdiction and Governing Law
+	•	This Agreement is governed by and shall be construed in accordance with the laws of India.
+	•	Subject to Clause 21 (Dispute Resolution and Arbitration), the Parties irrevocably agree that the courts at [●], India, shall have exclusive jurisdiction to hear and determine any dispute, claim or matter arising out of or in connection with this Agreement, including for interim, interlocutory or emergency relief under Section 9 of the Arbitration and Conciliation Act, 1996, or for enforcement of any arbitral award.
+	•	Dispute Resolution
+	•	Subject to the other provisions of this Clause, the Parties shall attempt in good faith to mutually resolve any Dispute.
+	•	All Disputes shall be resolved by arbitration at [●] in accordance with the Arbitration and Conciliation Act, 1996, as in force, which is deemed incorporated by reference. The tribunal shall consist of a sole arbitrator appointed by mutual consent of the Parties.
+	•	If the Parties fail to agree on an arbitrator within [15] days, either Party may apply to the Hon'ble High Court of [●] under Section 11 of the Arbitration and Conciliation Act, 1996, for appointment of the sole arbitrator.
+	•	The seat of arbitration shall be [●], and the language of arbitration shall be English.
+	•	The award rendered by the arbitrator shall be final and binding on the Parties.
+	•	Data Migration at Termination or Software Switch / Separation
+	•	Data Migration Process: On termination of this Agreement, or the Customer's decision to switch to a different LMS provider, the Parties agree to cooperate in a smooth and orderly transition of data, including all Loan Data necessary for the Customer to continue servicing existing Loan Accounts without disruption.
+	•	Customer Data Ownership: All data, information and content provided by the Customer, including Loan Data and Borrower records, shall remain the exclusive property of the Customer. The Company shall provide reasonable assistance in migrating such data, subject to this Agreement.
+	•	Data Exportation: Upon written request, the Company shall, within a reasonable period, provide the Customer with a copy of its data and assist with exportation in a usable format compatible with the Customer's replacement system, including complete Borrower loan history required for regulatory continuity and CIC reporting continuity. Basic data export shall be provided at no additional cost; extended transition or migration support shall be subject to mutually agreed fees.
+	•	Data Deletion: After migration is complete, the Company shall securely delete or dispose of Customer Data retained in its systems in accordance with Applicable Law, save for data required to be retained under Applicable Law, and shall provide the Customer written confirmation of secure disposal.
+	•	Timelines and Cooperation: The Parties shall collaborate to establish a migration timeline, and the Customer shall provide necessary information and access to facilitate migration.
+	•	Continued Support: Following termination or a software switch, the Company may offer extended migration support, subject to mutually agreed terms and compensation.
+	•	Data Integrity: The Company shall take reasonable measures to ensure the integrity and security of Customer Data during migration.
+	•	Liability: Data migration involves inherent risks, and the Customer shall not hold the Company liable for loss or damage to data during migration, except in cases of gross negligence or wilful misconduct.
+	•	Survival: This Clause 22 shall survive termination or expiration of this Agreement.
+	•	Non-Disparagement
+	•	Each Party agrees that, during the Term and thereafter, it shall not make any false, misleading or disparaging statement about the other Party, its business, or its directors, officers, employees or Affiliates, which may harm their reputation or goodwill.
+IN WITNESS WHEREOF, the Parties have executed this Agreement as of the Effective Date first mentioned above.
+FOR AND ON BEHALF OF [CUSTOMER NAME]
+FOR AND ON BEHALF OF [SERVICE PROVIDER NAME]
+  [Authorized Signatory Name]  Authorized Signatory
+  [Authorized Signatory Name]  Authorized Signatory
+
+Company
+Address: [Registered/Corporate Office Address] Email: [●]
+Customer
+Address: [Registered Office Address] Email: [●]
+
+ANNEXURE-A: STATEMENT OF WORK
+Support & maintenance of Finbyx (Loan Management System)  specific modules and features as mentioned in this Agreement and its Annexures.
+The Service Provider agrees to perform the above Services in a professional manner, in accordance with industry best practices and the Service Level Agreement at Annexure-C. The Service Provider will provide any additional services as mutually agreed in writing.
+This Statement of Work ("SOW") sets out the detailed scope, deliverables, responsibilities and service standards for the Platform to be provided by the Service Provider to the Customer for end-to-end loan lifecycle management.
+	•	Platform Modules and Functionalities
+The Service Provider shall provide access to and support for the Platform, which includes the following modules and functionalities:
+Loan Origination & Credit Underwriting
+Loan Origination & Credit Underwriting
+Loan application intake, eligibility & document checklist
+[●]
+KYC / eKYC and Aadhaar-based verification
+[●]
+Credit Information Company (CIC) / bureau integration and score pull
+[●]
+Rule-based / analytics-driven credit underwriting and scoring
+[●]
+Sanction, Disbursement & Documentation
+Sanction, Disbursement & Documentation
+Delegation-of-power / committee-based sanction & maker-checker workflow
+[●]
+Key Fact Statement (KFS), sanction letter & loan agreement generation
+[●]
+Disbursement processing (NACH / UPI / IMPS / NEFT / RTGS)
+[●]
+e-Signing / e-Stamping of loan documentation
+[●]
+Loan Servicing & Collections
+Loan Servicing & Collections
+EMI schedule, amortisation and interest computation
+[●]
+Repayment collection & e-mandate (NACH) management
+[●]
+Delinquency tracking, collections & recovery agent assignment
+[●]
+Non-Performing Asset (NPA) classification & provisioning (IRAC norms)
+[●]
+Regulatory Compliance & Reporting
+Regulatory Compliance & Reporting
+Credit bureau (CIC) reporting
+[●]
+RBI regulatory & supervisory returns support
+[●]
+Digital lending compliance module (LSP/DLA disclosures, cooling-off period, if applicable)
+[●]
+Grievance redressal & escalation tracking
+[●]
+MIS, Reporting & Integrations
+MIS, Reporting & Integrations
+Dashboard-based real-time portfolio and compliance status
+[●]
+MIS reports for management/board review
+[●]
+Accounting / GST invoicing integration
+[●]
+Third-party integrations (payment gateway, core banking, credit bureaus)
+[●]
+	•	Deliverables
+	•	The Service Provider shall deliver:
+	•	Access to the Platform (web-based / mobile, as applicable);
+	•	User account creation and role-based access controls aligned to the Customer's sanctioning matrix;
+	•	Configuration of loan product, underwriting and workflow modules per Customer requirements;
+	•	Periodic updates and enhancements to the Platform;
+	•	Maintenance and technical support services; and
+	•	Data backup, disaster recovery and security measures as per agreed standards.
+	•	Service Levels
+	•	The Services shall be provided in accordance with the SLA at Annexure-C, including Platform uptime and availability, response and resolution timelines, support availability, and incident management and escalation.
+	•	Roles and Responsibilities
+	•	Service Provider:
+	•	Provide and maintain the Platform and Services;
+	•	Ensure system availability, security and performance;
+	•	Provide technical support and issue resolution; and
+	•	Implement updates, patches and upgrades.
+	•	Customer:
+	•	Provide necessary Borrower and loan data for underwriting, sanction and servicing;
+	•	Ensure timely updating of information on the Platform;
+	•	Nominate authorised users, sanctioning authorities and administrators per its delegation-of-powers matrix; and
+	•	Ensure compliance with Applicable Law and internal policies, including issuance of KFS and loan documentation to Borrowers.
+	•	
+ANNEXURE-B: PAYMENT TERMS
+	•	Monthly / [quarterly/annual] advance billing of Subscription/AMC Charges.
+	•	The Subscription/AMC Charges shall be increased by a minimum of [●]% on an annual basis.
+	•	Payment shall be made within [●] days of invoice issuance.
+	•	Invoice billing shall be as per this Agreement and/or any future increase in scope of services mutually agreed and signed by both Parties.
+	•	Any TDS amount deducted from payments made to the Service Provider shall be deposited by the Customer within the time frame prescribed by the relevant government authority, in the financial year of the payment.
+	•	Payments under this Agreement may be made by the Customer to the Service Provider through:
+	•	UPI;
+	•	Credit / Debit Card;
+	•	Net Banking, including NEFT, RTGS and IMPS; or
+	•	any other electronic mode mutually agreed in writing.
+	•	All payments shall be made in Indian Rupees (INR) to the bank account/payment details designated by the Service Provider, and shall be deemed completed only upon successful realisation of funds in such account.
+	•	The applicable charges for the Services, including set-up and subscription of the Platform, are set out below:
+
+Particulars
+Charges (INR, exclusive of GST)
+One-time set-up / implementation fee
+[●]
+Subscription / AMC fee (per [month/user/loan account])
+[●]
+Additional module(s) / feature(s)
+[●]
+Data migration / extended transition support
+[●]
+Other charges (specify)
+[●]
+
+	•	All charges mentioned herein are exclusive of applicable taxes, including Goods and Services Tax (GST), which shall be charged additionally as per Applicable Law.
+	•	Any additional services, features, modules or enhancements availed by the Customer beyond the agreed scope shall be subject to additional charges, mutually agreed in writing between the Parties.
+
+ANNEXURE-C: SERVICE LEVEL AGREEMENT
+This Service Level Agreement ("SLA") is made and entered into as of [●] (the "Effective Date"), by and between [Service Provider Name] (the "Company"/"Service Provider") and [Customer Name] (the "Customer"), in relation to the Loan Management System Platform provided under the Master Service Agreement to which this SLA is annexed as Annexure-C.
+	•	Definitions
+	•	"Service Level Agreement (SLA)" means this document, outlining performance benchmarks, quality of service, deliverables, response times, uptime requirements and service standards the Service Provider is required to meet in delivering the Outsourced Services.
+	•	"Outsourced Services" means the Services described in the Agreement that are outsourced by the Customer to the Service Provider.
+	•	"Uptime Requirement" means the percentage of time the Platform is expected to be operational and available to users without disruption, being a key performance indicator for reliability and availability.
+	•	"Severity Level" means the classification of an incident as Critical, High, Medium or Low, as defined in Clause 3 below.
+	•	Performance Benchmarks
+	•	The Service Provider agrees to meet or exceed the performance benchmarks in this SLA, including service quality, timeliness, response times, issue-resolution times and overall efficiency.
+	•	The Service Provider shall monitor its performance continuously and ensure adherence to the agreed benchmarks.
+	•	Service Standards and Quality of Service
+	•	Response and resolution times shall be as follows:
+
+Severity
+Description (illustrative)
+Response Time
+Resolution Time
+Critical
+Platform-wide outage; disbursement/repayment processing down; data breach
+[●]
+[●]
+High
+Key module (underwriting/sanction/collections) unavailable; major functional failure
+[●]
+[●]
+Medium
+Partial degradation; non-critical module error
+[●]
+[●]
+Low
+Cosmetic issue; general query
+[●]
+[●]
+
+	•	Service performance shall be monitored by both Parties against the agreed Key Performance Indicators (KPIs), reviewed periodically.
+	•	Uptime Requirements
+	•	The Service Provider shall ensure the Platform meets an uptime target of [99]% availability, with allowable Downtime per the agreed maintenance schedule. Uptime is dependent on server/cloud infrastructure uptime provided by the underlying third-party infrastructure provider; during downtime of such underlying infrastructure, Platform services may not be available.
+	•	Any unplanned outage or Downtime beyond the specified limits shall be reported to the Customer immediately, and remedial measures shall be undertaken by the Service Provider.
+	•	Business Continuity and Disaster Recovery
+	•	The Service Provider shall maintain a documented Business Continuity and Disaster Recovery Plan for the Platform, with a Recovery Time Objective (RTO) of [●] and a Recovery Point Objective (RPO) of [●], tested at least [annually], consistent with the Outsourcing Directions.
+	•	Data shall be backed up [daily] and stored at [●] data centre(s) located within India, to ensure redundancy and availability, in accordance with Applicable Law.
+	•	Cyber Security Incident Reporting
+	•	The Service Provider shall notify the Customer within [●] hours of becoming aware of any cyber security incident affecting the Platform or Customer Data, and shall provide reasonable assistance to enable the Customer to comply with its obligation to report such incident to CERT-In within 6 (six) hours of noticing it, under Section 70B of the Information Technology Act, 2000, read with the CERT-In Directions dated 28 April 2022, and to the RBI, as applicable.
+	•	Response and Resolution Times
+	•	Response Time: initial acknowledgment of a request within [●] working hours of receipt.
+	•	Resolution Time: resolution or mitigation of issues within the timelines set out in Clause 3.1 above, depending on severity.
+	•	Support Availability: support shall be available during Business Hours, being [●] to [●], [Monday to Friday], with any additional support subject to prior written notice as set out in Clause 1.7 of the Agreement.
+	•	Escalation Matrix
+
+Level
+Contact / Role
+Escalation Trigger
+Response Time
+Level 1
+[●]
+Initial issue logged / not acknowledged
+[●]
+Level 2
+[●]
+Unresolved beyond Response Time in Clause 3.1
+[●]
+Level 3
+[●]
+Unresolved beyond Resolution Time in Clause 3.1
+[●]
+
+	•	Right to Audit and Inspection
+	•	The Customer, the RBI, or any person authorised by the RBI, shall have the right to access, inspect and audit the books of account, records, systems, controls and data of the Service Provider relating to the Services, in accordance with the Outsourcing Directions, on reasonable prior notice (save in the case of a regulatory directive requiring immediate access).
+	•	Term and Termination
+	•	This SLA shall be effective from the Effective Date and remain in force for the duration of the Agreement, unless terminated earlier in accordance with the Agreement.
+	•	Either Party may terminate or amend this SLA by providing [90] days' written notice, subject to mutual agreement.
+IN WITNESS WHEREOF, the Parties have executed this Service Level Agreement as of [●].
+FOR AND ON BEHALF OF [CUSTOMER NAME]
+FOR AND ON BEHALF OF [SERVICE PROVIDER NAME]
+  [Authorized Signatory Name]  Authorized Signatory
+  [Authorized Signatory Name]  Authorized Signatory
+
+ANNEXURE-D: NON-DISCLOSURE AGREEMENT (NDA)
+This Non-Disclosure Agreement ("NDA") is entered into as of [●] by and between [Service Provider Name] (the "Company") and [Customer Name] (the "Customer"), each a "Party" and together the "Parties". This NDA governs the exchange of Confidential Information between the Parties for the purpose of evaluating, negotiating and performing the Agreement (including any pre-contractual due diligence undertaken prior to execution of the Agreement) and is annexed to, and forms an integral part of, the Master Service Agreement between the Parties as Annexure-D.
+	•	Definitions
+	•	"Confidential Information" means all non-public information disclosed by one Party ("Disclosing Party") to the other ("Receiving Party"), whether in written, oral, electronic or other form, and whether or not marked confidential, including without limitation: business and financial information, strategic and product plans, pricing, source code, system architecture and Documentation, Customer Data and Loan Data (including Borrower personal, financial and credit information), audit and inspection findings, and the existence, terms and status of discussions between the Parties.
+	•	"Purpose" means the evaluation, negotiation and performance of the Agreement, including any due diligence, technical integration, or regulatory/compliance review undertaken in connection therewith.
+	•	Obligation of Confidentiality
+	•	The Receiving Party shall: (a) hold the Disclosing Party's Confidential Information in strict confidence, using at least the same degree of care it uses to protect its own confidential information of similar nature, and in no event less than reasonable care; (b) use such Confidential Information solely for the Purpose; and (c) not reverse engineer, decompile or disassemble any software or systems disclosed to it, save as otherwise permitted under the Agreement.
+	•	The Receiving Party shall be responsible for any breach of this NDA by its officers, employees, agents or representatives.
+	•	Permitted Disclosure
+	•	The Receiving Party may disclose Confidential Information to its employees, Affiliates, professional advisors, auditors and regulators (including the RBI) strictly on a need-to-know basis, provided such persons are bound by confidentiality obligations no less stringent than those set out herein.
+	•	Exclusions
+	•	The obligations in this NDA shall not apply to information that:
+	•	Is or becomes generally available to the public other than as a result of a breach of this NDA;
+	•	Was lawfully in the Receiving Party's possession, without restriction, prior to disclosure by the Disclosing Party;
+	•	Is independently developed by the Receiving Party without reference to or use of the Disclosing Party's Confidential Information, as evidenced by contemporaneous written records; or
+	•	Is required to be disclosed by Applicable Law, regulation, or a competent court, regulatory or governmental authority (including the RBI), provided that, to the extent legally permissible, the Receiving Party gives the Disclosing Party prior written notice and reasonably cooperates in seeking confidential treatment or a protective order.
+	•	No Licence; No Warranty
+	•	No disclosure of Confidential Information under this NDA shall be construed as granting any licence or right, by implication or otherwise, under any Intellectual Property of the Disclosing Party. All Confidential Information is provided "as is", without warranty of any kind.
+	•	Return or Destruction
+	•	Upon the Disclosing Party's written request, or upon termination or expiry of the Agreement, whichever is earlier, the Receiving Party shall promptly, and in any event within [30] days, return or irretrievably destroy all Confidential Information in its possession, including all copies, extracts and derivatives thereof, and certify such destruction in writing, save for: (a) Confidential Information required to be retained under Applicable Law (including Loan Data required for regulatory, audit or record-retention purposes); and (b) copies retained in routine backup archives, which shall remain subject to this NDA until deleted in the ordinary course.
+	•	Term of Confidentiality Obligation
+	•	This NDA shall commence on the date first written above and continue for the Term of the Agreement. The confidentiality obligations under this NDA shall survive termination or expiry of the Agreement for a period of [3] years thereafter, save that obligations relating to trade secrets, source code, and Borrower personal, financial or credit information shall survive for as long as such information continues to constitute a trade secret or is required to be kept confidential under Applicable Law.
+	•	Remedies
+	•	Each Party acknowledges that unauthorised use or disclosure of Confidential Information may cause irreparable harm to the Disclosing Party for which monetary damages may not be an adequate remedy, and accordingly the Disclosing Party shall be entitled to seek injunctive or other equitable relief, in addition to any other remedies available at law or under the Agreement, without the requirement to post a bond.
+	•	No Obligation to Proceed
+	•	Nothing in this NDA obligates either Party to proceed with, enter into, or continue any business relationship, negotiation or transaction with the other Party.
+	•	Relationship with the Agreement
+	•	This NDA supplements, and does not limit or supersede, Clause 14 (Confidential Information) of the Agreement. In the event of any conflict between this NDA and Clause 14 of the Agreement, the provision imposing the more stringent confidentiality obligation shall prevail. Where this NDA is executed independently and prior to execution of the Agreement, it shall continue in full force and effect in accordance with its terms notwithstanding that the Agreement is not thereafter executed by the Parties.
+	•	Governing Law and Dispute Resolution
+	•	This NDA shall be governed by the laws of India. Any Dispute arising out of or in connection with this NDA shall be resolved in accordance with Clause 20 (Jurisdiction and Governing Law) and Clause 21 (Dispute Resolution) of the Agreement, which shall apply mutatis mutandis to this NDA.
+	•	IN WITNESS WHEREOF, the Parties have executed this Non-Disclosure Agreement as of [●].
+FOR AND ON BEHALF OF [CUSTOMER NAME]
+FOR AND ON BEHALF OF [SERVICE PROVIDER NAME]
+  [Authorized Signatory Name]  Authorized Signatory
+  [Authorized Signatory Name]  Authorized Signatory
+

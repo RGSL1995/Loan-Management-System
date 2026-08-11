@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "lms:las_application",
+  "title": "LAS Application",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "applicantKycReference",
+    "constitutionApplicantType",
+    "residentialFemaStatus",
+    "occupationSourceOfFunds",
+    "annualIncomeNetWorth",
+    "existingLoanObligations",
+    "dematAccountNumberDpId",
+    "depository",
+    "brokerDpName",
+    "securitiesToBePledged",
+    "requestedLimit",
+    "facilityType",
+    "purposeOfLoanEndUse",
+    "existingLienOnTheseSecurities",
+    "disbursementInterestDebitBankAC",
+    "consents",
+    "eSignAgreementAcceptance"
+  ],
+  "properties": {
+    "applicantKycReference": {
+      "type": "string",
+      "title": "Applicant KYC Reference",
+      "description": "Linked Section 2 record (name, DOB, PAN, Aadhaar, CKYC, photo, signature)"
+    },
+    "constitutionApplicantType": {
+      "type": "string",
+      "title": "Constitution / Applicant Type",
+      "description": "Individual/Joint/HUF/NRI/Entity (§86.4)"
+    },
+    "residentialFemaStatus": {
+      "type": "string",
+      "title": "Residential / FEMA Status",
+      "description": "Resident/NRI; drives eligibility & account type"
+    },
+    "occupationSourceOfFunds": {
+      "type": "string",
+      "title": "Occupation / Source of Funds",
+      "description": "AML source-of-funds; PEP overlay (§2.11)"
+    },
+    "annualIncomeNetWorth": {
+      "type": "number",
+      "title": "Annual Income / Net Worth",
+      "description": "Financial profile; supports limit & suitability"
+    },
+    "existingLoanObligations": {
+      "type": "array",
+      "title": "Existing Loan Obligations",
+      "description": "For total-indebtedness/FOIR view"
+    },
+    "dematAccountNumberDpId": {
+      "type": "string",
+      "title": "Demat Account Number & DP ID",
+      "description": "16-digit BO ID; must belong to applicant"
+    },
+    "depository": {
+      "type": "string",
+      "title": "Depository",
+      "description": "NSDL / CDSL"
+    },
+    "brokerDpName": {
+      "type": "string",
+      "title": "Broker / DP Name",
+      "description": "Depository Participant"
+    },
+    "securitiesToBePledged": {
+      "type": "array",
+      "title": "Securities to be Pledged",
+      "description": "ISIN, Security Name, Qty, Last Price, Value, applied LTV/haircut, F&O flag"
+    },
+    "requestedLimit": {
+      "type": "number",
+      "title": "Requested Limit",
+      "description": "System caps at eligible Drawing Power"
+    },
+    "facilityType": {
+      "type": "string",
+      "title": "Facility Type",
+      "description": "Overdraft (revolving) / Term"
+    },
+    "purposeOfLoanEndUse": {
+      "type": "string",
+      "title": "Purpose of Loan / End-Use",
+      "description": "End-use declaration; restricted uses blocked (§86.2)"
+    },
+    "existingLienOnTheseSecurities": {
+      "type": "boolean",
+      "title": "Existing Lien on These Securities",
+      "description": "Cross-checked with depository/RTA"
+    },
+    "disbursementInterestDebitBankAC": {
+      "type": "string",
+      "title": "Disbursement / Interest-Debit Bank A/c",
+      "description": "Penny-drop + name-match; NRE/NRO if NRI"
+    },
+    "nomineeDetails": {
+      "type": "string",
+      "title": "Nominee Details",
+      "description": "Name, relationship, share"
+    },
+    "references": {
+      "type": "array",
+      "title": "References",
+      "description": "Per product policy"
+    },
+    "consents": {
+      "type": "string",
+      "title": "Consents",
+      "description": "Bureau, DPDP, pledge-authorisation, standing instruction (§43.1)"
+    },
+    "eSignAgreementAcceptance": {
+      "type": "string",
+      "title": "e-Sign / Agreement Acceptance",
+      "description": "Aadhaar e-Sign / DSC"
+    }
+  }
+}

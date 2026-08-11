@@ -1,0 +1,151 @@
+
+Proposal for a Next-Generation
+Finbyx
+End-to-End Lending, Loan Management System
+Prepared exclusively for
+[Client Name]
+
+
+
+
+
+
+
+Executive Summary
+Infrabyx proposes to deliver Client Name multi-tenant, cloud-hosted Loan Management System (LMS), Finbyx, covering the complete lending lifecycle, including borrower onboarding, origination and underwriting, servicing, collections and recovery, an embedded general ledger, and full RBI regulatory and Credit Information Company reporting which is accessible entirely through a browser, with a field application for on-ground and collections staff.
+The platform ships pre-built with a catalogue of 33 loan products spanning secured, unsecured, trade finance, MSME/priority-sector, and emerging digital-lending categories, and is designed to be configuration-driven: new products, form fields, workflows, pricing and regulatory returns are set up as data, not code, so [Client Name]’s business teams can evolve the product suite without waiting on a development release cycle.
+Compliance is treated as a first-class design requirement rather than an afterthought. The system is built to RBI's Scale-Based Regulation (SBR) reporting framework, CIC/bureau reporting standards, PMLA/AML obligations, the Digital Lending Directions (Key Fact Statement, APR disclosure, cooling-off), co-lending and securitization accounting, and data protection under the DPDP Act  giving [Client Name] a platform that is audit-ready from day one.
+Understanding Client Name’s Requirements
+Lending institutions in India today are expected to launch products faster than their legacy systems allow, while regulatory scrutiny  from RBI's SBR framework, Digital Lending Directions, and PMLA obligations, to CIC reporting and the DPDP Act  continues to increase in both scope and granularity. Common challenges we hear from NBFCs and banks include:
+	•	Product launches held back by hard-coded loan systems that require a development cycle for every new scheme, rate change, or eligibility rule.
+	•	Fragmented systems for origination, servicing, collections, and accounting that create reconciliation gaps and slow month-end close.
+	•	Manual or semi-automated regulatory returns (RBI, CIC, FIU-IND) that are error-prone and consume disproportionate compliance-team effort.
+	•	Difficulty producing the Key Fact Statement and APR disclosures the Digital Lending Directions require, particularly for LSP/fintech-sourced loans.
+	•	Limited visibility into portfolio risk, delinquency, and collection efficiency across products and branches in real time.
+FINBYX is architected specifically to close these gaps for an NBFC or bank of [Client Name] scale.
+Proposed Solution: Platform Overview
+Deployment Model
+The LMS is delivered as a multi-tenant, cloud-hosted SaaS application. A single codebase and infrastructure stack serves [Client Name]if required in future, additional group entities or branches through logically isolated tenant partitions. Access is entirely through a web browser (desktop and responsive mobile), with no client-side installation required. A companion Progressive Web App (PWA) view is available for field staff such as collections agents, gold appraisers, and valuers who need offline-capable data capture.
+Layered, Configuration-Driven Architecture
+The platform is organised into five logical layers, each communicating with the one below only through defined APIs, so any layer's underlying technology can be changed without disrupting the others. The stack is described at the module/API/data-model level rather than tied to a specific programming language, allowing your IT teams to select the technology (microservices or modular monolith, any modern RDBMS, any cloud provider) that best fits in-house skills and data-residency requirements.
+Critically, new products, form fields, workflows, interest and fee rules, and regulatory returns are configured as data rather than hard-coded so the business can launch and adjust products without a software release.
+Core Platform Modules
+Module
+What It Delivers
+Customer / Borrower Management
+360° customer master, onboarding, KYC, relationship hierarchy (co-borrowers, guarantors, groups)
+Product Configuration Engine
+Parameter-driven setup of new loan products with no code changes — interest method, fees, eligibility, documents, form fields
+Loan Origination System (LOS)
+Lead capture through application, credit appraisal, sanction, agreement, and disbursement
+Credit Underwriting & Bureau
+Rules engine, scorecards, bureau pull, deviation/exception approvals
+Loan Management / Servicing
+Repayment schedules, interest accrual, part-payment, foreclosure, restructuring, top-up
+Collections & Recovery
+Bucket-wise queues, PTP tracking, field collection app, legal/SARFAESI workflow, repossession/auction
+Accounting & General Ledger
+Chart of accounts, auto journal posting, sub-ledgers, bank reconciliation, fixed assets, payables, financial statements
+RBI Regulatory Reporting
+Configurable by SBR layer; generates statutory returns and CRILC/CIMS submissions
+CIC / Bureau Reporting
+Monthly submission to CIBIL / Equifax / Experian / CRIF High Mark in Uniform Credit Reporting Format
+Document Management
+Central repository, e-sign/e-stamp integration, version control, retention policy
+Communication / Notification
+SMS, email, WhatsApp, in-app notices, statutory notice templates
+MIS / Dashboards & Reports
+Portfolio, delinquency, collection efficiency, statutory, and ad-hoc report builder
+Admin, Security & Audit
+Role/branch/user management, audit trail, workflow and approval matrix configuration
+Loan Product Coverage
+The platform ships with 33 loan products pre-modelled end-to-end (application form, eligibility, pricing, documents, credit policy, and workflow below by category. Each is configured, not custom-built, so  can activate the products relevant to its portfolio and add more over time.
+Secured Retail & MSME Lending
+	•	Loan Against Securities (LAS)
+	•	Loan Against Property (LAP)
+	•	Gold Loan
+	•	Vehicle / Two-Wheeler Loan
+	•	Commercial Vehicle & Construction Equipment (CV/CE) Finance
+	•	Tractor & Farm Equipment Loan
+	•	Affordable Housing Loan
+	•	Reverse Mortgage Loan
+	•	Loan Against Fixed Deposit / Insurance Policy / Mutual Funds
+	•	Equipment / Machinery Finance & Leasing
+	•	Electric Vehicle (EV) Financing
+	•	Renewable Energy / Solar Loan
+Unsecured & Digital Lending
+	•	Unsecured Personal / Business Loan
+	•	Smart Credit Line (Digital Revolving Credit Line)
+	•	Consumer Durable / Point-of-Sale (POS) Loan
+	•	Buy Now Pay Later (BNPL) — Consumer & B2B
+	•	Merchant Cash Advance (MCA) / Revenue-Based Financing
+	•	GST-Invoice-Based Unsecured Business Loan
+	•	Gig-Worker / Platform-Income Loan
+	•	Education Loan (Domestic & Overseas)
+Trade, Supply Chain & Working Capital Finance
+	•	Supply Chain Finance / Invoice Discounting
+	•	Factoring (Recourse & Non-Recourse) — NBFC-Factor
+	•	TReDS-Based Invoice Financing
+	•	Bill / Cheque Discounting
+	•	Working Capital Demand Loan (WCDL) / Cash Credit / Overdraft Against Stock & Book Debts
+	•	Lease Rental Discounting (LRD)
+	•	Warehouse Receipt / Commodity Financing
+Priority Sector, Group & Specialized Lending
+	•	Microfinance — JLG / SHG Group Loan
+	•	Government Scheme-Linked Loans (cross-product overlay)
+	•	Franchise Financing
+	•	Startup Venture Debt
+	•	Insurance Premium Financing
+An Alternative Data & Emerging Underwriting Inputs framework is built in as a cross-cutting capability, allowing new data sources to be added to credit decisioning without re-architecting the underwriting engine.
+Regulatory & Compliance Assurance
+Compliance is engineered into the platform's architecture, not layered on afterward. Regulatory thresholds and formats reflect the extant RBI Master Directions and statutes, and should be re-validated by [Client Name]'s Compliance function before go-live.
+Compliance Area
+How the Platform Addresses It
+RBI Scale-Based Regulation (SBR) Reporting
+Configurable rules-and-templates engine (not hard-coded returns) so the applicable layer, thresholds, and CRILC/CIMS return formats can be updated as RBI revises the SBR framework.
+CIC / Bureau Reporting
+Monthly submission to CIBIL, Equifax, Experian, and CRIF High Mark in the Uniform Credit Reporting Format.
+AML / CFT & PMLA
+Dedicated Principal Officer role with an STR/CTR review queue and FIU-IND submission sign-off; alerts, decisions, and acknowledgements retained in an immutable case file for inspection.
+Digital Lending Directions (KFS, APR, Cooling-Off)
+Key Fact Statement and APR disclosures generated at loan agreement stage for every retail and MSME loan; LSP/fintech-sourced loans tracked to stay within RBI's permitted co-lending/outsourcing structure.
+Co-Lending, Assignment & Securitization
+Modelled as its own module with dedicated accounting treatment and RBI/CIC reporting, including NBS and board-disclosure line items.
+Data Privacy (DPDP Act)
+Data privacy controls mapped to the DPDP Act, alongside security and cyber-resilience controls aligned to the RBI IT Framework for NBFCs.
+Provisioning & Prudential Ratios
+Ind AS 109 Expected Credit Loss (ECL) and IRAC provisioning, with prudential ratios including CRAR and leverage available for regulatory and board reporting.
+Access Control & Audit
+Role-Based Access Control (RBAC) at module, screen, and field level, layered with branch/region scoping, and a full audit trail.
+Why FINBYX?
+	•	Configuration over code. New products, pricing, workflows, and regulatory returns are set up as data, so [Client Name]'s business and compliance teams can evolve the platform without waiting on a release cycle.
+	•	Regulator-grade depth. A comprehensive calculation engine with worked, numerically-verified examples; Ind AS 109 ECL and IRAC provisioning; CRAR and leverage ratios; and full traceability of regulatory obligations.
+	•	Technology-agnostic delivery. A recommended reference architecture that [Client Name]'s IT team can adopt as-is or substitute, without being locked into a specific vendor stack.
+	•	Delivery-ready from day one. A documented business case, build-vs-buy analysis, target operating model, implementation roadmap, RAID log, and go-live readiness criteria accompany the technical specification.
+	•	Field-ready operations. A Progressive Web App for collections agents, gold appraisers, and valuers who need offline-capable data capture outside the branch.
+Proposed Engagement Approach
+We recommend a phased implementation that lets [Client Name] validate the platform on priority products before a full portfolio migration:
+Phase
+Focus
+Indicative Duration
+1. Discovery & Configuration
+Confirm product scope, branch/role matrix, chart of accounts, and regulatory reporting layer (SBR classification); configure priority products.
+[X weeks]
+2. Build, Integration & Data Migration
+Bureau, payment gateway, e-sign/e-stamp, and core-banking/accounting integrations; historical loan and customer data migration.
+[X weeks]
+3. UAT & Regulatory Sign-off
+User acceptance testing, Compliance sign-off on KFS/APR disclosures, AML workflows, and regulatory return formats.
+[X weeks]
+4. Go-Live & Hypercare
+Phased rollout by branch or product line, with dedicated hypercare support.
+[X weeks]
+A detailed RAID log, go-live readiness checklist, and target operating model are available in the full technical specification and can be tailored to [Client Name]'s rollout sequence.
+Commercial Terms & Next Steps
+Commercial terms — licensing model (per-branch, per-user, or transaction-based), implementation fees, and support/SLA tiers — will be finalized based on [Client Name]'s deployment scale, product scope, and chosen hosting model, and are detailed in the accompanying commercial annexure.
+Recommended Next Steps
+	•	A discovery workshop to confirm product scope and current-state pain points.
+	•	A walkthrough of the full technical architecture specification with [Client Name]'s IT and Compliance teams.
+	•	A tailored commercial proposal based on agreed scope and rollout timeline.
+We welcome the opportunity to discuss this proposal further at your convenience.
+Contact: tech@lawdocs.in

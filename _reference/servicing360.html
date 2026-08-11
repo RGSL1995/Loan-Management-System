@@ -1,0 +1,34 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><title>Servicing 360</title><style>:root{--blue:#1F4E78;--mid:#2E75B6;--lt:#DEEAF6;--green:#548235;--red:#C00000;--amber:#BF8F00}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:#222;background:#f4f6fa}.bar{background:var(--blue);color:#fff;padding:12px 20px;font-size:17px;display:flex;justify-content:space-between;align-items:center}nav a{color:#cfe0f5;text-decoration:none;margin-left:16px;font-size:13px}nav a:hover{color:#fff}.wrap{max-width:1000px;margin:18px auto;padding:0 16px}.card{background:#fff;border:1px solid #dfe4ec;border-radius:8px;padding:16px 18px;margin-bottom:16px}h2{color:var(--blue);font-size:16px;margin:0 0 12px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{border:1px solid #e2e6ee;padding:6px 8px;text-align:left}th{background:var(--blue);color:#fff}input,select{padding:6px;border:1px solid #cbd3e0;border-radius:4px;font-size:13px}label{font-size:12px;color:#334;display:block;margin-bottom:3px}.row{display:flex;gap:16px;flex-wrap:wrap;align-items:end}.row>div{margin-bottom:8px}button{background:var(--green);color:#fff;border:0;border-radius:6px;padding:8px 14px;font-weight:bold;cursor:pointer}.tiles{display:flex;gap:12px;flex-wrap:wrap}.tile{flex:1;min-width:150px;background:var(--lt);border:1px solid var(--mid);border-radius:8px;padding:12px;text-align:center}.tile .l{font-size:12px;color:#334}.tile .v{font-size:20px;font-weight:bold;color:var(--blue)}.muted{color:#667;font-size:12px}.warn{color:var(--red);font-weight:bold}</style></head><body>
+<div class="bar"><span>LMS · <b>Loan Servicing 360</b></span><nav><a href="index.html">Home</a><a href="onboarding.html">Onboarding</a><a href="las_application.html">LAS Application</a><a href="servicing360.html">Servicing 360</a><a href="collections.html">Collections</a><a href="field_receipt.html">Field Receipt</a></nav></div>
+<div class="wrap"><div class="card"><h2>Amortisation schedule (generated in-browser · mirrors lms_calc)</h2>
+<div class="row">
+<div><label>Principal ₹</label><input type="number" id="P" value="2000000" oninput="run()"></div>
+<div><label>Rate % p.a.</label><input type="number" id="r" value="11" step="0.1" oninput="run()"></div>
+<div><label>Tenure (months)</label><input type="number" id="n" value="180" oninput="run()"></div>
+</div>
+<div class="tiles" style="margin:12px 0">
+<div class="tile"><div class="l">EMI</div><div class="v" id="emi">—</div></div>
+<div class="tile"><div class="l">Total interest</div><div class="v" id="ti">—</div></div>
+<div class="tile"><div class="l">Total payment</div><div class="v" id="tp">—</div></div>
+</div>
+<table id="sch"><thead><tr><th>#</th><th>EMI</th><th>Principal</th><th>Interest</th><th>Balance</th></tr></thead><tbody></tbody></table>
+<p class="muted">Showing first 6 and last installment; last EMI absorbs rounding residual (Section 28.2).</p>
+</div></div>
+<script>
+const f=x=>'₹'+x.toLocaleString('en-IN',{maximumFractionDigits:2});
+function round2(x){return Math.round(x*100)/100;}
+function run(){const P=+P_.value,rate=+r.value,n=+n_.value;const rm=rate/12/100;
+ const emi=round2(P*rm*Math.pow(1+rm,n)/(Math.pow(1+rm,n)-1));
+ let bal=P,ti=0,rows=[];for(let i=1;i<=n;i++){let interest=round2(bal*rm);let pr,pay;
+  if(i==n){pr=round2(bal);pay=round2(pr+interest);}else{pr=round2(emi-interest);pay=emi;}
+  bal=round2(bal-pr);ti+=interest;rows.push([i,pay,pr,interest,Math.max(bal,0)]);}
+ document.getElementById('emi').textContent=f(emi);
+ document.getElementById('ti').textContent=f(round2(ti));
+ document.getElementById('tp').textContent=f(round2(P+ti));
+ const tb=document.querySelector('#sch tbody');tb.innerHTML='';
+ const show=rows.slice(0,6).concat([['…','','','','']]).concat([rows[rows.length-1]]);
+ show.forEach(x=>{tb.innerHTML+=`<tr><td>${x[0]}</td><td>${x[1]===''?'':f(x[1])}</td><td>${x[2]===''?'':f(x[2])}</td><td>${x[3]===''?'':f(x[3])}</td><td>${x[4]===''?'':f(x[4])}</td></tr>`;});
+}
+const P_=document.getElementById('P'),r=document.getElementById('r'),n_=document.getElementById('n');
+run();
+</script></body></html>
