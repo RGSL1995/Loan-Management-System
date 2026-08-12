@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Save, Send, Upload } from "lucide-react";
+import { ChevronLeft, ChevronRight, Save, Send, Upload, Database } from "lucide-react";
 import { saveLoanApplication, submitLoanApplication } from "@/app/actions/loan-applications";
 import DocumentUploadModal from "./DocumentUploadModal";
+import MCALoginModal from "./MCALoginModal";
 
 interface RGSLLoanApplicationFormProps {
   applicationId?: string;
@@ -28,6 +29,7 @@ export default function RGSLLoanApplicationForm({
   const [applicantType, setApplicantType] = useState<"individual" | "corporate" | "others">("individual");
   const [showDocumentUpload, setShowDocumentUpload] = useState(false);
   const [uploadDocumentType, setUploadDocumentType] = useState<"loan_application" | "sanction_letter">("loan_application");
+  const [showMCAModal, setShowMCAModal] = useState(false);
 
   const [formData, setFormData] = useState({
     // Loan Details
@@ -141,6 +143,29 @@ export default function RGSLLoanApplicationForm({
       [parent]: {
         ...(prev as any)[parent],
         [field]: value,
+      },
+    }));
+  };
+
+  const handleMCADataFetched = (mcaData: any) => {
+    setFormData((prev) => ({
+      ...prev,
+      business: {
+        ...prev.business,
+        entity_name: mcaData.entity_name || prev.business.entity_name,
+        cin_llpin: mcaData.cin_llpin || prev.business.cin_llpin,
+        pan: mcaData.pan || prev.business.pan,
+        dol: mcaData.dol || prev.business.dol,
+        company_type: mcaData.company_type || prev.business.company_type,
+        corporate_address: mcaData.corporate_address || prev.business.corporate_address,
+        corporate_state: mcaData.corporate_state || prev.business.corporate_state,
+        corporate_pin: mcaData.corporate_pin || prev.business.corporate_pin,
+        contact_no: mcaData.contact_no || prev.business.contact_no,
+        contact_email: mcaData.contact_email || prev.business.contact_email,
+        registered_address: mcaData.registered_address || prev.business.registered_address,
+        registered_state: mcaData.registered_state || prev.business.registered_state,
+        registered_pin: mcaData.registered_pin || prev.business.registered_pin,
+        gstin_uin: mcaData.gstin_uin || prev.business.gstin_uin,
       },
     }));
   };
@@ -697,9 +722,19 @@ export default function RGSLLoanApplicationForm({
 
           {currentStep === 1 && (applicantType === "corporate" || applicantType === "others") && (
             <div className="space-y-6 bg-white dark:bg-slate-900 rounded-lg p-6 border border-gray-200 dark:border-slate-800">
-              <h2 className="text-lg font-bold text-gray-900 dark:text-slate-100">
-                Applicant Details
-              </h2>
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-bold text-gray-900 dark:text-slate-100">
+                  Applicant Details
+                </h2>
+                <button
+                  type="button"
+                  onClick={() => setShowMCAModal(true)}
+                  className="flex items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400 rounded-md hover:bg-blue-100 dark:hover:bg-blue-900/40 transition text-sm font-medium"
+                >
+                  <Database className="w-4 h-4" />
+                  Fetch from MCA
+                </button>
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -1202,6 +1237,13 @@ export default function RGSLLoanApplicationForm({
         onClose={() => setShowDocumentUpload(false)}
         onDataExtracted={handleDocumentUpload}
         documentType={uploadDocumentType}
+      />
+
+      <MCALoginModal
+        isOpen={showMCAModal}
+        onClose={() => setShowMCAModal(false)}
+        onDataFetched={handleMCADataFetched}
+        applicationId={applicationId}
       />
     </div>
   );
