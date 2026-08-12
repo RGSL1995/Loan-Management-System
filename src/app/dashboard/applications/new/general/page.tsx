@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import LoanApplicationForm from "@/components/LoanApplicationForm";
+import RGSLLoanApplicationForm from "@/components/RGSLLoanApplicationForm";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -99,11 +99,10 @@ export default function GeneralLoanApplicationPage() {
       </div>
 
       {/* Form Container */}
-      <div className="flex-1 overflow-y-auto p-2">
+      <div className="flex-1 overflow-y-auto">
         <div className="w-full">
-          <LoanApplicationForm
+          <RGSLLoanApplicationForm
             applicationId={applicationId || undefined}
-            onLoanTypeChange={(type) => setLoanType(type)}
             onSuccess={(appId) => {
               setIsSubmitted(true);
             }}

@@ -25,7 +25,7 @@ async function getUserCompanyId(): Promise<string> {
 }
 
 export async function saveLoanApplication(
-  applicationData: Partial<CompleteLoanApplication> & { product_data?: Record<string, any> },
+  applicationData: any,
   applicationId?: string,
   productType?: "LAS" | "LAP" | "SCL" | "GENERAL"
 ) {
@@ -37,27 +37,62 @@ export async function saveLoanApplication(
 
     const companyId = await getUserCompanyId();
 
-    const info = (applicationData?.application_info || {}) as any;
-    const loanType = info.loan_type || "PERSONAL_LOAN";
+    // Handle both old format and new RGSL format
+    const isRGSLFormat = applicationData.loan_amount !== undefined;
 
-    // Build the primary payload for the existing loan_applications table (draft storage)
-    const payload = {
-      company_id: companyId,
-      applicant_id: user.id,
-      created_by: user.id,
-      loan_type: loanType.toLowerCase(),
-      applicant_data: applicationData?.applicant_details || {},
-      co_applicant_data: applicationData?.co_applicant_details || null,
-      contact_person_data: applicationData?.contact_person || null,
-      associate_company_data: applicationData?.associate_companies || null,
-      existing_loans: applicationData?.existing_loans || [],
-      bank_account_data: applicationData?.bank_account || {},
-      proposed_facilities: applicationData?.proposed_facilities || [],
-      references: applicationData?.references || [],
-      document_checklist: applicationData?.document_checklist || {},
-      declaration_data: applicationData?.declaration || {},
-      ckyc_consent: applicationData?.ckyc_consent || {},
-    };
+    let payload: any;
+
+    if (isRGSLFormat) {
+      // New RGSL format from RGSLLoanApplicationForm
+      payload = {
+        company_id: companyId,
+        applicant_id: user.id,
+        created_by: user.id,
+        loan_type: applicationData.applicant_type === 'individual' ? 'personal_loan' : 'business_loan',
+        applicant_type: applicationData.applicant_type,
+        loan_amount: applicationData.loan_amount ? parseFloat(applicationData.loan_amount) : null,
+        loan_tenure: applicationData.loan_tenure ? parseInt(applicationData.loan_tenure) : null,
+        loan_purpose: applicationData.loan_purpose || '',
+        loan_facility_type: applicationData.loan_facility_type || '',
+        branch: applicationData.branch || '',
+        individual_applicant_data: applicationData.individual || null,
+        business_applicant_data: applicationData.business || null,
+        collateral_details: applicationData.collaterals || [],
+        processing_fees_data: applicationData.processing_fees || {},
+        other_details: applicationData.other_details || '',
+        declaration_accepted: applicationData.declaration_accepted || false,
+        // Keep legacy fields for backward compatibility
+        applicant_data: applicationData.individual || applicationData.business || {},
+        bank_account_data: {},
+        proposed_facilities: [],
+        references: [],
+        document_checklist: {},
+        declaration_data: { accepted: applicationData.declaration_accepted || false },
+        ckyc_consent: {},
+      };
+    } else {
+      // Legacy format from old LoanApplicationForm
+      const info = (applicationData?.application_info || {}) as any;
+      const loanType = info.loan_type || "PERSONAL_LOAN";
+
+      payload = {
+        company_id: companyId,
+        applicant_id: user.id,
+        created_by: user.id,
+        loan_type: loanType.toLowerCase(),
+        applicant_data: applicationData?.applicant_details || {},
+        co_applicant_data: applicationData?.co_applicant_details || null,
+        contact_person_data: applicationData?.contact_person || null,
+        associate_company_data: applicationData?.associate_companies || null,
+        existing_loans: applicationData?.existing_loans || [],
+        bank_account_data: applicationData?.bank_account || {},
+        proposed_facilities: applicationData?.proposed_facilities || [],
+        references: applicationData?.references || [],
+        document_checklist: applicationData?.document_checklist || {},
+        declaration_data: applicationData?.declaration || {},
+        ckyc_consent: applicationData?.ckyc_consent || {},
+      };
+    }
 
     let savedData: any;
 
@@ -82,21 +117,8 @@ export async function saveLoanApplication(
         .single();
 
       if (error) throw error;
-      if (data) data.loan_type = data.loan_type.toUpperCase();
+      if (data) data.loan_type = data.loan_type?.toUpperCase?.();
       savedData = data;
-
-      // Also update product_data in loan_applications_v2 if productType provided
-      if (productType && productType !== "GENERAL" && applicationData?.product_data) {
-        await supabase
-          .from("loan_applications_v2")
-          .update({
-            core_data: payload,
-            product_data: applicationData.product_data,
-          })
-          .eq("company_id", companyId)
-          // Match by a linkage: store the v1 id as reference
-          .eq("product_type", productType);
-      }
 
     } else {
       // Create new application in the existing table
@@ -107,31 +129,8 @@ export async function saveLoanApplication(
         .single();
 
       if (error) throw error;
-      if (data) data.loan_type = data.loan_type.toUpperCase();
+      if (data) data.loan_type = data.loan_type?.toUpperCase?.();
       savedData = data;
-
-      // Also write to loan_applications_v2 for product-specific storage
-      // This is the scalable store — product_data is pure JSONB, no migrations needed
-      if (productType && productType !== "GENERAL") {
-        const { error: v2Error } = await supabase
-          .from("loan_applications_v2")
-          .insert({
-            company_id: companyId,
-            // NOTE: client_id will be required when client management is fully implemented.
-            // For now we use a placeholder UUID to allow saving. Update when client linking is done.
-            client_id: "00000000-0000-0000-0000-000000000000",
-            product_type: productType,
-            status: "draft",
-            core_data: payload,
-            product_data: applicationData.product_data || {},
-            created_by: user.id,
-          });
-
-        if (v2Error) {
-          // Log but do not fail — the primary save succeeded
-          console.warn("loan_applications_v2 insert warning:", v2Error.message);
-        }
-      }
     }
 
     return {
@@ -174,38 +173,54 @@ export async function submitLoanApplication(applicationId: string) {
       throw new Error("Can only submit draft applications");
     }
 
-    // Reconstruct the CompleteLoanApplication object for strict validation
-    const appToValidate = {
-      application_info: {
-        loan_type: application.loan_type.toUpperCase(),
-        applicant_signature_file_id: application.applicant_signature_file_id || undefined,
-        applicant_photo_file_id: application.applicant_photo_file_id || undefined,
-        co_applicant_photo_file_id: application.co_applicant_photo_file_id || undefined,
-      },
-      applicant_details: application.applicant_data,
-      co_applicant_details: application.co_applicant_data || undefined,
-      contact_person: application.contact_person_data || undefined,
-      associate_companies: application.associate_company_data || [],
-      existing_loans: application.existing_loans,
-      bank_account: application.bank_account_data,
-      proposed_facilities: application.proposed_facilities,
-      references: application.references,
-      document_checklist: application.document_checklist,
-      declaration: application.declaration_data,
-      ckyc_consent: application.ckyc_consent,
-    };
+    // Check if this is an RGSL format application
+    const isRGSLFormat = application.applicant_type !== undefined && application.applicant_type !== null;
 
-    // Validate the complete application data strictly
-    try {
-      CompleteLoanApplicationSchema.parse(appToValidate);
-    } catch (parseErr) {
-      if (parseErr instanceof z.ZodError) {
-        const errorsList = parseErr.issues.map(
-          (e: z.ZodIssue) => `${e.path.join(".") || "field"}: ${e.message}`
-        );
-        throw new Error(`Validation failed:\n${errorsList.join("\n")}`);
+    if (!isRGSLFormat) {
+      // Legacy format validation
+      const appToValidate = {
+        application_info: {
+          loan_type: application.loan_type?.toUpperCase?.(),
+          applicant_signature_file_id: application.applicant_signature_file_id || undefined,
+          applicant_photo_file_id: application.applicant_photo_file_id || undefined,
+          co_applicant_photo_file_id: application.co_applicant_photo_file_id || undefined,
+        },
+        applicant_details: application.applicant_data,
+        co_applicant_details: application.co_applicant_data || undefined,
+        contact_person: application.contact_person_data || undefined,
+        associate_companies: application.associate_company_data || [],
+        existing_loans: application.existing_loans,
+        bank_account: application.bank_account_data,
+        proposed_facilities: application.proposed_facilities,
+        references: application.references,
+        document_checklist: application.document_checklist,
+        declaration: application.declaration_data,
+        ckyc_consent: application.ckyc_consent,
+      };
+
+      // Validate the complete application data strictly
+      try {
+        CompleteLoanApplicationSchema.parse(appToValidate);
+      } catch (parseErr) {
+        if (parseErr instanceof z.ZodError) {
+          const errorsList = parseErr.issues.map(
+            (e: z.ZodIssue) => `${e.path.join(".") || "field"}: ${e.message}`
+          );
+          throw new Error(`Validation failed:\n${errorsList.join("\n")}`);
+        }
+        throw parseErr;
       }
-      throw parseErr;
+    } else {
+      // RGSL format validation - check required fields
+      if (!application.loan_amount || !application.loan_tenure) {
+        throw new Error("Loan amount and tenure are required");
+      }
+      if (!application.individual_applicant_data && !application.business_applicant_data) {
+        throw new Error("Applicant details are required");
+      }
+      if (!application.declaration_accepted) {
+        throw new Error("Declaration must be accepted before submission");
+      }
     }
 
     const { data, error } = await supabase

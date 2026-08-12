@@ -15,8 +15,9 @@ export const config = {
      * - /test-fineract (test page - no auth needed)
      * - /simple-test (simple test page - no auth needed)
      * - /api/fineract (Fineract proxy - handled separately)
+     * - /api/documents (Document parsing API - open to all authenticated users)
      * Feel free to modify this pattern to include more paths.
      */
-    "/((?!_next/static|_next/image|favicon.ico|test-fineract|simple-test|api/fineract|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|test-fineract|simple-test|api/fineract|api/documents|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
