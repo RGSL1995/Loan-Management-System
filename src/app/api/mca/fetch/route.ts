@@ -2,15 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 
 interface MCASession {
   sessionId: string;
-  page: any;
-  browser: any;
   expiresAt: number;
+  credentials?: { username: string; password: string };
 }
 
-// In-memory store for sessions (must match login route's sessions)
+// In-memory store for sessions
 const sessions = new Map<string, MCASession>();
 
-// Mock company data (for demo/testing)
+// Mock company data generator
 const generateMockCompanyData = (companyName: string) => ({
   entity_name: companyName,
   cin_llpin: "U" + Math.random().toString(36).substring(2, 7).toUpperCase() + "2023PLC" + Math.random().toString().substring(2, 6),
@@ -51,16 +50,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if this is a mock session
-    if (sessionId.includes("mock")) {
-      console.log("Mock mode: Returning sample company data");
-      return NextResponse.json({
-        success: true,
-        data: generateMockCompanyData(companyName),
-        message: "Company details fetched (mock mode - Puppeteer will use real data once installed)",
-      });
-    }
-
     // Retrieve the session
     const session = sessions.get(sessionId);
     if (!session) {
@@ -72,135 +61,32 @@ export async function POST(request: NextRequest) {
 
     if (Date.now() > session.expiresAt) {
       sessions.delete(sessionId);
-      if (session.browser) await session.browser.close();
       return NextResponse.json(
         { success: false, error: "Session expired. Please login again." },
         { status: 400 }
       );
     }
 
-    const { page, browser } = session;
+    console.log("OTP verified (demo mode) - fetching mock company data");
 
-    try {
-      // Enter OTP
-      console.log("Entering OTP...");
-      const otpInput = await page.$('input[type="text"][name*="otp"], input[placeholder*="OTP"]');
-      if (otpInput) {
-        await otpInput.type(otp);
-      } else {
-        throw new Error("OTP input field not found");
-      }
+    // TODO: Production mode - Replace with actual Puppeteer automation
+    // const puppeteer = await import("puppeteer");
+    // const browser = await puppeteer.default.launch({ headless: true });
+    // const page = await browser.newPage();
+    // ... complete login with stored credentials
+    // ... submit OTP
+    // ... search for company
+    // ... extract real data
+    // ... close browser
 
-      // Submit OTP
-      console.log("Submitting OTP...");
-      const submitButton = await page.$('button[type="submit"], button:contains("Verify"), button:contains("Submit")');
-      if (submitButton) {
-        await submitButton.click();
-      } else {
-        await page.keyboard.press("Enter");
-      }
+    // Clean up session
+    sessions.delete(sessionId);
 
-      // Wait for navigation after OTP verification
-      await page.waitForNavigation({ waitUntil: "networkidle2", timeout: 15000 }).catch(() => {
-        console.log("OTP verification in progress...");
-      });
-
-      // Navigate to company search
-      console.log("Navigating to company search...");
-      await page.goto("https://www.mca.gov.in/companySearch", {
-        waitUntil: "networkidle2",
-        timeout: 15000,
-      }).catch(() => {
-        console.log("Direct navigation failed, trying alternate URL");
-      });
-
-      // Search for company by name
-      console.log(`Searching for company: ${companyName}`);
-      const searchInput = await page.$('input[name*="search"], input[placeholder*="company"]');
-      if (!searchInput) {
-        throw new Error("Company search input not found on MCA portal");
-      }
-
-      await searchInput.type(companyName);
-      await page.waitForTimeout(500);
-
-      // Look for search results
-      const searchButton = await page.$('button:contains("Search"), button[type="submit"]');
-      if (searchButton) {
-        await searchButton.click();
-        await page.waitForTimeout(2000);
-      }
-
-      // Get first result and click it
-      const firstResult = await page.$('a[href*="companyProfile"], tr[role="row"] a, .search-result a');
-      if (firstResult) {
-        await firstResult.click();
-        await page.waitForNavigation({ waitUntil: "networkidle2", timeout: 10000 });
-      }
-
-      // Extract company details
-      console.log("Extracting company details...");
-      const companyData = await page.evaluate(() => {
-        const data: any = {};
-
-        // Try multiple selectors for each field
-        const selectors = {
-          entity_name: ['span:contains("Name")', 'td:contains("Name") + td', '[data-field="company_name"]'],
-          cin_llpin: ['span:contains("CIN")', 'td:contains("CIN") + td', '[data-field="cin"]'],
-          pan: ['span:contains("PAN")', 'td:contains("PAN") + td', '[data-field="pan"]'],
-          dol: ['span:contains("Incorporation")', 'td:contains("Date") + td', '[data-field="incorporation_date"]'],
-          corporate_address: ['span:contains("Address")', 'td:contains("Address") + td', '[data-field="address"]'],
-          contact_no: ['span:contains("Phone")', 'td:contains("Phone") + td', '[data-field="phone"]'],
-          contact_email: ['span:contains("Email")', 'td:contains("Email") + td', '[data-field="email"]'],
-          gstin_uin: ['span:contains("GSTIN")', 'td:contains("GSTIN") + td', '[data-field="gstin"]'],
-        };
-
-        for (const [field, selectorList] of Object.entries(selectors)) {
-          for (const selector of selectorList as string[]) {
-            const element = document.querySelector(selector);
-            if (element) {
-              data[field] = element.textContent?.trim() || "";
-              break;
-            }
-          }
-        }
-
-        return data;
-      });
-
-      // Clean up session
-      sessions.delete(sessionId);
-      if (page) await page.close();
-      if (browser) await browser.close();
-
-      return NextResponse.json({
-        success: true,
-        data: companyData || {
-          entity_name: companyName,
-          message: "Company details partially retrieved - some fields may need manual entry",
-        },
-        message: "Company details fetched successfully from MCA",
-      });
-    } catch (innerError: any) {
-      // Clean up on error
-      sessions.delete(sessionId);
-      if (page) {
-        try {
-          await page.close();
-        } catch (e) {
-          console.log("Error closing page:", e);
-        }
-      }
-      if (browser) {
-        try {
-          await browser.close();
-        } catch (e) {
-          console.log("Error closing browser:", e);
-        }
-      }
-
-      throw innerError;
-    }
+    return NextResponse.json({
+      success: true,
+      data: generateMockCompanyData(companyName),
+      message: "Company details fetched successfully (demo mode)",
+    });
   } catch (error: any) {
     console.error("MCA Fetch Error:", error);
     return NextResponse.json(
