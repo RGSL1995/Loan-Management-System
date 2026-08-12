@@ -26,6 +26,7 @@ export default function MCALoginModal({
   const [fetchedData, setFetchedData] = useState<any>(null);
   const [step, setStep] = useState<"login" | "otp" | "review">("login");
   const [sessionId, setSessionId] = useState<string>("");
+  const [isMockMode, setIsMockMode] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,6 +52,7 @@ export default function MCALoginModal({
 
       const result = await response.json();
       setSessionId(result.sessionId);
+      setIsMockMode(result.isMockMode || false);
       setError("");
       setStep("otp");
     } catch (err: any) {
@@ -100,6 +102,7 @@ export default function MCALoginModal({
     setFetchedData(null);
     setStep("login");
     setError("");
+    setIsMockMode(false);
     onClose();
   };
 
@@ -187,11 +190,22 @@ export default function MCALoginModal({
             </form>
           ) : step === "otp" ? (
             <form onSubmit={handleOTPSubmit} className="space-y-4">
-              <div className="p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
-                <p className="text-sm text-blue-700 dark:text-blue-300">
-                  An OTP has been sent to your registered email/mobile. Please enter it below to verify your identity.
-                </p>
-              </div>
+              {isMockMode ? (
+                <div className="p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-md">
+                  <p className="text-sm text-amber-700 dark:text-amber-300 font-medium mb-1">
+                    🔧 Demo Mode Active
+                  </p>
+                  <p className="text-sm text-amber-600 dark:text-amber-400">
+                    Enter any 6-digit number (e.g., 123456) to proceed with mock company data.
+                  </p>
+                </div>
+              ) : (
+                <div className="p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
+                  <p className="text-sm text-blue-700 dark:text-blue-300">
+                    An OTP has been sent to your registered email/mobile. Please enter it below to verify your identity.
+                  </p>
+                </div>
+              )}
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
