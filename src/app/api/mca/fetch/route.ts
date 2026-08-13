@@ -9,28 +9,113 @@ interface MCASession {
 // In-memory store for sessions
 const sessions = new Map<string, MCASession>();
 
-// Mock company data generator
-const generateMockCompanyData = (companyName: string) => ({
-  entity_name: companyName,
-  cin_llpin: "U" + Math.random().toString(36).substring(2, 7).toUpperCase() + "2023PLC" + Math.random().toString().substring(2, 6),
-  pan: "AA" + Math.random().toString().substring(2, 6).toUpperCase() + "0000",
-  dol: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-  company_type: "pvt_ltd",
-  registration_status: "Active",
-  corporate_address: "123 Business Street, Noida, Uttar Pradesh",
-  corporate_state: "Uttar Pradesh",
-  corporate_pin: "201301",
-  registered_address: "123 Business Street, Noida, Uttar Pradesh",
-  registered_state: "Uttar Pradesh",
-  registered_pin: "201301",
-  contact_no: "011-" + Math.floor(Math.random() * 90000000 + 10000000),
-  contact_email: companyName.toLowerCase().replace(/\s+/g, '') + "@company.com",
-  gstin_uin: "07AABCT" + Math.random().toString().substring(2, 6).toUpperCase() + "Z5",
-  directors: [
-    { name: "Director One", din: "00123456", designation: "Director" },
-    { name: "Director Two", din: "00234567", designation: "Director" },
-  ],
-});
+/**
+ * Fetch company details from Zaubacorp.com
+ * Zaubacorp is a public company information database
+ * URL: https://www.zaubacorp.com
+ */
+async function fetchFromZaubacorp(companyName: string): Promise<any> {
+  console.log(`🔍 Searching for company on Zaubacorp: ${companyName}`);
+
+  try {
+    let puppeteer: any;
+    try {
+      puppeteer = (await import("puppeteer")).default;
+    } catch (e) {
+      console.log("⚠️  Puppeteer not available, using mock data");
+      return null;
+    }
+
+    const browser = await puppeteer.launch({
+      headless: "new",
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      timeout: 30000,
+    });
+
+    const page = await browser.newPage();
+    page.setDefaultTimeout(15000);
+
+    // Set user agent
+    await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36');
+
+    // Navigate to Zaubacorp
+    console.log("📡 Navigating to Zaubacorp...");
+    await page.goto("https://www.zaubacorp.com", {
+      waitUntil: "networkidle2",
+      timeout: 15000,
+    });
+
+    // Search for company
+    console.log(`🔎 Searching for: ${companyName}`);
+    const searchBox = await page.$('input[placeholder*="search"], input[placeholder*="company"], input[type="text"]');
+    if (!searchBox) {
+      console.log("⚠️  Search box not found");
+      await browser.close();
+      return null;
+    }
+
+    await searchBox.type(companyName);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    await page.keyboard.press("Enter");
+
+    // Wait for results
+    console.log("⏳ Waiting for search results...");
+    await new Promise(resolve => setTimeout(resolve, 3000));
+
+    // Try to extract company details from search results
+    const companyLink = await page.$('a[href*="/company/"]');
+    if (companyLink) {
+      console.log("✅ Company found, clicking...");
+      await companyLink.click();
+      await page.waitForNavigation({ timeout: 10000 }).catch(() => {});
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Extract company details
+      const details = await page.evaluate(() => {
+        const data: any = {};
+
+        // Generic extraction - look for common patterns
+        const getText = (selector: string) => {
+          const el = document.querySelector(selector);
+          return el ? el.textContent?.trim() : "";
+        };
+
+        const findByLabel = (labelText: string) => {
+          const elements = Array.from(document.querySelectorAll('*'));
+          for (const el of elements) {
+            if (el.textContent?.includes(labelText)) {
+              const next = el.nextElementSibling || el.parentElement?.nextElementSibling;
+              return next ? next.textContent?.trim() : "";
+            }
+          }
+          return "";
+        };
+
+        // Try to extract data
+        data.entity_name = getText('h1') || getText('h2') || "";
+        data.cin_llpin = findByLabel("CIN") || findByLabel("LLPIN") || "";
+        data.pan = findByLabel("PAN") || "";
+        data.dol = findByLabel("Date") || findByLabel("Incorporation") || "";
+        data.corporate_address = findByLabel("Address") || "";
+        data.contact_no = findByLabel("Phone") || findByLabel("Mobile") || "";
+        data.contact_email = findByLabel("Email") || "";
+        data.gstin_uin = findByLabel("GSTIN") || findByLabel("GST") || "";
+
+        return data;
+      });
+
+      await browser.close();
+      return details;
+    }
+
+    await browser.close();
+    return null;
+  } catch (error: any) {
+    console.log("⚠️  Zaubacorp fetch failed:", error.message);
+    return null;
+  }
+}
+
 
 export async function POST(request: NextRequest) {
   try {
@@ -67,30 +152,37 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log("OTP verified (demo mode) - fetching mock company data");
+    console.log(`\n🚀 COMPANY DATA FETCH - ${companyName}`);
+    console.log("=".repeat(60));
 
-    // TODO: Production mode - Replace with actual Puppeteer automation
-    // const puppeteer = await import("puppeteer");
-    // const browser = await puppeteer.default.launch({ headless: true });
-    // const page = await browser.newPage();
-    // ... complete login with stored credentials
-    // ... submit OTP
-    // ... search for company
-    // ... extract real data
-    // ... close browser
+    // Fetch from Zaubacorp only - NO MOCK FALLBACK
+    const zaubacorpData = await fetchFromZaubacorp(companyName);
 
     // Clean up session
     sessions.delete(sessionId);
 
-    return NextResponse.json({
-      success: true,
-      data: generateMockCompanyData(companyName),
-      message: "Company details fetched successfully (demo mode)",
-    });
+    if (zaubacorpData && zaubacorpData.entity_name) {
+      console.log("✅ Company details fetched from Zaubacorp");
+      return NextResponse.json({
+        success: true,
+        data: zaubacorpData,
+        message: "Company details fetched from Zaubacorp",
+        source: "zaubacorp",
+      });
+    } else {
+      console.log("❌ Company not found on Zaubacorp");
+      return NextResponse.json(
+        {
+          success: false,
+          error: `Company "${companyName}" not found on Zaubacorp. Please enter the exact company name.`
+        },
+        { status: 404 }
+      );
+    }
   } catch (error: any) {
-    console.error("MCA Fetch Error:", error);
+    console.error("Fetch Error:", error);
     return NextResponse.json(
-      { success: false, error: error?.message || "Failed to fetch company details from MCA" },
+      { success: false, error: error?.message || "Failed to fetch company details" },
       { status: 500 }
     );
   }

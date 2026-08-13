@@ -18,6 +18,6 @@ export const config = {
      * - /api/documents (Document parsing API - open to all authenticated users)
      * Feel free to modify this pattern to include more paths.
      */
-    "/((?!_next/static|_next/image|favicon.ico|test-fineract|simple-test|api/fineract|api/documents|api/mca|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|test-fineract|simple-test|api/fineract|api/documents|api/mca|api/zaubacorp|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
