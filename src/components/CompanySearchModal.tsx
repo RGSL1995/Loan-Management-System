@@ -25,7 +25,7 @@ export default function CompanySearchModal({
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/surepass/company-search`, {
+      const response = await fetch(`/api/surepass/company-search`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

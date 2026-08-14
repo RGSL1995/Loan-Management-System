@@ -40,7 +40,7 @@ export async function fetchMCADetails(
     if (!user) throw new Error("Not authenticated");
 
     // Call the API route which handles the actual scraping
-    const response = await fetch(`${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/api/mca/fetch`, {
+    const response = await fetch(`/api/mca/fetch`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
