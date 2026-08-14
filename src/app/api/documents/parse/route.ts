@@ -23,6 +23,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate file size (5MB max)
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+    if (file.size > MAX_FILE_SIZE) {
+      return NextResponse.json(
+        { success: false, error: `File size exceeds 5MB limit. Your file: ${(file.size / 1024 / 1024).toFixed(2)}MB` },
+        { status: 400 }
+      );
+    }
+
     // Validate mime type - PDFs and images
     const supportedFormats = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
     if (!supportedFormats.includes(mimeType)) {

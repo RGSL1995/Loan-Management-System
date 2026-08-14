@@ -37,9 +37,11 @@ export default function DocumentUploadModal({
     const selectedFile = e.target.files?.[0];
     if (!selectedFile) return;
 
-    // Validate file size (max 25MB)
-    if (selectedFile.size > 25 * 1024 * 1024) {
-      setError("File size must be less than 25MB");
+    // Validate file size (max 5MB)
+    const MAX_SIZE = 5 * 1024 * 1024;
+    if (selectedFile.size > MAX_SIZE) {
+      const sizeMB = (selectedFile.size / 1024 / 1024).toFixed(2);
+      setError(`File size must be less than 5MB. Your file: ${sizeMB}MB`);
       return;
     }
 
