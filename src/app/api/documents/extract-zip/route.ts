@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { Unzipper } from "unzipper";
-import { Readable } from "stream";
+import JSZip from "jszip";
 
 export async function POST(request: NextRequest) {
   try {
@@ -30,27 +29,26 @@ export async function POST(request: NextRequest) {
 
     // Convert file to buffer
     const buffer = await zipFile.arrayBuffer();
-    const stream = Readable.from(Buffer.from(buffer));
 
-    // Extract files from zip
+    // Extract files from zip using JSZip
+    const zip = new JSZip();
+    await zip.loadAsync(buffer);
+
     const extractedFiles: { name: string; path: string }[] = [];
     let fileCount = 0;
 
-    const unzipStream = stream.pipe(Unzipper.Parse() as any);
-
-    unzipStream.on("entry", async (entry: any) => {
-      const fileName = entry.path;
-
-      if (entry.type === "File" && fileCount < 10) { // Limit to 10 files
+    // Process each file in the zip
+    for (const [fileName, file] of Object.entries(zip.files)) {
+      if (!file.dir && fileCount < 10) {
         try {
-          const fileBuffer = await entry.buffer();
+          const fileBuffer = await file.async("arraybuffer");
 
           // Upload to Supabase Storage
           const storagePath = `applications/${applicationId}/ckyc/${Date.now()}_${fileName}`;
 
           const { error: uploadError } = await supabase.storage
             .from("documents")
-            .upload(storagePath, fileBuffer, {
+            .upload(storagePath, Buffer.from(fileBuffer), {
               contentType: getContentType(fileName),
               upsert: false,
             });
@@ -61,70 +59,48 @@ export async function POST(request: NextRequest) {
               path: storagePath,
             });
             fileCount++;
+          } else {
+            console.error(`Error uploading ${fileName}:`, uploadError);
           }
         } catch (err) {
           console.error(`Error processing file ${fileName}:`, err);
         }
-      } else {
-        entry.autodrain();
       }
-    });
+    }
 
-    return new Promise((resolve) => {
-      unzipStream.on("finish", async () => {
-        if (extractedFiles.length === 0) {
-          resolve(
-            NextResponse.json(
-              { success: false, error: "No files extracted from ZIP" },
-              { status: 400 }
-            )
-          );
-          return;
-        }
+    if (extractedFiles.length === 0) {
+      return NextResponse.json(
+        { success: false, error: "No files extracted from ZIP" },
+        { status: 400 }
+      );
+    }
 
-        // Save document metadata to database
-        const { error: dbError } = await supabase
-          .from("loan_application_documents")
-          .insert(
-            extractedFiles.map((file) => ({
-              application_id: applicationId,
-              document_name: file.name,
-              storage_path: file.path,
-              document_type: getDocumentType(file.name),
-              uploaded_by: user.id,
-              created_at: new Date().toISOString(),
-            }))
-          );
+    // Save document metadata to database
+    const { error: dbError } = await supabase
+      .from("loan_application_documents")
+      .insert(
+        extractedFiles.map((file) => ({
+          application_id: applicationId,
+          document_name: file.name,
+          storage_path: file.path,
+          document_type: getDocumentType(file.name),
+          uploaded_by: user.id,
+          created_at: new Date().toISOString(),
+        }))
+      );
 
-        if (dbError) {
-          console.error("Error saving document metadata:", dbError);
-          resolve(
-            NextResponse.json(
-              { success: false, error: "Failed to save document metadata" },
-              { status: 500 }
-            )
-          );
-          return;
-        }
+    if (dbError) {
+      console.error("Error saving document metadata:", dbError);
+      return NextResponse.json(
+        { success: false, error: "Failed to save document metadata" },
+        { status: 500 }
+      );
+    }
 
-        resolve(
-          NextResponse.json({
-            success: true,
-            message: `Extracted and uploaded ${extractedFiles.length} files`,
-            files: extractedFiles,
-          })
-        );
-      });
-
-      unzipStream.on("error", (err: any) => {
-        console.error("Unzip error:", err);
-        resolve(
-          NextResponse.json(
-            { success: false, error: "Failed to extract ZIP file" },
-            { status: 400 }
-          )
-        );
-      });
+    return NextResponse.json({
+      success: true,
+      message: `Extracted and uploaded ${extractedFiles.length} files`,
+      files: extractedFiles,
     });
   } catch (error: any) {
     console.error("Extract ZIP error:", error);

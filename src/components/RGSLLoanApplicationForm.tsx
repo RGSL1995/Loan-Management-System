@@ -1326,7 +1326,6 @@ export default function RGSLLoanApplicationForm({
         isOpen={showCompanySearch}
         onClose={() => setShowMCAModal(false)}
         onDataFetched={handleCompanyDataFetched}
-        applicationId={applicationId}
       />
     </div>
   );
