@@ -69,7 +69,7 @@ async function fetchFromZaubacorp(companyName: string): Promise<any> {
         timeout: 15000,
       });
       console.log("✅ Search page loaded");
-    } catch (e) {
+    } catch (e: any) {
       console.log("❌ Failed to load search page:", e.message);
       await browser.close();
       return {};
@@ -100,7 +100,7 @@ async function fetchFromZaubacorp(companyName: string): Promise<any> {
         timeout: 15000,
       });
       console.log("✅ Navigated to company profile");
-    } catch (e) {
+    } catch (e: any) {
       console.log("⚠️  Navigation error, trying anyway:", e.message);
     }
 

@@ -22,7 +22,7 @@ const columns: ColumnDef<Application>[] = [
     accessorKey: "accountNo",
     header: "Loan #",
     cell: ({ row }) => (
-      <Link href={`/dashboard/applications/${row.original.id}/underwriting`}>
+      <Link href={`/dashboard/applications/new/general?id=${row.original.id}`}>
         <span className="font-mono text-[10px] text-blue-600 dark:text-blue-400 hover:underline cursor-pointer">
           {row.getValue("accountNo")}
         </span>

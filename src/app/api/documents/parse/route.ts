@@ -61,8 +61,8 @@ export async function POST(request: NextRequest) {
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-5",
-        max_tokens: 2000,
+        model: "claude-opus-5",
+        max_tokens: 4096,
         messages: [
           {
             role: "user",
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
     const result = await response.json();
 
     // Handle different response structures
-    if (!result.content || !result.content[0]) {
+    if (!result.content || result.content.length === 0) {
       console.error("Unexpected response structure:", result);
       return NextResponse.json(
         { success: false, error: "Unexpected API response format" },
@@ -90,27 +90,81 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const responseText = result.content[0].text;
+    // Find the text content (skip thinking blocks)
+    let responseText: string | null = null;
+    for (const block of result.content) {
+      if (block.type === "text") {
+        responseText = block.text;
+        break;
+      }
+    }
 
     if (!responseText) {
-      console.error("No text in response:", result.content[0]);
+      console.error("No text content in response:", result.content);
       return NextResponse.json(
-        { success: false, error: "No text extracted from response" },
+        { success: false, error: "No text extracted from response. Please try uploading a clearer document." },
         { status: 500 }
       );
     }
 
-    // Parse JSON from response
-    const jsonMatch = responseText.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      console.error("Could not find JSON in response:", responseText.substring(0, 200));
+    // Parse JSON from response with better error handling
+    let parsedData: any = null;
+    let jsonText = responseText.trim();
+
+    // Try to extract JSON - find first { and match closing }
+    const startIdx = jsonText.indexOf("{");
+    if (startIdx === -1) {
+      console.error("No JSON object found in response:", responseText.substring(0, 300));
       return NextResponse.json(
-        { success: false, error: "Could not parse document. Please fill the form manually." },
+        { success: false, error: "Could not find data in document. Please fill the form manually." },
         { status: 400 }
       );
     }
 
-    const parsedData = JSON.parse(jsonMatch[0]);
+    // Find matching closing brace
+    let braceCount = 0;
+    let endIdx = -1;
+    for (let i = startIdx; i < jsonText.length; i++) {
+      if (jsonText[i] === "{") braceCount++;
+      if (jsonText[i] === "}") {
+        braceCount--;
+        if (braceCount === 0) {
+          endIdx = i + 1;
+          break;
+        }
+      }
+    }
+
+    if (endIdx === -1) {
+      console.error("Could not find matching closing brace in response");
+      console.error("Response text (first 1000 chars):", responseText.substring(0, 1000));
+      return NextResponse.json(
+        { success: false, error: "Invalid response format from document parser" },
+        { status: 400 }
+      );
+    }
+
+    const extractedJson = jsonText.substring(startIdx, endIdx);
+    console.log("DEBUG: Extracted JSON length:", extractedJson.length);
+    console.log("DEBUG: Extracted JSON (first 500 chars):", extractedJson.substring(0, 500));
+
+    try {
+      parsedData = JSON.parse(extractedJson);
+      console.log("✅ Successfully parsed JSON, extracted fields:", Object.keys(parsedData));
+    } catch (parseError: any) {
+      console.error("❌ JSON Parse Error:", parseError.message);
+      console.error("Extracted JSON (chars 0-500):", extractedJson.substring(0, 500));
+      console.error("Extracted JSON (chars around error):", extractedJson.substring(Math.max(0, parseError.message.includes("position") ? parseInt(parseError.message.match(/\d+/)?.[0] || "0") - 100 : 0), Math.max(0, parseInt(parseError.message.match(/\d+/)?.[0] || "0")) + 100));
+
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Document parsed but data format is invalid. Please fill the form manually.",
+          details: parseError.message
+        },
+        { status: 400 }
+      );
+    }
 
     return NextResponse.json({
       success: true,
@@ -209,13 +263,15 @@ Extract the following information and organize it as JSON:
   }
 }
 
-IMPORTANT:
-- Only include fields that are clearly visible in the document
-- For confidence scores, use values between 0.0 and 1.0 (1.0 = 100% confident)
-- If a field is not found, omit it from the JSON (don't use null)
-- Return ONLY the JSON object, no other text or markdown
-- Ensure all dates are in YYYY-MM-DD format
-- For amounts, extract as strings (e.g., "500000" or "5,00,000")`;
+CRITICAL JSON RULES:
+- ONLY include fields that are clearly visible in the document
+- If a field is not found, DO NOT include it (omit completely, no null values)
+- NO trailing commas in arrays or objects
+- ALL string values must be wrapped in double quotes
+- ALL dates must be in YYYY-MM-DD format
+- Return ONLY valid JSON (no markdown, no code blocks, no extra text)
+- Test your JSON is valid before returning
+- Do NOT include any fields with undefined or null values`;
   } else {
     // sanction_letter
     return `You are an expert document parser. Extract all loan details from this sanction letter and return ONLY valid JSON (no markdown, no extra text, just pure JSON).
@@ -223,20 +279,26 @@ IMPORTANT:
 Extract the following information:
 
 {
-  "loan_amount": "sanctioned loan amount",
-  "loan_tenure": "tenure/period in months",
+  "loan_amount": "NUMERIC VALUE ONLY (extract just the number, e.g., 175000000)",
+  "loan_tenure": "NUMERIC VALUE ONLY in months (extract just the number, e.g., 72)",
   "loan_purpose": "purpose of loan",
   "loan_facility_type": "type of facility",
+  "applicant_type": "individual or corporate or others",
   "individual": {
-    "name": "borrower name",
+    "name": "borrower/company name",
     "pan": "PAN if mentioned",
     "aadhaar": "Aadhaar if mentioned",
     "mobile": "contact number",
     "email": "email address",
     "current_address": "address mentioned"
   },
+  "business": {
+    "entity_name": "company name if corporate",
+    "pan": "company PAN if mentioned",
+    "cin_llpin": "CIN/LLPIN if mentioned"
+  },
   "processing_fees": {
-    "amount": "processing fee amount",
+    "amount": "processing fee amount as number",
     "instrument_type": "cheque/dd/online",
     "instrument_no": "instrument number if mentioned",
     "bank_name": "bank name",
@@ -252,15 +314,20 @@ Extract the following information:
   "other_details": "any other important details",
   "confidence_scores": {
     "loan_amount": 0.98,
-    "borrower_name": 0.95,
-    ...
+    "borrower_name": 0.95
   }
 }
 
-IMPORTANT:
-- Extract only information clearly visible in the sanction letter
-- Use confidence scores (0.0 to 1.0) for each extracted field
-- Omit fields that are not found in the document
-- Return ONLY the JSON object, no other text`;
+CRITICAL RULES:
+- loan_amount: ONLY numeric value (remove Rs., commas, dashes, text). Example: "1,75,00,00,000" → 175000000
+- loan_tenure: ONLY numeric value in months. Example: "72 Months from..." → 72
+- applicant_type: "corporate" if company/pvt ltd, "individual" if person, "others" otherwise
+- For corporate: set business.entity_name AND individual.name to company name
+- NO trailing commas in arrays/objects
+- NO null or undefined values - OMIT missing fields completely
+- ALL string values in double quotes
+- Dates MUST be YYYY-MM-DD format
+- Return ONLY valid JSON (test it before responding)
+- NO markdown, NO code blocks, NO extra text`;
   }
 }

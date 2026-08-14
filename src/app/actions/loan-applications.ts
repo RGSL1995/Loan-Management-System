@@ -61,6 +61,7 @@ export async function saveLoanApplication(
         processing_fees_data: applicationData.processing_fees || {},
         other_details: applicationData.other_details || '',
         declaration_accepted: applicationData.declaration_accepted || false,
+        status: 'draft', // Save as draft by default
         // Keep legacy fields for backward compatibility
         applicant_data: applicationData.individual || applicationData.business || {},
         bank_account_data: {},

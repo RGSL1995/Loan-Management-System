@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Save, Send, Upload, Database } from "lucide-react";
 import { saveLoanApplication, submitLoanApplication } from "@/app/actions/loan-applications";
 import DocumentUploadModal from "./DocumentUploadModal";
-import MCALoginModal from "./MCALoginModal";
+import CompanySearchModal from "./CompanySearchModal";
+import DocumentsUploadSection from "./DocumentsUploadSection";
+import { createClient } from "@/lib/supabase/client";
 
 interface RGSLLoanApplicationFormProps {
   applicationId?: string;
@@ -29,7 +31,7 @@ export default function RGSLLoanApplicationForm({
   const [applicantType, setApplicantType] = useState<"individual" | "corporate" | "others">("individual");
   const [showDocumentUpload, setShowDocumentUpload] = useState(false);
   const [uploadDocumentType, setUploadDocumentType] = useState<"loan_application" | "sanction_letter">("loan_application");
-  const [showMCAModal, setShowMCAModal] = useState(false);
+  const [showCompanySearch, setShowMCAModal] = useState(false);
 
   const [formData, setFormData] = useState({
     // Loan Details
@@ -130,6 +132,52 @@ export default function RGSLLoanApplicationForm({
     documents_checklist: [],
   });
 
+  // Load existing application data
+  useEffect(() => {
+    if (!applicationId) return;
+
+    const loadApplicationData = async () => {
+      try {
+        const supabase = await createClient();
+        const { data, error } = await supabase
+          .from("loan_applications")
+          .select("*")
+          .eq("id", applicationId)
+          .single();
+
+        if (error || !data) {
+          console.error("Failed to load application:", error);
+          return;
+        }
+
+        // Populate form with saved data
+        setFormData((prev) => ({
+          ...prev,
+          loan_amount: data.loan_amount?.toString() || "",
+          loan_tenure: data.loan_tenure?.toString() || "",
+          loan_purpose: data.loan_purpose || "",
+          loan_facility_type: data.loan_facility_type || "",
+          branch: data.branch || "",
+          applicant_type: data.applicant_type || "individual",
+          individual: data.individual_applicant_data || prev.individual,
+          business: data.business_applicant_data || prev.business,
+          collaterals: data.collateral_details || prev.collaterals,
+          processing_fees: data.processing_fees_data || prev.processing_fees,
+          other_details: data.other_details || "",
+        }));
+
+        // Set applicant type for UI
+        if (data.applicant_type) {
+          setApplicantType(data.applicant_type);
+        }
+      } catch (err) {
+        console.error("Error loading application:", err);
+      }
+    };
+
+    loadApplicationData();
+  }, [applicationId]);
+
   const handleInputChange = (field: string, value: any) => {
     setFormData((prev) => ({
       ...prev,
@@ -147,7 +195,7 @@ export default function RGSLLoanApplicationForm({
     }));
   };
 
-  const handleMCADataFetched = (mcaData: any) => {
+  const handleCompanyDataFetched = (mcaData: any) => {
     setFormData((prev) => ({
       ...prev,
       business: {
@@ -200,13 +248,16 @@ export default function RGSLLoanApplicationForm({
   };
 
   // Helper function to extract FIRST numeric value from formatted strings (handles Indian format)
-  const extractFirstNumber = (value: string): string => {
-    if (!value) return "";
-    // Remove commas first to handle Indian number format (1,75,00,00,000)
-    const withoutCommas = value.replace(/,/g, "");
-    // Extract only the first sequence of digits
-    const match = withoutCommas.match(/\d+/);
-    return match ? match[0] : "";
+  const extractFirstNumber = (value: string | number): string => {
+    if (!value && value !== 0) return "";
+    // Convert to string if number
+    const valueStr = String(value);
+    // Remove all non-numeric characters except decimal point
+    const cleaned = valueStr.replace(/[^\d.]/g, "");
+    // Extract first sequence of digits (handle both 175000000 and 175.00)
+    const match = cleaned.match(/\d+(?:\.\d+)?/);
+    // Return as integer (remove decimal if present)
+    return match ? Math.floor(parseFloat(match[0])).toString() : "";
   };
 
   const handleDocumentUpload = (extractedData: any) => {
@@ -224,10 +275,26 @@ export default function RGSLLoanApplicationForm({
       if (extractedData.loan_purpose) merged.loan_purpose = extractedData.loan_purpose;
       if (extractedData.loan_facility_type) merged.loan_facility_type = extractedData.loan_facility_type;
 
+      // Determine applicant type
+      let determinedType = extractedData.applicant_type || "individual";
+
+      // Auto-detect corporate if business data exists or applicant name looks like company
+      if (extractedData.business && extractedData.business.entity_name) {
+        determinedType = "corporate";
+      } else if (extractedData.individual && extractedData.individual.name) {
+        const name = extractedData.individual.name.toLowerCase();
+        // Check if name contains corporate indicators
+        if (name.includes("private limited") || name.includes("pvt ltd") ||
+            name.includes("limited") || name.includes("llp") ||
+            name.includes("corporation") || name.includes("company")) {
+          determinedType = "corporate";
+        }
+      }
+
       // Update applicant type
-      if (extractedData.applicant_type) {
-        setApplicantType(extractedData.applicant_type);
-        merged.applicant_type = extractedData.applicant_type;
+      if (determinedType) {
+        setApplicantType(determinedType);
+        merged.applicant_type = determinedType;
       }
 
       // Update individual data if present
@@ -1159,35 +1226,50 @@ export default function RGSLLoanApplicationForm({
           {currentStep === 5 && (
             <div className="space-y-6 bg-white dark:bg-slate-900 rounded-lg p-6 border border-gray-200 dark:border-slate-800">
               <h2 className="text-lg font-bold text-gray-900 dark:text-slate-100">
-                Requisite Documents Checklist
+                Application Documents
               </h2>
 
-              <div className="space-y-3 text-sm text-gray-700 dark:text-slate-300">
-                <label className="flex items-center gap-3">
-                  <input type="checkbox" className="w-4 h-4" />
-                  <span>Identity Proof (Passport, Driving License, Voter's ID)</span>
-                </label>
-                <label className="flex items-center gap-3">
-                  <input type="checkbox" className="w-4 h-4" />
-                  <span>Income Proof (Salary Slips, ITR, Bank Statements)</span>
-                </label>
-                <label className="flex items-center gap-3">
-                  <input type="checkbox" className="w-4 h-4" />
-                  <span>Asset Documents (Sale Deed, Allotment Letter, NOC)</span>
-                </label>
-                <label className="flex items-center gap-3">
-                  <input type="checkbox" className="w-4 h-4" />
-                  <span>Signature Attestation</span>
-                </label>
-                <label className="flex items-center gap-3">
-                  <input type="checkbox" className="w-4 h-4" />
-                  <span>Passport size photographs for all applicants</span>
-                </label>
-                <label className="flex items-center gap-3">
-                  <input type="checkbox" className="w-4 h-4" />
-                  <span>Company documents (MOA, AOA, PAN Card, GST Certificate)</span>
-                </label>
-              </div>
+              {applicationId ? (
+                <>
+                  <DocumentsUploadSection applicationId={applicationId} />
+
+                  <div className="border-t border-gray-200 dark:border-slate-700 pt-6 mt-6">
+                    <h3 className="text-sm font-bold text-gray-900 dark:text-slate-100 mb-3">
+                      📋 Requisite Documents Checklist
+                    </h3>
+                    <div className="space-y-3 text-sm text-gray-700 dark:text-slate-300">
+                      <label className="flex items-center gap-3">
+                        <input type="checkbox" className="w-4 h-4" />
+                        <span>Identity Proof (Passport, Driving License, Voter's ID)</span>
+                      </label>
+                      <label className="flex items-center gap-3">
+                        <input type="checkbox" className="w-4 h-4" />
+                        <span>Income Proof (Salary Slips, ITR, Bank Statements)</span>
+                      </label>
+                      <label className="flex items-center gap-3">
+                        <input type="checkbox" className="w-4 h-4" />
+                        <span>Asset Documents (Sale Deed, Allotment Letter, NOC)</span>
+                      </label>
+                      <label className="flex items-center gap-3">
+                        <input type="checkbox" className="w-4 h-4" />
+                        <span>Signature Attestation</span>
+                      </label>
+                      <label className="flex items-center gap-3">
+                        <input type="checkbox" className="w-4 h-4" />
+                        <span>Passport size photographs for all applicants</span>
+                      </label>
+                      <label className="flex items-center gap-3">
+                        <input type="checkbox" className="w-4 h-4" />
+                        <span>Company documents (MOA, AOA, PAN Card, GST Certificate)</span>
+                      </label>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded text-sm text-yellow-700 dark:text-yellow-300">
+                  Save the application first to upload CKYC documents.
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -1240,10 +1322,10 @@ export default function RGSLLoanApplicationForm({
         documentType={uploadDocumentType}
       />
 
-      <MCALoginModal
-        isOpen={showMCAModal}
+      <CompanySearchModal
+        isOpen={showCompanySearch}
         onClose={() => setShowMCAModal(false)}
-        onDataFetched={handleMCADataFetched}
+        onDataFetched={handleCompanyDataFetched}
         applicationId={applicationId}
       />
     </div>
