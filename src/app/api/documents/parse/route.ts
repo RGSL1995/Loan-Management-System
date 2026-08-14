@@ -23,11 +23,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate file size (5MB max)
-    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+    // Validate file size (20MB max - Claude API limit)
+    const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
     if (file.size > MAX_FILE_SIZE) {
       return NextResponse.json(
-        { success: false, error: `File size exceeds 5MB limit. Your file: ${(file.size / 1024 / 1024).toFixed(2)}MB` },
+        { success: false, error: `File size exceeds 20MB limit. Your file: ${(file.size / 1024 / 1024).toFixed(2)}MB` },
         { status: 400 }
       );
     }
